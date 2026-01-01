@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import CRMNavigation from '@/components/crm/CRMNavigation';
 import { getLead, updateLeadStatus, updateLeadPriority, addNote, getNotes, getActivities } from '@/utils/crmStorage';
 import { Lead, Note, Activity, STATUS_LABELS, SOURCE_LABELS, STATUS_COLORS, LeadStatus } from '@/types/crm';
+import { formatCalculatorValue, getCalculatorFieldLabel } from '@/utils/calculatorFormatter';
 
 export default function LeadDetailPage() {
   const params = useParams();
@@ -209,11 +210,15 @@ export default function LeadDetailPage() {
                   {lead.form_data.calculatorData && (
                     <div>
                       <p className="text-sm text-white/60 mb-2">Data z kalkulačky</p>
-                      <div className="bg-white/5 rounded-lg p-4 space-y-2">
+                      <div className="bg-white/5 rounded-lg p-4 space-y-3">
                         {Object.entries(lead.form_data.calculatorData).map(([key, value]) => (
-                          <div key={key} className="flex justify-between text-sm">
-                            <span className="text-white/60">{key}:</span>
-                            <span className="text-white font-medium">{String(value)}</span>
+                          <div key={key} className="flex justify-between items-start gap-4">
+                            <span className="text-white/60 text-sm flex-shrink-0">
+                              {getCalculatorFieldLabel(key)}
+                            </span>
+                            <span className="text-white font-medium text-sm text-right">
+                              {formatCalculatorValue(key, value)}
+                            </span>
                           </div>
                         ))}
                       </div>
