@@ -60,7 +60,7 @@ export default function HomePage() {
             </motion.div>
 
             <motion.h1 variants={fadeInUp} className="mb-4 md:mb-6 text-gradient text-3xl md:text-5xl lg:text-6xl">
-              Finanční poradenství Břeclav.<br />Mladý tým, zkušená tradice.
+              Finanční poradenství Břeclav.<br />Mladý tým se zkušenou tradicí.
             </motion.h1>
 
             <motion.p variants={fadeInUp} className="text-base md:text-xl lg:text-2xl mb-6 md:mb-8 max-w-2xl font-light leading-relaxed">

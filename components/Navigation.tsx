@@ -120,12 +120,24 @@ export default function Navigation() {
           {navigationItems.map((item) => {
             const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
             
-            // Check if current path is in any of the children
-            const isChildPath = item.children?.some(child => 
+            // Check if current path is directly under this section's hierarchy
+            const isDirectChild = pathname?.startsWith(item.href + '/');
+            
+            // Check if we're on the section's main page
+            const isExactMatch = pathname === item.href;
+            
+            // Check if path is under any other section (takes priority)
+            const isUnderOtherSection = navigationItems.some(otherItem => 
+              otherItem.href !== item.href && pathname?.startsWith(otherItem.href + '/')
+            );
+            
+            // Check if current path is in children links (only if not under another section)
+            const isChildPath = !isUnderOtherSection && item.children?.some(child => 
               pathname === child.href || pathname?.startsWith(child.href.split('#')[0])
             );
             
-            const isInSection = pathname?.startsWith(item.href + '/') || pathname === item.href || isChildPath;
+            // Show submenu if: directly under section, exact match, or child path (when not under other section)
+            const isInSection = isDirectChild || isExactMatch || isChildPath;
             
             return (
               <div key={item.href}>

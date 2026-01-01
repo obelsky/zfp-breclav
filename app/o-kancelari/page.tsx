@@ -113,8 +113,9 @@ export default function OKancelariPage() {
           </motion.div>
 
           {/* Key Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-20">
             {[
+              { number: '10', label: 'Let kanceláře v Břeclavi' },
               { number: '30+', label: 'Let zkušeností ZFP GROUP' },
               { number: '5', label: 'Specialistů v týmu' },
               { number: '500+', label: 'Spokojených klientů' },
