@@ -4,10 +4,12 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCRMAuth } from '@/contexts/CRMAuthContext';
 import Image from 'next/image';
+import { useState } from 'react';
 
 export default function CRMNavigation() {
   const pathname = usePathname();
   const { user, logout } = useCRMAuth();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     {
@@ -43,7 +45,72 @@ export default function CRMNavigation() {
   }
 
   return (
-    <div className="bg-zfp-darker border-r border-white/10 w-64 min-h-screen fixed left-0 top-0 flex flex-col">
+    <>
+      {/* Mobile Header */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 bg-zfp-darker border-b border-white/10 z-50">
+        <div className="flex items-center justify-between p-4">
+          <Link href="/crm/dashboard">
+            <div className="relative w-32 h-16">
+              <Image
+                src="/zfp-breclav-logo.png"
+                alt="ZFP Břeclav CRM"
+                fill
+                className="object-contain object-left"
+              />
+            </div>
+          </Link>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 hover:bg-white/5 rounded-lg transition-all"
+          >
+            {isMobileMenuOpen ? (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="border-t border-white/10 p-4 space-y-2">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+                    isActive
+                      ? 'bg-zfp-orange text-white'
+                      : 'text-white/70 hover:bg-white/5 hover:text-white'
+                  }`}
+                >
+                  {item.icon}
+                  <span className="font-medium">{item.label}</span>
+                </Link>
+              );
+            })}
+            <button
+              onClick={logout}
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-red-400 hover:bg-red-500/10 transition-all w-full"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              <span className="font-medium">Odhlásit se</span>
+            </button>
+          </div>
+        )}
+      </div>
+
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block bg-zfp-darker border-r border-white/10 w-64 min-h-screen fixed left-0 top-0 flex-col">
       {/* Logo */}
       <div className="p-6 border-b border-white/10">
         <Link href="/crm/dashboard" className="block">

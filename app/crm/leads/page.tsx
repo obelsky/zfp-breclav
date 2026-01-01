@@ -55,7 +55,7 @@ export default function LeadsPage() {
     <div className="flex min-h-screen bg-zfp-dark">
       <CRMNavigation />
       
-      <div className="ml-64 flex-1 p-8">
+      <div className="flex-1 p-4 md:p-8 pt-20 lg:pt-8 lg:ml-64">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold mb-2">Poptávky</h1>

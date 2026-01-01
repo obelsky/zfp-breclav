@@ -42,48 +42,48 @@ export default function HomePage() {
               priority
               quality={90}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-zfp-darker via-zfp-darker/90 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-zfp-darker via-zfp-darker/95 to-zfp-darker/50 md:to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-zfp-darker via-transparent to-transparent" />
           </div>
         </div>
 
         {/* Content */}
-        <div className="relative z-10 container-custom py-20 lg:py-32">
+        <div className="relative z-10 container-custom py-16 px-4 md:py-20 lg:py-32">
           <motion.div
             initial="initial"
             animate="animate"
             variants={stagger}
             className="max-w-4xl"
           >
-            <motion.div variants={fadeInUp} className="mb-6">
-              <div className="inline-block w-16 h-1 bg-gradient-to-r from-zfp-gold to-zfp-orange" />
+            <motion.div variants={fadeInUp} className="mb-4 md:mb-6">
+              <div className="inline-block w-12 md:w-16 h-1 bg-gradient-to-r from-zfp-gold to-zfp-orange" />
             </motion.div>
 
-            <motion.h1 variants={fadeInUp} className="mb-6 text-gradient">
+            <motion.h1 variants={fadeInUp} className="mb-4 md:mb-6 text-gradient text-3xl md:text-5xl lg:text-6xl">
               Mladý tým s tradicí.<br />Finance pro každou generaci.
             </motion.h1>
 
-            <motion.p variants={fadeInUp} className="text-xl lg:text-2xl mb-8 max-w-2xl font-light leading-relaxed">
+            <motion.p variants={fadeInUp} className="text-base md:text-xl lg:text-2xl mb-6 md:mb-8 max-w-2xl font-light leading-relaxed">
               Rozumíme potřebám mladých rodin, ale stavíme na 30 letech zkušeností. 
               Díky tomu víme, jak pomoci každému – od studentů po seniory.
             </motion.p>
 
-            <motion.p variants={fadeInUp} className="text-base lg:text-lg mb-12 max-w-2xl text-white/70">
+            <motion.p variants={fadeInUp} className="text-sm md:text-base lg:text-lg mb-8 md:mb-12 max-w-2xl text-white/70">
               Regionální kancelář ZFP v Břeclavi – postavená na základech tradice manželů Polikavových, 
               přímo podřízená vedení ZFP GROUP. Spojujeme energii s praxí.
             </motion.p>
 
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4">
+            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-3 md:gap-4">
               <button
                 onClick={() => setIsContactFormOpen(true)}
-                className="px-8 py-4 bg-zfp-orange hover:bg-zfp-orange-hover text-white font-medium tracking-wider uppercase rounded-lg transition-all duration-300 transform hover:scale-105"
+                className="px-6 md:px-8 py-3 md:py-4 bg-zfp-orange hover:bg-zfp-orange-hover text-white font-medium tracking-wider uppercase rounded-lg transition-all duration-300 transform hover:scale-105 text-sm md:text-base"
               >
                 Chci konzultaci
               </button>
               
               <Link
                 href="/jak-vam-muzeme-pomoci"
-                className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/20 text-white font-medium tracking-wider uppercase rounded-lg transition-all duration-300 text-center"
+                className="px-6 md:px-8 py-3 md:py-4 bg-white/5 hover:bg-white/10 border border-white/20 text-white font-medium tracking-wider uppercase rounded-lg transition-all duration-300 text-center text-sm md:text-base"
               >
                 Jak vám můžeme pomoci
               </Link>
@@ -91,12 +91,12 @@ export default function HomePage() {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator - Hidden on mobile, shown on desktop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-10 left-1/2 transform -translate-x-1/2 lg:left-auto lg:right-10 lg:transform-none"
+          className="hidden lg:block absolute bottom-10 right-10"
         >
           <div className="flex flex-col items-center">
             <span className="text-xs text-white/40 mb-2 tracking-widest uppercase">Scroll</span>
@@ -106,28 +106,28 @@ export default function HomePage() {
       </section>
 
       {/* Financial Tools Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-zfp-darker via-zfp-dark to-zfp-darker">
-        <div className="container-custom">
+      <section className="py-12 md:py-20 lg:py-32 bg-gradient-to-br from-zfp-darker via-zfp-dark to-zfp-darker">
+        <div className="container-custom px-4">
           <motion.div
             initial="initial"
             whileInView="animate"
             viewport={{ once: true }}
             variants={stagger}
-            className="mb-16 text-center"
+            className="mb-12 md:mb-16 text-center"
           >
-            <motion.div variants={fadeInUp} className="mb-6 flex justify-center">
+            <motion.div variants={fadeInUp} className="mb-4 md:mb-6 flex justify-center">
               <div className="inline-block w-12 h-1 bg-gradient-to-r from-zfp-gold to-zfp-orange" />
             </motion.div>
-            <motion.h2 variants={fadeInUp} className="mb-6">
+            <motion.h2 variants={fadeInUp} className="mb-4 md:mb-6 text-2xl md:text-4xl lg:text-5xl">
               Během 5 minut víte, jak jste na tom
             </motion.h2>
-            <motion.p variants={fadeInUp} className="text-xl text-white/70 max-w-3xl mx-auto">
+            <motion.p variants={fadeInUp} className="text-base md:text-xl text-white/70 max-w-3xl mx-auto px-4">
               8 kalkulaček pro rychlou orientaci. Zjistěte, kde vám mizí peníze, 
               kolik ušetříte refinancováním nebo jestli máte dostatečnou rezervu.
             </motion.p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-2">
             {[
               {
                 title: 'Hypoteční kalkulačka',
