@@ -110,69 +110,70 @@ export default function CRMNavigation() {
       </div>
 
       {/* Desktop Sidebar */}
-      <div className="hidden lg:block bg-zfp-darker border-r border-white/10 w-64 min-h-screen fixed left-0 top-0 flex-col">
-      {/* Logo */}
-      <div className="p-6 border-b border-white/10">
-        <Link href="/crm/dashboard" className="block">
-          <div className="relative w-40 h-24">
-            <Image
-              src="/zfp-breclav-logo.png"
-              alt="ZFP Břeclav CRM"
-              fill
-              className="object-contain object-left"
-            />
-          </div>
-        </Link>
-        <p className="text-xs text-white/40 mt-2">CRM Systém</p>
-      </div>
-
-      {/* Navigation */}
-      <nav className="flex-1 p-4">
-        <div className="space-y-1">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-                  isActive
-                    ? 'bg-zfp-orange text-white'
-                    : 'text-white/70 hover:bg-white/5 hover:text-white'
-                }`}
-              >
-                {item.icon}
-                <span className="font-medium">{item.label}</span>
-              </Link>
-            );
-          })}
-        </div>
-      </nav>
-
-      {/* User info & Logout */}
-      <div className="p-4 border-t border-white/10">
-        <div className="bg-white/5 rounded-lg p-4 mb-3">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-zfp-orange/20 rounded-full flex items-center justify-center text-zfp-orange font-bold">
-              {user?.name.charAt(0)}
+      <div className="hidden lg:flex bg-zfp-darker border-r border-white/10 w-64 min-h-screen fixed left-0 top-0 flex-col">
+        {/* Logo */}
+        <div className="p-6 border-b border-white/10">
+          <Link href="/crm/dashboard" className="block">
+            <div className="relative w-40 h-24">
+              <Image
+                src="/zfp-breclav-logo.png"
+                alt="ZFP Břeclav CRM"
+                fill
+                className="object-contain object-left"
+              />
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-white truncate">{user?.name}</p>
-              <p className="text-xs text-white/50">{user?.role === 'admin' ? 'Administrátor' : 'Poradce'}</p>
+          </Link>
+          <p className="text-xs text-white/40 mt-2">CRM Systém</p>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 p-4">
+          <div className="space-y-1">
+            {navItems.map((item) => {
+              const isActive = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+                    isActive
+                      ? 'bg-zfp-orange text-white'
+                      : 'text-white/70 hover:bg-white/5 hover:text-white'
+                  }`}
+                >
+                  {item.icon}
+                  <span className="font-medium">{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </nav>
+
+        {/* User info & Logout */}
+        <div className="p-4 border-t border-white/10">
+          <div className="bg-white/5 rounded-lg p-4 mb-3">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 bg-zfp-orange/20 rounded-full flex items-center justify-center text-zfp-orange font-bold">
+                {user?.name.charAt(0)}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-white truncate">{user?.name}</p>
+                <p className="text-xs text-white/50">{user?.role === 'admin' ? 'Administrátor' : 'Poradce'}</p>
+              </div>
             </div>
           </div>
+          
+          <button
+            onClick={logout}
+            className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            Odhlásit se
+          </button>
         </div>
-        
-        <button
-          onClick={logout}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 text-sm text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-          </svg>
-          Odhlásit se
-        </button>
       </div>
-    </div>
+    </>
   );
 }
