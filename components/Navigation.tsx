@@ -119,7 +119,13 @@ export default function Navigation() {
         <div className="flex-1 space-y-1">
           {navigationItems.map((item) => {
             const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
-            const isInSection = pathname?.startsWith(item.href + '/') || pathname === item.href;
+            
+            // Check if current path is in any of the children
+            const isChildPath = item.children?.some(child => 
+              pathname === child.href || pathname?.startsWith(child.href.split('#')[0])
+            );
+            
+            const isInSection = pathname?.startsWith(item.href + '/') || pathname === item.href || isChildPath;
             
             return (
               <div key={item.href}>

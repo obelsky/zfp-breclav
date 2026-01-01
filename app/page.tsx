@@ -60,17 +60,17 @@ export default function HomePage() {
             </motion.div>
 
             <motion.h1 variants={fadeInUp} className="mb-4 md:mb-6 text-gradient text-3xl md:text-5xl lg:text-6xl">
-              Mladý tým s tradicí.<br />Finance pro každou generaci.
+              Finanční poradenství Břeclav.<br />Mladý tým, zkušená tradice.
             </motion.h1>
 
             <motion.p variants={fadeInUp} className="text-base md:text-xl lg:text-2xl mb-6 md:mb-8 max-w-2xl font-light leading-relaxed">
-              Rozumíme potřebám mladých rodin, ale stavíme na 30 letech zkušeností. 
-              Díky tomu víme, jak pomoci každému – od studentů po seniory.
+              Jsme mladý dynamický tým s 10 lety zkušeností v Břeclavi, který stojí na základech 
+              30leté tradice ZFP GROUP. Díky tomu rozumíme potřebám mladých rodin i seniorů.
             </motion.p>
 
             <motion.p variants={fadeInUp} className="text-sm md:text-base lg:text-lg mb-8 md:mb-12 max-w-2xl text-white/70">
-              Regionální kancelář ZFP v Břeclavi – postavená na základech tradice manželů Polikavových, 
-              přímo podřízená vedení ZFP GROUP. Spojujeme energii s praxí.
+              Regionální kancelář ZFP v Břeclavi – finanční poradenství pro hypotéky, investice a pojištění. 
+              Osobní přístup, nezávislé poradenství a dlouholeté zkušenosti přímo v srdci jižní Moravy.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-3 md:gap-4">
