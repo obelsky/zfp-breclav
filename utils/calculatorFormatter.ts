@@ -5,36 +5,40 @@ export function formatCalculatorValue(key: string, value: any): string {
   }
 
   const stringValue = String(value).toLowerCase();
+  const keyLower = key.toLowerCase();
 
   // Interest rate fields (percentages)
-  if (key.includes('sazba') || key.includes('rate') || key.includes('procent')) {
+  if (keyLower.includes('sazba') || keyLower.includes('rate') || 
+      keyLower.includes('procent') || keyLower.includes('urok')) {
     const num = parseFloat(String(value));
     if (isNaN(num)) return String(value);
     return `${num.toFixed(2)} %`;
   }
 
   // Duration/term fields (years)
-  if (key.includes('splatnost') || key.includes('let') || key.includes('doba') || 
-      key.includes('years') || key.includes('term') || key.includes('duration')) {
+  if (keyLower.includes('splatnost') || keyLower.includes('let') || 
+      keyLower.includes('doba') || keyLower.includes('years') || 
+      keyLower.includes('term') || keyLower.includes('duration')) {
     const num = parseFloat(String(value));
     if (isNaN(num)) return String(value);
     const rounded = Math.round(num);
     return `${rounded} let`;
   }
 
-  // Currency fields (amounts, prices, payments, etc.)
-  if (key.includes('cena') || key.includes('vyse') || key.includes('hodnota') || 
-      key.includes('splatka') || key.includes('castka') || key.includes('price') || 
-      key.includes('amount') || key.includes('payment') || key.includes('loan') ||
-      key.includes('vlastni') || key.includes('hypoteka') || key.includes('nemovit')) {
-    const num = parseFloat(String(value));
-    if (isNaN(num)) return String(value);
-    const rounded = Math.round(num);
-    return formatCurrency(rounded);
+  // Type field - return as text
+  if (keyLower === 'type' || keyLower === 'typ') {
+    return String(value);
   }
 
-  // Type field
-  if (key === 'type' || key === 'typ') {
+  // Check if it's a number and large enough to be currency
+  const num = parseFloat(String(value));
+  if (!isNaN(num)) {
+    // If it's a number larger than 100, treat as currency
+    if (Math.abs(num) >= 100) {
+      const rounded = Math.round(num);
+      return formatCurrency(rounded);
+    }
+    // Small numbers might be percentages or ratios - return as is
     return String(value);
   }
 
