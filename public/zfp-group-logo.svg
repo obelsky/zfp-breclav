@@ -1,0 +1,15 @@
+<svg width="370" height="230" viewBox="0 0 370 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="370" height="230" fill="#000000"/>
+  
+  <!-- ZFP Text -->
+  <text x="30" y="120" font-family="Arial Black, Arial, sans-serif" font-size="70" font-weight="900" fill="#FFFFFF" letter-spacing="4">ZFP</text>
+  
+  <!-- Orange Arrow Box -->
+  <rect x="240" y="50" width="45" height="115" fill="#FF6B00" rx="2"/>
+  <path d="M 262.5 30 L 285 55 L 240 55 Z" fill="#FF6B00"/>
+  
+  <!-- GROUP Text -->
+  <text x="30" y="185" font-family="Arial, sans-serif" font-size="55" font-weight="400" fill="#CCCCCC" letter-spacing="7">GRO</text>
+  <text x="210" y="185" font-family="Arial, sans-serif" font-size="55" font-weight="400" fill="#FF6B00" letter-spacing="2">UP</text>
+</svg>

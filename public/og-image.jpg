@@ -1,0 +1,28 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0a0a0a"/>
+  
+  <!-- Grid -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+  </pattern>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Gradient overlay -->
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#CF5400;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#C9A961;stop-opacity:0.2" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grad)"/>
+  
+  <!-- Logo/Icon -->
+  <rect x="520" y="180" width="60" height="150" fill="#CF5400"/>
+  <polygon points="550,150 580,190 520,190" fill="#CF5400"/>
+  
+  <!-- Text -->
+  <text x="600" y="420" font-family="Arial, sans-serif" font-size="72" font-weight="bold" fill="white" text-anchor="middle">ZFP GROUP</text>
+  <text x="600" y="480" font-family="Arial, sans-serif" font-size="48" fill="#CCCCCC" text-anchor="middle">Břeclav</text>
+  <text x="600" y="540" font-family="Arial, sans-serif" font-size="28" fill="#999999" text-anchor="middle">Finanční ekosystém pro celý region</text>
+</svg>

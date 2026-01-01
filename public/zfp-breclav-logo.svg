@@ -1,0 +1,18 @@
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#000000"/>
+  
+  <!-- ZFP Text -->
+  <text x="45" y="140" font-family="Arial Black, Arial, sans-serif" font-size="80" font-weight="900" fill="#FFFFFF" letter-spacing="5">ZFP</text>
+  
+  <!-- Orange Arrow Box -->
+  <rect x="268" y="60" width="52" height="130" fill="#FF6B00" rx="2"/>
+  <path d="M 294 35 L 320 65 L 268 65 Z" fill="#FF6B00"/>
+  
+  <!-- GROUP Text -->
+  <text x="45" y="210" font-family="Arial, sans-serif" font-size="62" font-weight="400" fill="#CCCCCC" letter-spacing="8">GRO</text>
+  <text x="235" y="210" font-family="Arial, sans-serif" font-size="62" font-weight="400" fill="#FF6B00" letter-spacing="2">UP</text>
+  
+  <!-- Břeclav Text -->
+  <text x="45" y="270" font-family="Arial, sans-serif" font-size="48" font-weight="500" fill="#FFFFFF">Břeclav</text>
+</svg>

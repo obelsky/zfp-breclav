@@ -1,0 +1,17 @@
+{
+  "name": "ZFP GROUP Břeclav",
+  "short_name": "ZFP Břeclav",
+  "description": "Regionální kancelář finančního poradenství a vzdělávání v Břeclavi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#CF5400",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

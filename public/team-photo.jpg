@@ -1,0 +1,38 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#1a1a1a"/>
+  
+  <!-- Grid pattern -->
+  <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#2a2a2a" stroke-width="1"/>
+  </pattern>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+  
+  <!-- People icons -->
+  <g opacity="0.3">
+    <!-- Person 1 -->
+    <circle cx="400" cy="300" r="40" fill="#CF5400"/>
+    <rect x="370" y="350" width="60" height="80" rx="30" fill="#CF5400"/>
+    
+    <!-- Person 2 -->
+    <circle cx="500" cy="300" r="40" fill="#C9A961"/>
+    <rect x="470" y="350" width="60" height="80" rx="30" fill="#C9A961"/>
+    
+    <!-- Person 3 -->
+    <circle cx="600" cy="300" r="40" fill="#CF5400"/>
+    <rect x="570" y="350" width="60" height="80" rx="30" fill="#CF5400"/>
+    
+    <!-- Person 4 -->
+    <circle cx="700" cy="300" r="40" fill="#C9A961"/>
+    <rect x="670" y="350" width="60" height="80" rx="30" fill="#C9A961"/>
+    
+    <!-- Person 5 -->
+    <circle cx="800" cy="300" r="40" fill="#CF5400"/>
+    <rect x="770" y="350" width="60" height="80" rx="30" fill="#CF5400"/>
+  </g>
+  
+  <!-- Text -->
+  <text x="600" y="550" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="white" text-anchor="middle">TÝM ZFP BŘECLAV</text>
+  <text x="600" y="610" font-family="Arial, sans-serif" font-size="24" fill="#999" text-anchor="middle">Nahraďte vlastní fotografií týmu</text>
+  <text x="600" y="650" font-family="Arial, sans-serif" font-size="18" fill="#666" text-anchor="middle">Doporučená velikost: 1200x800px</text>
+</svg>

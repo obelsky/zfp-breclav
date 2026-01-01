@@ -1,0 +1,103 @@
+<svg width="600" height="750" viewBox="0 0 600 750" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background gradient -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="600" y2="750" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#D4AF37"/>
+      <stop offset="100%" stop-color="#FFB84D"/>
+    </linearGradient>
+    
+    <linearGradient id="orangeGrad" x1="0" y1="0" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF6B35"/>
+      <stop offset="100%" stop-color="#FF8C42"/>
+    </linearGradient>
+    
+    <!-- Glow filter -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="600" height="750" fill="url(#bgGrad)"/>
+  
+  <!-- Decorative circles in background -->
+  <circle cx="100" cy="100" r="80" fill="#D4AF37" opacity="0.05"/>
+  <circle cx="500" cy="200" r="60" fill="#FF6B35" opacity="0.05"/>
+  <circle cx="150" cy="600" r="100" fill="#D4AF37" opacity="0.05"/>
+  
+  <!-- Main house structure - modern geometric -->
+  <g transform="translate(150, 200)">
+    <!-- Base house -->
+    <path d="M 50 250 L 50 150 L 150 100 L 250 150 L 250 250 Z" 
+          fill="url(#goldGrad)" opacity="0.2" stroke="url(#goldGrad)" stroke-width="2"/>
+    
+    <!-- Front face -->
+    <path d="M 50 250 L 50 350 L 250 350 L 250 250 Z" 
+          fill="url(#goldGrad)" opacity="0.3" stroke="url(#goldGrad)" stroke-width="3" filter="url(#glow)"/>
+    
+    <!-- Roof modern -->
+    <path d="M 30 150 L 150 80 L 270 150 L 150 100 Z" 
+          fill="url(#orangeGrad)" stroke="url(#orangeGrad)" stroke-width="2" opacity="0.8"/>
+    
+    <!-- Window 1 -->
+    <rect x="80" y="180" width="50" height="60" 
+          fill="#1a1a1a" stroke="url(#goldGrad)" stroke-width="2" opacity="0.6"/>
+    <line x1="105" y1="180" x2="105" y2="240" stroke="url(#goldGrad)" stroke-width="1"/>
+    <line x1="80" y1="210" x2="130" y2="210" stroke="url(#goldGrad)" stroke-width="1"/>
+    
+    <!-- Window 2 -->
+    <rect x="170" y="180" width="50" height="60" 
+          fill="#1a1a1a" stroke="url(#goldGrad)" stroke-width="2" opacity="0.6"/>
+    <line x1="195" y1="180" x2="195" y2="240" stroke="url(#goldGrad)" stroke-width="1"/>
+    <line x1="170" y1="210" x2="220" y2="210" stroke="url(#goldGrad)" stroke-width="1"/>
+    
+    <!-- Door -->
+    <rect x="120" y="270" width="60" height="80" 
+          fill="url(#orangeGrad)" stroke="url(#orangeGrad)" stroke-width="3" rx="2" opacity="0.7"/>
+    <circle cx="165" cy="310" r="3" fill="url(#goldGrad)"/>
+  </g>
+  
+  <!-- Floating key icon - modern minimalist -->
+  <g transform="translate(400, 450)" filter="url(#glow)">
+    <!-- Key handle -->
+    <circle cx="0" cy="0" r="25" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+    <circle cx="0" cy="0" r="15" fill="none" stroke="url(#goldGrad)" stroke-width="2"/>
+    
+    <!-- Key shaft -->
+    <line x1="20" y1="0" x2="80" y2="0" stroke="url(#goldGrad)" stroke-width="4" stroke-linecap="round"/>
+    
+    <!-- Key teeth -->
+    <line x1="60" y1="0" x2="60" y2="10" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="70" y1="0" x2="70" y2="15" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+    <line x1="80" y1="0" x2="80" y2="10" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Geometric accent lines -->
+  <g opacity="0.2">
+    <line x1="50" y1="50" x2="200" y2="50" stroke="url(#goldGrad)" stroke-width="1"/>
+    <line x1="400" y1="100" x2="550" y2="100" stroke="url(#orangeGrad)" stroke-width="1"/>
+    <line x1="50" y1="700" x2="200" y2="700" stroke="url(#goldGrad)" stroke-width="1"/>
+  </g>
+  
+  <!-- Floating abstract elements -->
+  <g opacity="0.15">
+    <rect x="450" y="600" width="60" height="60" fill="none" stroke="url(#goldGrad)" stroke-width="2" rx="4"/>
+    <rect x="80" y="120" width="40" height="40" fill="none" stroke="url(#orangeGrad)" stroke-width="2" rx="4"/>
+  </g>
+  
+  <!-- Percentage symbol - subtle -->
+  <g transform="translate(100, 500)" opacity="0.1">
+    <circle cx="0" cy="0" r="15" fill="url(#orangeGrad)"/>
+    <circle cx="60" cy="60" r="15" fill="url(#orangeGrad)"/>
+    <line x1="0" y1="60" x2="60" y2="0" stroke="url(#orangeGrad)" stroke-width="3"/>
+  </g>
+</svg>
