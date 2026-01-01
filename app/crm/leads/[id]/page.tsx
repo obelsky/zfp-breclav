@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import CRMNavigation from '@/components/crm/CRMNavigation';
-import { getLead, updateLeadStatus, addNote, getNotes, getActivities } from '@/utils/crmStorage';
+import { getLead, updateLeadStatus, updateLeadPriority, addNote, getNotes, getActivities } from '@/utils/crmStorage';
 import { Lead, Note, Activity, STATUS_LABELS, SOURCE_LABELS, STATUS_COLORS, LeadStatus } from '@/types/crm';
 
 export default function LeadDetailPage() {
@@ -48,6 +48,16 @@ export default function LeadDetailPage() {
     const success = await updateLeadStatus(leadId, newStatus);
     if (success) {
       setLead({ ...lead, status: newStatus, updated_at: new Date().toISOString() });
+      await loadLeadData(); // Reload to get new activity
+    }
+  };
+
+  const handlePriorityChange = async (newPriority: 'low' | 'medium' | 'high') => {
+    if (!lead) return;
+    
+    const success = await updateLeadPriority(leadId, newPriority);
+    if (success) {
+      setLead({ ...lead, priority: newPriority, updated_at: new Date().toISOString() });
       await loadLeadData(); // Reload to get new activity
     }
   };
@@ -292,12 +302,32 @@ export default function LeadDetailPage() {
             {/* Priority */}
             <div className="bg-white/5 border border-white/10 rounded-xl p-6">
               <h2 className="text-xl font-semibold mb-4">Priorita</h2>
-              <div className={`px-4 py-2 rounded-lg text-center ${
-                lead.priority === 'high' ? 'bg-red-500/20 text-red-400' :
-                lead.priority === 'medium' ? 'bg-yellow-500/20 text-yellow-400' :
-                'bg-blue-500/20 text-blue-400'
-              }`}>
-                {lead.priority === 'high' ? 'Vysoká' : lead.priority === 'medium' ? 'Střední' : 'Nízká'}
+              
+              <div className="space-y-2">
+                {[
+                  { value: 'low', label: 'Nízká', color: 'bg-blue-500/20 text-blue-400' },
+                  { value: 'medium', label: 'Střední', color: 'bg-yellow-500/20 text-yellow-400' },
+                  { value: 'high', label: 'Vysoká', color: 'bg-red-500/20 text-red-400' }
+                ].map((priority) => (
+                  <button
+                    key={priority.value}
+                    onClick={() => handlePriorityChange(priority.value as 'low' | 'medium' | 'high')}
+                    className={`w-full px-4 py-3 rounded-lg text-left transition-all ${
+                      lead.priority === priority.value
+                        ? `${priority.color} border border-current`
+                        : 'bg-white/5 hover:bg-white/10 text-white/80'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span>{priority.label}</span>
+                      {lead.priority === priority.value && (
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      )}
+                    </div>
+                  </button>
+                ))}
               </div>
             </div>
 

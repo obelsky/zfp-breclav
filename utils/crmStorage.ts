@@ -89,6 +89,34 @@ export async function updateLeadStatus(id: string, status: string): Promise<bool
   }
 }
 
+// Update lead priority
+export async function updateLeadPriority(id: string, priority: string): Promise<boolean> {
+  try {
+    const { error } = await supabase
+      .from('leads')
+      .update({ 
+        priority,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', id);
+
+    if (error) throw error;
+
+    // Add activity
+    await supabase.from('activities').insert([{
+      lead_id: id,
+      type: 'priority_changed',
+      description: `Priorita změněna na: ${priority === 'high' ? 'vysoká' : priority === 'medium' ? 'střední' : 'nízká'}`,
+      user_id: 'system'
+    }]);
+
+    return true;
+  } catch (error) {
+    console.error('Error updating lead priority:', error);
+    return false;
+  }
+}
+
 // Add note to lead
 export async function addNote(leadId: string, content: string, createdBy: string): Promise<Note | null> {
   try {

@@ -17,7 +17,6 @@ export default function ContactForm({ isOpen, onClose, title, subject, calculato
     name: '',
     email: '',
     phone: '',
-    subject: subject || '',
     message: '',
     consent: false,
   });
@@ -54,7 +53,6 @@ export default function ContactForm({ isOpen, onClose, title, subject, calculato
           priority: 'medium' as any,
           assigned_to: undefined,
           form_data: {
-            subject: formData.subject,
             message: formData.message,
             ...(includeCalculatorData && calculatorData && { calculatorData })
           }
@@ -73,7 +71,6 @@ export default function ContactForm({ isOpen, onClose, title, subject, calculato
           name: '',
           email: '',
           phone: '',
-          subject: subject || '',
           message: '',
           consent: false,
         });
@@ -211,26 +208,6 @@ export default function ContactForm({ isOpen, onClose, title, subject, calculato
                     onChange={setIncludeCalculatorData}
                   />
                 )}
-
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-light mb-2 text-white/80">
-                    Předmět
-                  </label>
-                  <select
-                    id="subject"
-                    value={formData.subject}
-                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zfp-orange transition-colors"
-                  >
-                    <option value="">Vyberte předmět</option>
-                    <option value="hypoteky">Hypotéky a bydlení</option>
-                    <option value="finance">Osobní finance</option>
-                    <option value="investice">Investice</option>
-                    <option value="pojisteni">Pojištění</option>
-                    <option value="vzdelavani">Vzdělávání ZFP</option>
-                    <option value="jine">Jiné</option>
-                  </select>
-                </div>
 
                 <div>
                   <label htmlFor="message" className="block text-sm font-light mb-2 text-white/80">

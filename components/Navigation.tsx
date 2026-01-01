@@ -64,6 +64,7 @@ const navigationItems = [
       { href: '/financni-nastroje/financni-zdravi', label: 'Finanční zdraví' },
       { href: '/poradenstvi/sluzby/pojisteni', label: 'Pojistná kalkulačka' },
       { href: '/poradenstvi/sluzby/reality', label: 'Kolik si můžu dovolit?' },
+      { href: '/esanon', label: 'eŠanon' },
     ]
   },
   { 
