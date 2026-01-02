@@ -137,15 +137,29 @@ export default function Navigation() {
             
             // IMPORTANT: Check if this path already matched an earlier parent
             // This prevents duplicate submenu opening for shared child links
-            // EXCEPTION: If current item is the parent section (item.href matches pathname),
+            // EXCEPTION: If current item is the parent section (direct match, not just prefix),
             // always show its submenu regardless of earlier matches
-            const isParentSection = pathname === item.href || pathname?.startsWith(item.href + '/');
+            const isDirectParentMatch = item.href === pathname;
+            const isParentSectionPath = pathname?.startsWith(item.href + '/');
+            const isParentSection = isDirectParentMatch || isParentSectionPath;
             
+            // Check if this is a child of an earlier parent
+            // BUT: Only block if the child is NOT a parent section itself (has no children of its own)
             const matchedByEarlierParent = !isParentSection && navigationItems.slice(0, index).some(earlierItem => {
               if (!earlierItem.children) return false;
               return earlierItem.children.some(child => {
                 const childBasePath = child.href.split('#')[0];
-                return pathname === childBasePath || pathname?.startsWith(childBasePath + '/');
+                // Check if pathname matches or starts with this child
+                const pathMatchesChild = pathname === childBasePath || pathname?.startsWith(childBasePath + '/');
+                if (!pathMatchesChild) return false;
+                
+                // If the child is a parent section (has its own entry with children), don't block
+                const childIsParentSection = navigationItems.some(navItem => 
+                  navItem.href === childBasePath && navItem.children && navItem.children.length > 0
+                );
+                
+                // Only match (and block) if child is NOT a parent section
+                return !childIsParentSection;
               });
             });
             

@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import CRMNavigation from '@/components/crm/CRMNavigation';
 import NotificationSettings from '@/components/crm/NotificationSettings';
 import PWAInstallPrompt from '@/components/crm/PWAInstallPrompt';
 import { useCRMAuth } from '@/contexts/CRMAuthContext';
@@ -74,14 +73,11 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="flex min-h-screen bg-zfp-dark">
-      <CRMNavigation />
-      
-      <div className="flex-1 p-4 md:p-8 pt-28 lg:pt-8 lg:ml-64">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
-          <p className="text-white/60">Vítejte zpět, {user?.name}</p>
-        </div>
+    <div className="flex-1 px-4 md:px-8 pt-24 lg:pt-8 lg:ml-64">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
+        <p className="text-white/60">Vítejte zpět, {user?.name}</p>
+      </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {statCards.map((card, i) => (
@@ -145,8 +141,6 @@ export default function Dashboard() {
             </div>
           )}
         </div>
-      </div>
-
       {/* PWA Install Prompt */}
       <PWAInstallPrompt />
     </div>

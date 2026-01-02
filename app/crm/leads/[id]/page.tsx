@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import CRMNavigation from '@/components/crm/CRMNavigation';
 import QuickActions from '@/components/crm/QuickActions';
 import { getLead, updateLeadStatus, updateLeadPriority, addNote, getNotes, getActivities, getAdvisors, assignAdvisorToLead, type Advisor } from '@/utils/crmStorage';
 import { Lead, Note, Activity, STATUS_LABELS, SOURCE_LABELS, STATUS_COLORS, LeadStatus } from '@/types/crm';
@@ -111,18 +110,15 @@ export default function LeadDetailPage() {
 
   if (!lead) {
     return (
-      <div className="flex min-h-screen bg-zfp-dark">
-        <CRMNavigation />
-        <div className="ml-64 flex-1 p-8 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold mb-4">Poptávka nenalezena</h1>
-            <button
-              onClick={() => router.push('/crm/leads')}
-              className="px-6 py-3 bg-zfp-orange hover:bg-zfp-orange-hover text-white rounded-lg transition-all"
-            >
-              Zpět na seznam
-            </button>
-          </div>
+      <div className="flex-1 px-4 md:px-8 pt-24 lg:pt-8 lg:ml-64 flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-3xl font-bold mb-4">Poptávka nenalezena</h1>
+          <button
+            onClick={() => router.push('/crm/leads')}
+            className="px-6 py-3 bg-zfp-orange hover:bg-zfp-orange-hover text-white rounded-lg transition-all"
+          >
+            Zpět na seznam
+          </button>
         </div>
       </div>
     );
@@ -131,10 +127,7 @@ export default function LeadDetailPage() {
   const statusColor = STATUS_COLORS[lead.status as LeadStatus] || 'bg-gray-500';
 
   return (
-    <div className="flex min-h-screen bg-zfp-dark">
-      <CRMNavigation />
-      
-      <div className="flex-1 p-4 md:p-8 pt-28 lg:pt-8 lg:ml-64">
+    <div className="flex-1 px-4 md:px-8 pt-24 lg:pt-8 lg:ml-64">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 md:mb-8 gap-4">
           <div className="flex items-center gap-3 md:gap-4">

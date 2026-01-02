@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import CRMNavigation from '@/components/crm/CRMNavigation';
 import { useCRMAuth } from '@/contexts/CRMAuthContext';
 import { 
   getAdvisors, 
@@ -91,23 +90,17 @@ export default function AdvisorsPage() {
 
   if (user?.role !== 'admin') {
     return (
-      <div className="flex min-h-screen bg-zfp-dark">
-        <CRMNavigation />
-        <div className="flex-1 p-8 pt-24 lg:pt-8 lg:ml-64">
-          <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-6 text-center">
-            <h2 className="text-xl font-bold text-red-400 mb-2">Přístup odepřen</h2>
-            <p className="text-white/60">Pouze administrátoři mohou spravovat poradce.</p>
-          </div>
+      <div className="flex-1 px-4 md:px-8 pt-24 lg:pt-8 lg:ml-64">
+        <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-6 text-center">
+          <h2 className="text-xl font-bold text-red-400 mb-2">Přístup odepřen</h2>
+          <p className="text-white/60">Pouze administrátoři mohou spravovat poradce.</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-zfp-dark">
-      <CRMNavigation />
-      
-      <div className="flex-1 p-4 md:p-8 pt-28 lg:pt-8 lg:ml-64">
+    <div className="flex-1 px-4 md:px-8 pt-24 lg:pt-8 lg:ml-64">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold mb-2">Poradci</h1>

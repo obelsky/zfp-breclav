@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import CRMNavigation from '@/components/crm/CRMNavigation';
 import SwipeStack from '@/components/crm/SwipeStack';
 import { getLeads, updateLead } from '@/utils/crmStorage';
 import { Lead, STATUS_LABELS, SOURCE_LABELS, STATUS_COLORS, LeadSource, LeadStatus } from '@/types/crm';
@@ -85,10 +84,7 @@ export default function LeadsPage() {
   const newLeads = filteredLeads.filter(l => l.status === 'new');
 
   return (
-    <div className="flex min-h-screen bg-zfp-dark">
-      <CRMNavigation />
-      
-      <div className="flex-1 p-4 md:p-8 pt-24 lg:pt-8 lg:ml-64">
+    <div className="flex-1 px-4 md:px-8 pt-24 lg:pt-8 lg:ml-64">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold mb-2">Poptávky</h1>
@@ -261,6 +257,5 @@ export default function LeadsPage() {
           </>
         )}
       </div>
-    </div>
   );
 }
