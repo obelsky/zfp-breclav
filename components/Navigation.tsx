@@ -126,17 +126,17 @@ export default function Navigation() {
             // Check if we're on the section's main page
             const isExactMatch = pathname === item.href;
             
-            // Check if path is under any other section (takes priority)
-            const isUnderOtherSection = navigationItems.some(otherItem => 
-              otherItem.href !== item.href && pathname?.startsWith(otherItem.href + '/')
-            );
+            // Check if current path matches any top-level navigation item
+            const isTopLevelPath = navigationItems.some(navItem => pathname === navItem.href);
             
-            // Check if current path is in children links (only if not under another section)
-            const isChildPath = !isUnderOtherSection && item.children?.some(child => 
-              pathname === child.href || pathname?.startsWith(child.href.split('#')[0])
-            );
+            // Check if current path is in children links
+            // BUT: don't match if current path is a top-level item in navigation
+            const isChildPath = item.children?.some(child => {
+              const childBasePath = child.href.split('#')[0];
+              return !isTopLevelPath && (pathname === childBasePath || pathname?.startsWith(childBasePath + '/'));
+            });
             
-            // Show submenu if: directly under section, exact match, or child path (when not under other section)
+            // Show submenu if: directly under section, exact match, or child path
             const isInSection = isDirectChild || isExactMatch || isChildPath;
             
             return (

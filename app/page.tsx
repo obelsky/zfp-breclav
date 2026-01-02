@@ -60,17 +60,21 @@ export default function HomePage() {
             </motion.div>
 
             <motion.h1 variants={fadeInUp} className="mb-4 md:mb-6 text-gradient text-3xl md:text-5xl lg:text-6xl">
-              Hypotéky, investice a pojištění v Břeclavi.<br />Bez otáček.
+              Finanční poradenství v Břeclavi
             </motion.h1>
 
             <motion.p variants={fadeInUp} className="text-base md:text-xl lg:text-2xl mb-6 md:mb-8 max-w-2xl font-light leading-relaxed">
-              10 let pomáháme klientům v Břeclavi s financemi. Jsme součást ZFP GROUP 
-              s 30letou tradicí – máte jistotu stability a zázemí 500+ poradců po celé ČR.
+              Jsme regionální kancelář ZFP v Břeclavi a poskytujeme finanční poradenství 
+              postavené na vzdělávání, porozumění a osobní odpovědnosti. Pomáháme lidem 
+              dělat informovaná finanční rozhodnutí – ať už řeší bydlení, investice, 
+              pojištění nebo dlouhodobé plánování.
             </motion.p>
 
             <motion.p variants={fadeInUp} className="text-sm md:text-base lg:text-lg mb-8 md:mb-12 max-w-2xl text-white/70">
-              Hypotéku vyřídíme za vás. Investice nastavíme podle vašeho života. 
-              Pojištění projdeme bod po bodu. Osobně, v Břeclavi.
+              Jsme součástí ZFP GROUP s více než 30letou tradicí. To, čím se ale odlišujeme, 
+              je důraz na finanční vzdělávání. Věříme, že kvalitní finanční poradenství 
+              začíná tím, že člověk rozumí souvislostem, rizikům a možnostem – teprve 
+              potom dává smysl hledat konkrétní řešení.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-3 md:gap-4">
