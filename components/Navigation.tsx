@@ -132,7 +132,19 @@ export default function Navigation() {
             // Check if current path is in children links
             const isChildPath = item.children?.some(child => {
               const childBasePath = child.href.split('#')[0];
-              return !isTopLevelPath && (pathname === childBasePath || pathname?.startsWith(childBasePath + '/'));
+              const pathMatchesChild = !isTopLevelPath && (pathname === childBasePath || pathname?.startsWith(childBasePath + '/'));
+              
+              if (!pathMatchesChild) return false;
+              
+              // CRITICAL: If this child is ALSO a parent section elsewhere (has its own nav entry with children),
+              // don't consider it as "isChildPath" for THIS parent
+              // This prevents opening multiple submenus
+              const childIsParentSection = navigationItems.some(navItem => 
+                navItem.href === childBasePath && navItem.children && navItem.children.length > 0
+              );
+              
+              // Only return true (child path match) if the child is NOT a parent section elsewhere
+              return !childIsParentSection;
             });
             
             // IMPORTANT: Check if this path already matched an earlier parent
