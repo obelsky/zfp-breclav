@@ -54,12 +54,12 @@ export default function CRMNavigation() {
       <div className="lg:hidden fixed top-0 left-0 right-0 bg-zfp-darker z-50">
         <div className="flex items-center justify-between p-4">
           <Link href="/crm/dashboard">
-            <div className="relative w-32 h-16 bg-zfp-darker p-2 rounded">
+            <div className="relative w-32 h-12 overflow-hidden">
               <Image
                 src="/zfp-breclav-logo.png"
-                alt="ZFP Břeclav CRM"
+                alt="ZFP GROUP CRM"
                 fill
-                className="object-contain object-left"
+                className="object-contain object-top"
               />
             </div>
           </Link>
@@ -81,7 +81,7 @@ export default function CRMNavigation() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="bg-zfp-darker p-4 space-y-2">
+          <div className="bg-zfp-darker p-4 space-y-2 max-h-[calc(100vh-80px)] overflow-y-auto">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -114,7 +114,7 @@ export default function CRMNavigation() {
       </div>
 
       {/* Desktop Sidebar */}
-      <div className="hidden lg:flex bg-zfp-darker border-r border-white/10 w-64 min-h-screen fixed left-0 top-0 flex-col">
+      <div className="hidden lg:flex bg-zfp-darker border-r border-white/10 w-64 min-h-screen fixed left-0 top-0 flex-col z-40">
         {/* Logo */}
         <div className="p-6 border-b border-white/10">
           <Link href="/crm/dashboard" className="block">

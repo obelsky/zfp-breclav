@@ -20,9 +20,14 @@ export default function NotificationSettings() {
   const [isSendingTest, setIsSendingTest] = useState(false);
 
   const handleToggleNotifications = async () => {
-    if (isSubscribed) {
+    if (permission === 'granted') {
+      // User wants to disable - we can't actually revoke permission
+      // but we can unsubscribe from push
       await unsubscribe();
+      // Note: Permission will still be 'granted' but user won't receive pushes
+      alert('Notifikace vypnuty. Pro úplné zrušení změňte nastavení v prohlížeči.');
     } else {
+      // Request permission and subscribe
       await subscribe();
     }
   };
@@ -59,7 +64,7 @@ export default function NotificationSettings() {
           <div>
             <h3 className="font-semibold text-white">Push Notifikace</h3>
             <p className="text-xs text-white/60">
-              {isSubscribed ? 'Aktivní' : 'Neaktivní'}
+              {permission === 'granted' ? 'Aktivní' : 'Neaktivní'}
             </p>
           </div>
         </div>
@@ -106,12 +111,12 @@ export default function NotificationSettings() {
                 onClick={handleToggleNotifications}
                 disabled={isLoading}
                 className={`relative w-14 h-8 rounded-full transition-all ${
-                  isSubscribed ? 'bg-green-500' : 'bg-white/20'
+                  permission === 'granted' ? 'bg-green-500' : 'bg-white/20'
                 } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 <motion.div
                   className="absolute top-1 left-1 w-6 h-6 bg-white rounded-full shadow-lg"
-                  animate={{ x: isSubscribed ? 24 : 0 }}
+                  animate={{ x: permission === 'granted' ? 24 : 0 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                 />
               </button>
@@ -128,7 +133,7 @@ export default function NotificationSettings() {
           )}
 
           {/* Test Notification */}
-          {isSubscribed && (
+          {permission === 'granted' && (
             <button
               onClick={handleTestNotification}
               disabled={isSendingTest}
