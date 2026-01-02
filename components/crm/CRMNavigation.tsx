@@ -53,7 +53,7 @@ export default function CRMNavigation() {
       {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 bg-zfp-darker border-b border-white/10 z-50">
         <div className="flex items-center justify-between px-4 py-3">
-          <Link href="/crm/dashboard" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <div className="relative w-8 h-8 flex-shrink-0">
               <Image
                 src="/zfp-breclav-logo.png"
@@ -83,6 +83,20 @@ export default function CRMNavigation() {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="bg-zfp-darker border-t border-white/10 p-4 space-y-2 max-h-[calc(100vh-56px)] overflow-y-auto">
+            {/* Back to Website Link */}
+            <Link
+              href="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-lg text-zfp-gold hover:bg-white/5 transition-all"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              <span className="font-medium">Zpět na web</span>
+            </Link>
+            
+            <div className="border-t border-white/10 my-2"></div>
+            
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (

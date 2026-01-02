@@ -9,7 +9,7 @@ export default function ConditionalMain({ children }: { children: React.ReactNod
   const isCRM = pathname?.startsWith('/crm');
   
   return (
-    <main className={isCRM ? 'min-h-screen' : 'lg:ml-64 min-h-screen'}>
+    <main className={isCRM ? 'min-h-screen' : 'pt-14 lg:pt-0 lg:ml-64 min-h-screen'}>
       {children}
     </main>
   );

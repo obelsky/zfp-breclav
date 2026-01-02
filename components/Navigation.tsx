@@ -253,21 +253,24 @@ export default function Navigation() {
       </nav>
 
       {/* Mobile Navigation */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-zfp-darker/95 backdrop-blur-md border-b border-white/10">
-        <div className="flex items-center justify-between p-4">
-          <Link href="/" className="relative w-[180px] h-[122px]">
-            <Image
-              src="/zfp-breclav-logo.png"
-              alt="ZFP GROUP Břeclav"
-              fill
-              className="object-contain object-left"
-              priority
-            />
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-zfp-darker border-b border-white/10">
+        <div className="flex items-center justify-between px-4 py-3">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="relative w-8 h-8 flex-shrink-0">
+              <Image
+                src="/zfp-breclav-logo.png"
+                alt="ZFP"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <span className="text-sm font-semibold text-white">Břeclav</span>
           </Link>
           
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 text-white/70 hover:text-white"
+            className="p-2 hover:bg-white/5 rounded-lg transition-all"
             aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

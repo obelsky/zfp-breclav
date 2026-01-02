@@ -38,6 +38,7 @@
   --zfp-light: #F7F7F7;
   --zfp-gold: #C9A961;
   --zfp-bronze: #A67C52;
+  --mobile-header-height: 56px;
 }
 
 * {
@@ -48,6 +49,31 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Prevent anchor links from being hidden under fixed header */
+section[id],
+div[id],
+h1[id],
+h2[id],
+h3[id],
+h4[id],
+h5[id],
+h6[id] {
+  scroll-margin-top: calc(var(--mobile-header-height) + 1rem);
+}
+
+@media (min-width: 1024px) {
+  section[id],
+  div[id],
+  h1[id],
+  h2[id],
+  h3[id],
+  h4[id],
+  h5[id],
+  h6[id] {
+    scroll-margin-top: 2rem;
+  }
 }
 
 body {
