@@ -50,7 +50,7 @@ export default function UnderstandFinancePage() {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Finanční minimum */}
-              <Link href="/vzdelavani-zfp/financni-minimum">
+              <Link href="/financni-vzdelavani/financni-minimum">
                 <motion.div
                   whileHover={{ scale: 1.02, y: -4 }}
                   className="group h-full bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-2 border-blue-500/30 rounded-2xl p-8 hover:border-blue-500/60 transition-all duration-300 cursor-pointer"
@@ -84,7 +84,7 @@ export default function UnderstandFinancePage() {
               </Link>
 
               {/* Finanční přehled */}
-              <Link href="/vzdelavani-zfp/financni-prehled">
+              <Link href="/financni-vzdelavani/financni-prehled">
                 <motion.div
                   whileHover={{ scale: 1.02, y: -4 }}
                   className="group h-full bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-2 border-purple-500/30 rounded-2xl p-8 hover:border-purple-500/60 transition-all duration-300 cursor-pointer"

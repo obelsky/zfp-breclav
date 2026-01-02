@@ -30,25 +30,25 @@ const navigationItems = [
     ]
   },
   { 
-    href: '/vzdelavani-zfp', 
-    label: 'Vzdělávání ZFP',
+    href: '/financni-vzdelavani', 
+    label: 'Finanční vzdělávání',
     children: [
-      { href: '/vzdelavani-zfp/financni-minimum', label: 'Finanční minimum' },
-      { href: '/vzdelavani-zfp/financni-prehled', label: 'Finanční přehled' },
-      { href: '/vzdelavani-zfp/navazujici-vzdelavani', label: 'Navazující vzdělávání' },
-      { href: '/vzdelavani-zfp/jak-funguje-system', label: 'Jak funguje systém' },
+      { href: '/financni-vzdelavani/financni-minimum', label: 'Finanční minimum' },
+      { href: '/financni-vzdelavani/financni-prehled', label: 'Finanční přehled' },
+      { href: '/financni-vzdelavani/navazujici-vzdelavani', label: 'Navazující vzdělávání' },
+      { href: '/financni-vzdelavani/jak-funguje-system', label: 'Jak funguje systém' },
     ]
   },
   { 
-    href: '/poradenstvi', 
-    label: 'Poradenství',
+    href: '/financni-poradenstvi', 
+    label: 'Finanční poradenství',
     children: [
-      { href: '/poradenstvi/jak-pracujeme', label: 'Jak pracujeme' },
-      { href: '/poradenstvi/sluzby/financni-planovani', label: 'Finanční plánování' },
+      { href: '/financni-poradenstvi/jak-pracujeme', label: 'Jak pracujeme' },
+      { href: '/financni-poradenstvi/sluzby/financni-planovani', label: 'Finanční plánování' },
       { href: '/bydleni-hypoteky', label: 'Hypotéky' },
-      { href: '/poradenstvi/sluzby/investice', label: 'Investice' },
-      { href: '/poradenstvi/sluzby/pojisteni', label: 'Pojištění' },
-      { href: '/poradenstvi/sluzby/reality', label: 'Reality' },
+      { href: '/financni-poradenstvi/sluzby/investice', label: 'Investice' },
+      { href: '/financni-poradenstvi/sluzby/pojisteni', label: 'Pojištění' },
+      { href: '/financni-poradenstvi/sluzby/reality', label: 'Reality' },
       { href: '/o-kancelari/kdo-jsme', label: 'Náš tým' },
     ]
   },
@@ -58,12 +58,12 @@ const navigationItems = [
     children: [
       { href: '/bydleni-hypoteky/kalkulacka', label: 'Hypoteční kalkulačka' },
       { href: '/bydleni-hypoteky/situace/refinancovani', label: 'Refinancování hypotéky' },
-      { href: '/poradenstvi/sluzby/investice#savings-calculator', label: 'Kalkulačka spoření' },
+      { href: '/financni-poradenstvi/sluzby/investice#savings-calculator', label: 'Kalkulačka spoření' },
       { href: '/financni-nastroje/duchod', label: 'Důchodová kalkulačka' },
       { href: '/financni-nastroje/kde-mizi-penize', label: 'Kde mizí peníze?' },
       { href: '/financni-nastroje/financni-zdravi', label: 'Finanční zdraví' },
-      { href: '/poradenstvi/sluzby/pojisteni', label: 'Pojistná kalkulačka' },
-      { href: '/poradenstvi/sluzby/reality', label: 'Kolik si můžu dovolit?' },
+      { href: '/financni-poradenstvi/sluzby/pojisteni', label: 'Pojistná kalkulačka' },
+      { href: '/financni-poradenstvi/sluzby/reality', label: 'Kolik si můžu dovolit?' },
       { href: '/esanon', label: 'eŠanon' },
     ]
   },

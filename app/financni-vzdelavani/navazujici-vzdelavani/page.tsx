@@ -43,7 +43,7 @@ export default function AdvancedEducationPage() {
           <div className="mb-16 bg-amber-500/10 border border-amber-500/20 rounded-xl p-6">
             <h3 className="text-lg font-semibold mb-2 text-amber-200">Předpoklad</h3>
             <p className="text-white/70">
-              Absolvování <Link href="/vzdelavani-zfp/financni-prehled" className="text-zfp-orange hover:underline">Finančního přehledu</Link> a zájem o profesionální rozvoj ve financích.
+              Absolvování <Link href="/financni-vzdelavani/financni-prehled" className="text-zfp-orange hover:underline">Finančního přehledu</Link> a zájem o profesionální rozvoj ve financích.
             </p>
           </div>
 

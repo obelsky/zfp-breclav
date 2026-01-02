@@ -305,7 +305,7 @@ export default function MortgagePage() {
 
           <div className="flex justify-center">
             <Link
-              href="/poradenstvi/nas-tym"
+              href="/financni-poradenstvi/nas-tym"
               className="inline-flex items-center px-8 py-4 bg-zfp-orange hover:bg-zfp-orange-hover text-white font-medium tracking-wider uppercase rounded-lg transition-all duration-300 transform hover:scale-105"
             >
               <TeamIcon className="w-6 h-6 mr-2" />

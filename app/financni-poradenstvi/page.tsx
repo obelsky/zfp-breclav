@@ -10,6 +10,10 @@ import InsuranceIcon from '@/components/icons/services/InsuranceIcon';
 import RealtyIcon from '@/components/icons/services/RealtyIcon';
 import MortgageIcon from '@/components/icons/MortgageIcon';
 
+// SEO Metadata is handled by layout.tsx for client components
+// Title: Finanční poradenství Břeclav | Nezávislý finanční poradce
+// Description: Profesionální finanční poradenství v Břeclavi. Hypotéky, investice, pojištění. Osobní přístup, 10 let zkušeností, zázemí ZFP GROUP s 30letou tradicí.
+
 export default function PoradenstviPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
@@ -18,7 +22,7 @@ export default function PoradenstviPage() {
       title: 'Finanční plánování',
       description: 'Nastavíme rozpočet, cíle a strategii pro vaše finance',
       Icon: FinancialPlanningIcon,
-      href: '/poradenstvi/sluzby/financni-planovani',
+      href: '/financni-poradenstvi/sluzby/financni-planovani',
     },
     {
       title: 'Hypotéky',
@@ -30,19 +34,19 @@ export default function PoradenstviPage() {
       title: 'Investice',
       description: 'Zhodnoťte peníze chytře a dlouhodobě',
       Icon: InvestmentServiceIcon,
-      href: '/poradenstvi/sluzby/investice',
+      href: '/financni-poradenstvi/sluzby/investice',
     },
     {
       title: 'Pojištění',
       description: 'Ochrana vás a vaší rodiny pro každou situaci',
       Icon: InsuranceIcon,
-      href: '/poradenstvi/sluzby/pojisteni',
+      href: '/financni-poradenstvi/sluzby/pojisteni',
     },
     {
       title: 'Reality',
       description: 'ZFP Reality - pomůžeme prodat i koupit nemovitost',
       Icon: RealtyIcon,
-      href: '/poradenstvi/sluzby/reality',
+      href: '/financni-poradenstvi/sluzby/reality',
     },
   ];
 
@@ -60,15 +64,16 @@ export default function PoradenstviPage() {
               <div className="inline-block w-12 h-1 bg-gradient-to-r from-zfp-gold to-zfp-orange" />
             </div>
 
-            <h1 className="mb-6">Poradenství</h1>
+            <h1 className="mb-6">Finanční poradenství Břeclav</h1>
 
             <p className="text-xl lg:text-2xl mb-8 text-white/70 leading-relaxed">
-              Finanční rozhodnutí nejsou jednoduchá. Pomáháme lidem zorientovat se v hypotékách, investicích, pojištění a dalších oblastech tak, aby věděli, co dělají a proč.
+              Nezávislé finanční poradenství pro hypotéky, investice a pojištění v Břeclavi. 
+              Osobní přístup, 10 let zkušeností, zázemí ZFP GROUP s 30letou tradicí.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                href="/poradenstvi/jak-pracujeme"
+                href="/financni-poradenstvi/jak-pracujeme"
                 className="inline-flex items-center justify-center px-8 py-4 bg-zfp-orange hover:bg-zfp-orange-hover text-white font-medium tracking-wider uppercase rounded-lg transition-all duration-300 transform hover:scale-105"
               >
                 Jak pracujeme

@@ -152,7 +152,7 @@ export default function KdoJsmePage() {
               <button onClick={() => setIsContactFormOpen(true)} className="px-10 py-5 bg-zfp-orange hover:bg-zfp-orange-hover text-white font-medium tracking-wider uppercase rounded-lg transition-all duration-300 transform hover:scale-105">
                 Kontaktovat tým
               </button>
-              <Link href="/poradenstvi/jak-pracujeme" className="px-10 py-5 bg-white/5 hover:bg-white/10 border border-white/20 text-white font-medium tracking-wider uppercase rounded-lg transition-all">
+              <Link href="/financni-poradenstvi/jak-pracujeme" className="px-10 py-5 bg-white/5 hover:bg-white/10 border border-white/20 text-white font-medium tracking-wider uppercase rounded-lg transition-all">
                 Jak pracujeme
               </Link>
             </div>

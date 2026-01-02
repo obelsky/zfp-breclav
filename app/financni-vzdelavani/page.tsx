@@ -6,6 +6,10 @@ import { motion } from 'framer-motion';
 import ContactForm from '@/components/ContactForm';
 import EducationIcon from '@/components/icons/EducationIcon';
 
+// SEO Metadata is handled by layout.tsx for client components
+// Title: Finanční vzdělávání Břeclav | Kurzy finanční gramotnosti
+// Description: Kurzy a semináře finanční gramotnosti v Břeclavi. Naučte se rozumět penězům, investovat a dělat informovaná rozhodnutí. Praktické vzdělávání pro každého.
+
 export default function EducationZFPPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
@@ -27,10 +31,10 @@ export default function EducationZFPPage() {
               <EducationIcon className="w-16 h-16" />
             </div>
 
-            <h1 className="mb-6">Vzdělávání ZFP</h1>
+            <h1 className="mb-6">Finanční vzdělávání Břeclav</h1>
             <p className="text-xl text-white/70 max-w-3xl leading-relaxed">
-              Trochu jiné vzdělávání. Ne teoretické, ale praktické. Ne složité, ale jasné. 
-              Naučte se rozumět financím tak, abyste mohli dělat informovaná rozhodnutí.
+              Kurzy finanční gramotnosti pro každého. Naučte se rozumět penězům, investovat 
+              a dělat informovaná rozhodnutí. Praktické semináře v Břeclavi i online.
             </p>
           </motion.div>
 
@@ -60,7 +64,7 @@ export default function EducationZFPPage() {
                 transition={{ duration: 0.6 }}
                 className="group"
               >
-                <Link href="/vzdelavani-zfp/financni-minimum" className="block h-full">
+                <Link href="/financni-vzdelavani/financni-minimum" className="block h-full">
                   <div className="h-full bg-white/5 border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-zfp-gold transition-all duration-500">
                     <div className="flex items-center justify-between mb-6">
                       <span className="text-sm text-zfp-gold font-semibold tracking-wider uppercase">Úroveň 1</span>
@@ -96,7 +100,7 @@ export default function EducationZFPPage() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="group"
               >
-                <Link href="/vzdelavani-zfp/financni-prehled" className="block h-full">
+                <Link href="/financni-vzdelavani/financni-prehled" className="block h-full">
                   <div className="h-full bg-white/5 border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-zfp-gold transition-all duration-500">
                     <div className="flex items-center justify-between mb-6">
                       <span className="text-sm text-zfp-gold font-semibold tracking-wider uppercase">Úroveň 2</span>
@@ -132,7 +136,7 @@ export default function EducationZFPPage() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="group"
               >
-                <Link href="/vzdelavani-zfp/navazujici-vzdelavani" className="block h-full">
+                <Link href="/financni-vzdelavani/navazujici-vzdelavani" className="block h-full">
                   <div className="h-full bg-white/5 border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:border-zfp-gold transition-all duration-500">
                     <div className="flex items-center justify-between mb-6">
                       <span className="text-sm text-zfp-gold font-semibold tracking-wider uppercase">Úroveň 3</span>
@@ -165,7 +169,7 @@ export default function EducationZFPPage() {
           {/* How System Works */}
           <div className="mb-20">
             <Link
-              href="/vzdelavani-zfp/jak-funguje-system"
+              href="/financni-vzdelavani/jak-funguje-system"
               className="block group"
             >
               <div className="bg-gradient-to-br from-zfp-orange/20 to-zfp-dark border border-zfp-orange/30 rounded-2xl p-8 lg:p-12 hover:border-zfp-orange transition-all duration-500">

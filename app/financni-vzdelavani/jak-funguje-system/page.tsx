@@ -244,7 +244,7 @@ export default function HowSystemWorksPage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/vzdelavani-zfp/financni-minimum"
+                href="/financni-vzdelavani/financni-minimum"
                 className="inline-block px-8 py-4 bg-zfp-orange hover:bg-zfp-orange-hover text-white font-medium tracking-wider uppercase rounded-lg transition-all"
               >
                 Základní seminář
