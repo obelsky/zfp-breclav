@@ -215,7 +215,6 @@ export default function AdvisorsPage() {
             ))}
           </div>
         )}
-      </div>
 
       {/* Add/Edit Modal */}
       {showModal && (
