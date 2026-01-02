@@ -73,7 +73,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="flex-1 px-4 md:px-8 pt-40 lg:pt-8 lg:ml-64">
+    <div className="flex-1 px-4 md:px-8 pt-20 lg:pt-8 lg:ml-64">
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
         <p className="text-white/60 mb-4">Vítejte zpět, {user?.name}</p>

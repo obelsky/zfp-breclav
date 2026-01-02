@@ -51,17 +51,18 @@ export default function CRMNavigation() {
   return (
     <>
       {/* Mobile Header */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 bg-zfp-darker z-50">
-        <div className="flex items-center justify-between p-4">
-          <Link href="/crm/dashboard">
-            <div className="relative w-32 h-12 overflow-hidden">
+      <div className="lg:hidden fixed top-0 left-0 right-0 bg-zfp-darker border-b border-white/10 z-50">
+        <div className="flex items-center justify-between px-4 py-3">
+          <Link href="/crm/dashboard" className="flex items-center gap-2">
+            <div className="relative w-8 h-8 flex-shrink-0">
               <Image
                 src="/zfp-breclav-logo.png"
-                alt="ZFP GROUP CRM"
+                alt="ZFP"
                 fill
-                className="object-contain object-top"
+                className="object-contain"
               />
             </div>
+            <span className="text-sm font-semibold text-white">CRM</span>
           </Link>
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -81,7 +82,7 @@ export default function CRMNavigation() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="bg-zfp-darker p-4 space-y-2 max-h-[calc(100vh-80px)] overflow-y-auto">
+          <div className="bg-zfp-darker border-t border-white/10 p-4 space-y-2 max-h-[calc(100vh-56px)] overflow-y-auto">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (

@@ -46,16 +46,8 @@ export default function CRMLoginPage() {
         transition={{ duration: 0.5 }}
         className="w-full max-w-md relative z-10"
       >
-        {/* Logo */}
+        {/* Title - no logo */}
         <div className="text-center mb-8">
-          <div className="relative w-48 h-32 mx-auto mb-4">
-            <Image
-              src="/zfp-breclav-logo.png"
-              alt="ZFP Břeclav"
-              fill
-              className="object-contain"
-            />
-          </div>
           <h1 className="text-3xl font-bold mb-2">CRM Systém</h1>
           <p className="text-white/60">Přihlaste se do vašeho účtu</p>
         </div>
