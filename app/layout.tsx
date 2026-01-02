@@ -5,10 +5,10 @@ import '@/styles/globals.css';
 export const metadata: Metadata = {
   metadataBase: new URL('https://zfp-breclav.cz'),
   title: {
-    default: 'Hypotéky, investice a pojištění Břeclav | ZFP GROUP',
+    default: 'Finanční poradenství Břeclav | Hypotéky, Investice, Pojištění',
     template: '%s | ZFP Břeclav',
   },
-  description: 'Finanční poradenství v Břeclavi. 10 let praxe, zázemí ZFP GROUP s 30letou tradicí. Hypotéky vyřídíme za vás, investice nastavíme podle vašeho života. Osobně, v Břeclavi.',
+  description: 'Regionální kancelář ZFP v Břeclavi. Finanční poradenství postavené na vzdělávání - hypotéky, investice, pojištění. 10 let zkušeností, součást ZFP GROUP s 30letou tradicí.',
   keywords: [
     'finanční poradenství Břeclav',
     'hypotéky Břeclav',
@@ -35,8 +35,8 @@ export const metadata: Metadata = {
     locale: 'cs_CZ',
     url: 'https://zfp-breclav.cz',
     siteName: 'ZFP GROUP Břeclav',
-    title: 'Hypotéky, investice a pojištění Břeclav | ZFP GROUP',
-    description: '10 let pomáháme s financemi v Břeclavi. Hypotéky, investice, pojištění. Součást ZFP GROUP s 30letou tradicí.',
+    title: 'Finanční poradenství Břeclav | ZFP GROUP',
+    description: 'Regionální kancelář ZFP - Finanční poradenství postavené na vzdělávání. Hypotéky, investice, pojištění. Osobní přístup, 10 let zkušeností.',
     images: [
       {
         url: '/og-image.jpg',

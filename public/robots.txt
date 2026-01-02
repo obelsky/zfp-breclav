@@ -14,6 +14,7 @@ Crawl-delay: 1
 Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
+Disallow: /crm/
 
 # Allow important resources
 Allow: /styles/
