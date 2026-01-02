@@ -137,7 +137,11 @@ export default function Navigation() {
             
             // IMPORTANT: Check if this path already matched an earlier parent
             // This prevents duplicate submenu opening for shared child links
-            const matchedByEarlierParent = navigationItems.slice(0, index).some(earlierItem => {
+            // EXCEPTION: If current item is the parent section (item.href matches pathname),
+            // always show its submenu regardless of earlier matches
+            const isParentSection = pathname === item.href || pathname?.startsWith(item.href + '/');
+            
+            const matchedByEarlierParent = !isParentSection && navigationItems.slice(0, index).some(earlierItem => {
               if (!earlierItem.children) return false;
               return earlierItem.children.some(child => {
                 const childBasePath = child.href.split('#')[0];
