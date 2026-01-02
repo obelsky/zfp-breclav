@@ -36,7 +36,6 @@ const navigationItems = [
       { href: '/financni-poradenstvi/sluzby/investice', label: 'Investice' },
       { href: '/financni-poradenstvi/sluzby/pojisteni', label: 'Pojištění' },
       { href: '/financni-poradenstvi/sluzby/reality', label: 'Reality' },
-      { href: '/o-kancelari/kdo-jsme', label: 'Náš tým' },
     ]
   },
   { 
@@ -146,13 +145,27 @@ export default function Navigation() {
               return !childIsParentSection;
             });
             
+            // Check if this EXACT path (not prefix) matched as a child in an EARLIER parent
+            // If so, don't open later parents that only match by prefix
+            const exactPathMatchedEarlier = navigationItems.slice(0, index).some(earlierItem => {
+              if (!earlierItem.children) return false;
+              return earlierItem.children.some(child => {
+                const childBasePath = child.href.split('#')[0];
+                return pathname === childBasePath || pathname === childBasePath + '/';
+              });
+            });
+            
             // IMPORTANT: Check if this path already matched an earlier parent
             // This prevents duplicate submenu opening for shared child links
             // EXCEPTION: If current item is the parent section (direct match, not just prefix),
             // always show its submenu regardless of earlier matches
             const isDirectParentMatch = item.href === pathname;
             const isParentSectionPath = pathname?.startsWith(item.href + '/');
-            const isParentSection = isDirectParentMatch || isParentSectionPath;
+            
+            // If exact path matched earlier, only allow direct parent match (not prefix match)
+            const isParentSection = exactPathMatchedEarlier 
+              ? isDirectParentMatch 
+              : (isDirectParentMatch || isParentSectionPath);
             
             // Check if this is a child of an earlier parent
             // BUT: Only block if the child is NOT a parent section itself (has no children of its own)

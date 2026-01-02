@@ -118,7 +118,7 @@ export default function CRMNavigation() {
         {/* Logo */}
         <div className="p-6 border-b border-white/10">
           <Link href="/crm/dashboard" className="block">
-            <div className="relative w-40 h-24">
+            <div className="relative w-32 h-16">
               <Image
                 src="/zfp-breclav-logo.png"
                 alt="ZFP Břeclav CRM"

@@ -110,7 +110,7 @@ export default function LeadDetailPage() {
 
   if (!lead) {
     return (
-      <div className="flex-1 px-4 md:px-8 pt-32 lg:pt-8 lg:ml-64 flex items-center justify-center">
+      <div className="flex-1 px-4 md:px-8 pt-40 lg:pt-8 lg:ml-64 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4">Poptávka nenalezena</h1>
           <button
@@ -127,7 +127,7 @@ export default function LeadDetailPage() {
   const statusColor = STATUS_COLORS[lead.status as LeadStatus] || 'bg-gray-500';
 
   return (
-    <div className="flex-1 px-4 md:px-8 pt-32 lg:pt-8 lg:ml-64">
+    <div className="flex-1 px-4 md:px-8 pt-40 lg:pt-8 lg:ml-64">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 md:mb-8 gap-4">
           <div className="flex items-center gap-3 md:gap-4">
