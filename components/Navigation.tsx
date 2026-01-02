@@ -118,8 +118,33 @@ export default function Navigation() {
           {navigationItems.map((item, index) => {
             const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
             
+            // SPECIAL HANDLING FOR TOOL LANDING PAGES VS CONTENT SECTIONS
+            // Tool landing pages: standalone calculator pages that belong to Finanční nástroje
+            const toolLandingPages = [
+              '/bydleni-hypoteky/kalkulacka', // Hypoteční kalkulačka - tool in Finanční nástroje
+            ];
+            
+            // Content sections: pages that belong to their parent section, not to Finanční nástroje shortcuts
+            const contentSectionPrefixes = [
+              '/bydleni-hypoteky/situace/', // All situation pages (refinancování, první bydlení, etc.)
+            ];
+            
+            // Check if current path is a tool landing page or content section
+            const isToolLandingPage = toolLandingPages.includes(pathname || '');
+            const isContentSection = contentSectionPrefixes.some(prefix => pathname?.startsWith(prefix));
+            
+            // If this is Bydlení & hypotéky section and we're on a tool landing page, skip it
+            if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
+              return null; // Don't show this section as active for tool landing pages
+            }
+            
+            // If this is Finanční nástroje section and we're on a content section, skip it
+            if (item.href === '/financni-nastroje' && isContentSection) {
+              return null; // Don't show Finanční nástroje as active for content sections
+            }
+            
             // Check if current path is directly under this section's hierarchy
-            const isDirectChild = pathname?.startsWith(item.href + '/');
+            const isDirectChild = pathname?.startsWith(item.href + '/') && !isToolLandingPage;
             
             // Check if we're on the section's main page
             const isExactMatch = pathname === item.href;
@@ -288,8 +313,29 @@ export default function Navigation() {
           <div className="absolute top-full left-0 right-0 bg-zfp-darker border-b border-white/10 max-h-[calc(100vh-64px)] overflow-y-auto">
             <div className="p-6 space-y-2">
               {navigationItems.map((item) => {
+                // Tool landing pages vs content sections (same as desktop)
+                const toolLandingPages = [
+                  '/bydleni-hypoteky/kalkulacka', // Hypoteční kalkulačka - belongs to Finanční nástroje
+                ];
+                const contentSectionPrefixes = [
+                  '/bydleni-hypoteky/situace/', // All situation pages belong to Bydlení & hypotéky
+                ];
+                
+                const isToolLandingPage = toolLandingPages.includes(pathname || '');
+                const isContentSection = contentSectionPrefixes.some(prefix => pathname?.startsWith(prefix));
+                
+                // Skip Bydlení & hypotéky section if on a tool landing page
+                if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
+                  return null;
+                }
+                
+                // Skip Finanční nástroje section if on a content section
+                if (item.href === '/financni-nastroje' && isContentSection) {
+                  return null;
+                }
+                
                 const isActive = pathname === item.href;
-                const isInSection = pathname?.startsWith(item.href + '/') || pathname === item.href;
+                const isInSection = !isToolLandingPage && (pathname?.startsWith(item.href + '/') || pathname === item.href);
                 
                 return (
                   <div key={item.href}>
