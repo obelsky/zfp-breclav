@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ContactForm from '@/components/ContactForm';
 import EntrepreneurIcon from '@/components/icons/mortgage/EntrepreneurIcon';
+import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
 export default function EntrepreneurPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
@@ -42,6 +43,12 @@ export default function EntrepreneurPage() {
               k OSVČ přistupují vstřícně.
             </p>
           </motion.div>
+
+          {/* Mortgage Calculator CTA */}
+          <MortgageCalculatorBanner 
+            title="Spočítejte si hypotéku pro OSVČ a podnikatele"
+            description="Zjistěte výši měsíční splátky hypotéky uzpůsobené pro podnikatele a osoby samostatně výdělečně činné."
+          />
 
           {/* Challenges */}
           <div className="mb-20">

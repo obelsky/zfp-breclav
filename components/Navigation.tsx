@@ -64,7 +64,6 @@ const navigationItems = [
       { href: '/bydleni-hypoteky/situace/refinancovani', label: 'Refinancování' },
       { href: '/bydleni-hypoteky/situace/investice', label: 'Investice' },
       { href: '/bydleni-hypoteky/situace/stavebni-upravy', label: 'Stavební úpravy' },
-      { href: '/bydleni-hypoteky/kalkulacka', label: 'Hypoteční kalkulačka' },
     ]
   },
   { 

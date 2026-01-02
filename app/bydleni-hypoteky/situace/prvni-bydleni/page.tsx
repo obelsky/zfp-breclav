@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ContactForm from '@/components/ContactForm';
 import FirstHomeIcon from '@/components/icons/mortgage/FirstHomeIcon';
+import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
 export default function FirstHomePage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
@@ -42,6 +43,12 @@ export default function FirstHomePage() {
               a najít hypotéku, která vám umožní začít.
             </p>
           </motion.div>
+
+          {/* Mortgage Calculator CTA */}
+          <MortgageCalculatorBanner 
+            title="Spočítejte si hypotéku pro svoje první bydlení"
+            description="Zjistěte výši měsíční splátky, celkové náklady a další parametry hypotéky přesně pro vaši situaci jako začínající vlastník."
+          />
 
           {/* Challenges */}
           <div className="mb-20">

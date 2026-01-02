@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ContactForm from '@/components/ContactForm';
 import FamilyIcon from '@/components/icons/mortgage/FamilyIcon';
+import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
 export default function FamilyPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
@@ -26,6 +27,12 @@ export default function FamilyPage() {
             <h1 className="mb-6">Rodina s dětmi</h1>
             <p className="text-xl text-white/70 max-w-3xl">Rostoucí rodina potřebuje větší prostor. Pomůžeme vám přejít do většího bydlení nebo financovat přístavbu.</p>
           </motion.div>
+
+          {/* Mortgage Calculator CTA */}
+          <MortgageCalculatorBanner 
+            title="Spočítejte si hypotéku pro svou rodinu"
+            description="Zjistěte výši měsíční splátky a celkové náklady hypotéky uzpůsobené potřebám rostoucí rodiny s dětmi."
+          />
 
           <div className="mb-20">
             <h2 className="text-3xl mb-8">Co řešíme nejčastěji</h2>

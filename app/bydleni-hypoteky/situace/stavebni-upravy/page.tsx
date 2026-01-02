@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ContactForm from '@/components/ContactForm';
 import ConstructionIcon from '@/components/icons/mortgage/ConstructionIcon';
+import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
 export default function ConstructionPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
@@ -42,6 +43,12 @@ export default function ConstructionPage() {
               financovat proměnu vašeho bydlení.
             </p>
           </motion.div>
+
+          {/* Mortgage Calculator CTA */}
+          <MortgageCalculatorBanner 
+            title="Spočítejte si hypotéku pro stavební úpravy"
+            description="Zjistěte výši měsíční splátky na financování rekonstrukce, přístavby nebo úprav vašeho bydlení."
+          />
 
           {/* Types of Projects */}
           <div className="mb-20">

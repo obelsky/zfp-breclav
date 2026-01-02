@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ContactForm from '@/components/ContactForm';
 import InvestmentIcon from '@/components/icons/mortgage/InvestmentIcon';
+import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
 export default function InvestmentPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
@@ -42,6 +43,12 @@ export default function InvestmentPage() {
               s financováním investičního bytu nebo domu.
             </p>
           </motion.div>
+
+          {/* Mortgage Calculator CTA */}
+          <MortgageCalculatorBanner 
+            title="Spočítejte si hypotéku pro investici do nemovitosti"
+            description="Zjistěte výši měsíční splátky a návratnost investice do pronajímatelné nemovitosti."
+          />
 
           {/* Types of Investment */}
           <div className="mb-20">
