@@ -77,30 +77,6 @@ export default function Dashboard() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
         <p className="text-white/60 mb-4">Vítejte zpět, {user?.name}</p>
-        
-        {/* Quick Navigation - Desktop only */}
-        <div className="hidden lg:flex gap-3 mt-4">
-          <Link 
-            href="/crm/dashboard"
-            className="px-4 py-2 bg-zfp-orange text-white rounded-lg font-medium transition-all"
-          >
-            Dashboard
-          </Link>
-          <Link 
-            href="/crm/leads"
-            className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg font-medium transition-all"
-          >
-            Poptávky
-          </Link>
-          {user?.role === 'admin' && (
-            <Link 
-              href="/crm/advisors"
-              className="px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg font-medium transition-all"
-            >
-              Poradci
-            </Link>
-          )}
-        </div>
       </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

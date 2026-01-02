@@ -26,6 +26,9 @@ export default function AdvisorsPage() {
     phone: '',
     role: 'advisor' as 'admin' | 'advisor',
     active: true,
+    username: '',
+    password: '',
+    requirePasswordChange: true,
   });
 
   useEffect(() => {
@@ -60,7 +63,16 @@ export default function AdvisorsPage() {
     
     setShowModal(false);
     setEditingAdvisor(null);
-    setFormData({ name: '', email: '', phone: '', role: 'advisor', active: true });
+    setFormData({ 
+      name: '', 
+      email: '', 
+      phone: '', 
+      role: 'advisor', 
+      active: true,
+      username: '',
+      password: '',
+      requirePasswordChange: true,
+    });
     loadAdvisors();
   };
 
@@ -272,6 +284,66 @@ export default function AdvisorsPage() {
                   <option value="advisor">Poradce</option>
                   <option value="admin">Administrátor</option>
                 </select>
+              </div>
+
+              {/* Login Credentials Section */}
+              <div className="border-t border-white/10 pt-4 mt-2">
+                <h3 className="text-sm font-semibold text-white/80 mb-3">Přihlašovací údaje</h3>
+                
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm text-white/60 mb-2">
+                      Uživatelské jméno {!editingAdvisor && <span className="text-red-400">*</span>}
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.username}
+                      onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                      className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zfp-orange/50"
+                      placeholder="priklad.uzivatel"
+                      required={!editingAdvisor}
+                    />
+                    {!editingAdvisor && (
+                      <p className="text-xs text-white/40 mt-1">Použije se pro přihlášení do CRM</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-white/60 mb-2">
+                      Heslo {!editingAdvisor && <span className="text-red-400">*</span>}
+                    </label>
+                    <input
+                      type="password"
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zfp-orange/50"
+                      placeholder={editingAdvisor ? "Nechte prázdné pro zachování" : "••••••••"}
+                      required={!editingAdvisor}
+                      minLength={6}
+                    />
+                    {!editingAdvisor && (
+                      <p className="text-xs text-white/40 mt-1">Minimálně 6 znaků</p>
+                    )}
+                    {editingAdvisor && (
+                      <p className="text-xs text-white/40 mt-1">Vyplňte pouze pokud chcete změnit heslo</p>
+                    )}
+                  </div>
+
+                  {!editingAdvisor && (
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        id="requirePasswordChange"
+                        checked={formData.requirePasswordChange}
+                        onChange={(e) => setFormData({ ...formData, requirePasswordChange: e.target.checked })}
+                        className="w-4 h-4"
+                      />
+                      <label htmlFor="requirePasswordChange" className="text-sm text-white/60">
+                        Vynutit změnu hesla při prvním přihlášení
+                      </label>
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className="flex items-center gap-3">
