@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import CRMNavigation from '@/components/crm/CRMNavigation';
+import NotificationSettings from '@/components/crm/NotificationSettings';
+import PWAInstallPrompt from '@/components/crm/PWAInstallPrompt';
 import { useCRMAuth } from '@/contexts/CRMAuthContext';
 import { getLeads, getLeadStats } from '@/utils/crmStorage';
 import { Lead, STATUS_LABELS, SOURCE_LABELS } from '@/types/crm';
@@ -97,6 +99,11 @@ export default function Dashboard() {
           ))}
         </div>
 
+        {/* Notification Settings - Mobile CRM Features */}
+        <div className="mb-8">
+          <NotificationSettings />
+        </div>
+
         <div className="bg-white/5 border border-white/10 rounded-xl p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold">Poslední poptávky</h2>
@@ -139,6 +146,9 @@ export default function Dashboard() {
           )}
         </div>
       </div>
+
+      {/* PWA Install Prompt */}
+      <PWAInstallPrompt />
     </div>
   );
 }

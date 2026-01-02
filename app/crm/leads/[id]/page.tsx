@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import CRMNavigation from '@/components/crm/CRMNavigation';
+import QuickActions from '@/components/crm/QuickActions';
 import { getLead, updateLeadStatus, updateLeadPriority, addNote, getNotes, getActivities } from '@/utils/crmStorage';
 import { Lead, Note, Activity, STATUS_LABELS, SOURCE_LABELS, STATUS_COLORS, LeadStatus } from '@/types/crm';
 import { formatCalculatorValue, getCalculatorFieldLabel } from '@/utils/calculatorFormatter';
@@ -369,6 +370,13 @@ export default function LeadDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Quick Actions Floating Button */}
+      <QuickActions 
+        phone={lead?.phone}
+        email={lead?.email}
+        leadId={lead?.id}
+      />
     </div>
   );
 }

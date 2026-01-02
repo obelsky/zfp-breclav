@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import CRMNavigation from '@/components/crm/CRMNavigation';
-import { getLeads } from '@/utils/crmStorage';
+import SwipeStack from '@/components/crm/SwipeStack';
+import { getLeads, updateLead } from '@/utils/crmStorage';
 import { Lead, STATUS_LABELS, SOURCE_LABELS, STATUS_COLORS, LeadSource, LeadStatus } from '@/types/crm';
 
 export default function LeadsPage() {
@@ -13,6 +14,7 @@ export default function LeadsPage() {
   const [sourceFilter, setSourceFilter] = useState<LeadSource | 'all'>('all');
   const [statusFilter, setStatusFilter] = useState<LeadStatus | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [viewMode, setViewMode] = useState<'swipe' | 'list'>('list');
 
   useEffect(() => {
     loadLeads();
@@ -51,6 +53,37 @@ export default function LeadsPage() {
     setFilteredLeads(filtered);
   };
 
+  // Swipe action handlers
+  const handleTakeLead = async (leadId: string): Promise<boolean> => {
+    try {
+      const success = await updateLead(leadId, { 
+        status: 'in-progress',
+        assigned_to: 'current-user' // TODO: Get actual user ID
+      });
+      
+      if (success) {
+        await loadLeads(); // Reload to refresh list
+      }
+      
+      return success;
+    } catch (error) {
+      console.error('Error taking lead:', error);
+      return false;
+    }
+  };
+
+  const handleAssignLead = (leadId: string) => {
+    // TODO: Show assign modal
+    console.log('Assign lead:', leadId);
+  };
+
+  const handleRefresh = () => {
+    loadLeads();
+  };
+
+  // Get only new/unassigned leads for swipe mode
+  const newLeads = filteredLeads.filter(l => l.status === 'new');
+
   return (
     <div className="flex min-h-screen bg-zfp-dark">
       <CRMNavigation />
@@ -62,15 +95,45 @@ export default function LeadsPage() {
             <p className="text-white/60">{filteredLeads.length} z {leads.length} poptávek</p>
           </div>
           
-          <button
-            onClick={loadLeads}
-            className="px-4 py-2 bg-zfp-orange hover:bg-zfp-orange-hover text-white rounded-lg transition-all flex items-center gap-2"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            Obnovit
-          </button>
+          <div className="flex gap-3">
+            {/* View Mode Toggle - Mobile only */}
+            <div className="lg:hidden flex gap-1 bg-white/5 border border-white/10 rounded-lg p-1">
+              <button
+                onClick={() => setViewMode('swipe')}
+                className={`px-3 py-1.5 rounded text-sm font-medium transition-all ${
+                  viewMode === 'swipe'
+                    ? 'bg-zfp-orange text-white'
+                    : 'text-white/60 hover:text-white'
+                }`}
+              >
+                <svg className="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+              </button>
+              <button
+                onClick={() => setViewMode('list')}
+                className={`px-3 py-1.5 rounded text-sm font-medium transition-all ${
+                  viewMode === 'list'
+                    ? 'bg-zfp-orange text-white'
+                    : 'text-white/60 hover:text-white'
+                }`}
+              >
+                <svg className="w-4 h-4 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
+
+            <button
+              onClick={loadLeads}
+              className="px-4 py-2 bg-zfp-orange hover:bg-zfp-orange-hover text-white rounded-lg transition-all flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span className="hidden md:inline">Obnovit</span>
+            </button>
+          </div>
         </div>
 
         {/* Filters */}
@@ -116,70 +179,86 @@ export default function LeadsPage() {
           </select>
         </div>
 
-        {/* Leads List */}
-        {filteredLeads.length === 0 ? (
-          <div className="bg-white/5 border border-white/10 rounded-xl p-12 text-center">
-            <svg className="w-16 h-16 mx-auto mb-4 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            <p className="text-lg text-white/40 mb-2">
-              {leads.length === 0 ? 'Zatím žádné poptávky' : 'Žádné výsledky'}
-            </p>
-            <p className="text-sm text-white/30">
-              {leads.length === 0 
-                ? 'Poptávky se zobrazí jakmile je klient odešle přes formulář nebo kalkulačku'
-                : 'Zkuste změnit filtry nebo vyhledávání'
-              }
-            </p>
+        {/* Swipe Mode (Mobile Only) */}
+        {viewMode === 'swipe' && (
+          <div className="lg:hidden">
+            <SwipeStack
+              leads={newLeads}
+              onTakeLead={handleTakeLead}
+              onAssignLead={handleAssignLead}
+              onRefresh={handleRefresh}
+            />
           </div>
-        ) : (
-          <div className="space-y-3">
-            {filteredLeads.map((lead, i) => (
-              <Link key={lead.id} href={`/crm/leads/${lead.id}`}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-6 transition-all cursor-pointer"
-                >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <h3 className="font-bold text-lg">{lead.first_name} {lead.last_name}</h3>
-                        <span className={`text-xs px-3 py-1 rounded-full border ${STATUS_COLORS[lead.status]}`}>
-                          {STATUS_LABELS[lead.status]}
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div className="flex items-center gap-2 text-white/60">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                          </svg>
-                          {lead.email}
+        )}
+
+        {/* List Mode (Default on desktop, optional on mobile) */}
+        {(viewMode === 'list' || typeof window !== 'undefined' && window.innerWidth >= 1024) && (
+          <>
+            {filteredLeads.length === 0 ? (
+              <div className="bg-white/5 border border-white/10 rounded-xl p-12 text-center">
+                <svg className="w-16 h-16 mx-auto mb-4 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <p className="text-lg text-white/40 mb-2">
+                  {leads.length === 0 ? 'Zatím žádné poptávky' : 'Žádné výsledky'}
+                </p>
+                <p className="text-sm text-white/30">
+                  {leads.length === 0 
+                    ? 'Poptávky se zobrazí jakmile je klient odešle přes formulář nebo kalkulačku'
+                    : 'Zkuste změnit filtry nebo vyhledávání'
+                  }
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {filteredLeads.map((lead, i) => (
+                  <Link key={lead.id} href={`/crm/leads/${lead.id}`}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.05 }}
+                      className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl p-6 transition-all cursor-pointer"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="font-bold text-lg">{lead.first_name} {lead.last_name}</h3>
+                            <span className={`text-xs px-3 py-1 rounded-full border ${STATUS_COLORS[lead.status]}`}>
+                              {STATUS_LABELS[lead.status]}
+                            </span>
+                          </div>
+                          <div className="grid grid-cols-2 gap-4 text-sm">
+                            <div className="flex items-center gap-2 text-white/60">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                              </svg>
+                              {lead.email}
+                            </div>
+                            <div className="flex items-center gap-2 text-white/60">
+                              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                              </svg>
+                              {lead.phone}
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2 text-white/60">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                          </svg>
-                          {lead.phone}
+                        <div className="text-right ml-4">
+                          <div className="text-sm text-white/40 mb-1">{SOURCE_LABELS[lead.source]}</div>
+                          <div className="text-xs text-white/30">
+                            {new Date(lead.created_at).toLocaleDateString('cs-CZ', {
+                              day: 'numeric',
+                              month: 'long',
+                              year: 'numeric',
+                            })}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="text-right ml-4">
-                      <div className="text-sm text-white/40 mb-1">{SOURCE_LABELS[lead.source]}</div>
-                      <div className="text-xs text-white/30">
-                        {new Date(lead.created_at).toLocaleDateString('cs-CZ', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric',
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </Link>
-            ))}
-          </div>
+                    </motion.div>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
