@@ -117,7 +117,7 @@ export default function Navigation() {
 
         {/* Navigation Links */}
         <div className="flex-1 space-y-1">
-          {navigationItems.map((item) => {
+          {navigationItems.map((item, index) => {
             const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
             
             // Check if current path is directly under this section's hierarchy
@@ -130,14 +130,23 @@ export default function Navigation() {
             const isTopLevelPath = navigationItems.some(navItem => pathname === navItem.href);
             
             // Check if current path is in children links
-            // BUT: don't match if current path is a top-level item in navigation
             const isChildPath = item.children?.some(child => {
               const childBasePath = child.href.split('#')[0];
               return !isTopLevelPath && (pathname === childBasePath || pathname?.startsWith(childBasePath + '/'));
             });
             
-            // Show submenu if: directly under section, exact match, or child path
-            const isInSection = isDirectChild || isExactMatch || isChildPath;
+            // IMPORTANT: Check if this path already matched an earlier parent
+            // This prevents duplicate submenu opening for shared child links
+            const matchedByEarlierParent = navigationItems.slice(0, index).some(earlierItem => {
+              if (!earlierItem.children) return false;
+              return earlierItem.children.some(child => {
+                const childBasePath = child.href.split('#')[0];
+                return pathname === childBasePath || pathname?.startsWith(childBasePath + '/');
+              });
+            });
+            
+            // Show submenu if: directly under section, exact match, or child path (but not if already matched)
+            const isInSection = !matchedByEarlierParent && (isDirectChild || isExactMatch || isChildPath);
             
             return (
               <div key={item.href}>

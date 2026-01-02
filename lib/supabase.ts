@@ -37,3 +37,13 @@ export type Activity = {
   description: string;
   user_id?: string;
 };
+
+export type Advisor = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  role: 'admin' | 'advisor';
+  active: boolean;
+  created_at: string;
+};

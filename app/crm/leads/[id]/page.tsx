@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import CRMNavigation from '@/components/crm/CRMNavigation';
 import QuickActions from '@/components/crm/QuickActions';
-import { getLead, updateLeadStatus, updateLeadPriority, addNote, getNotes, getActivities } from '@/utils/crmStorage';
+import { getLead, updateLeadStatus, updateLeadPriority, addNote, getNotes, getActivities, getAdvisors, assignAdvisorToLead, type Advisor } from '@/utils/crmStorage';
 import { Lead, Note, Activity, STATUS_LABELS, SOURCE_LABELS, STATUS_COLORS, LeadStatus } from '@/types/crm';
 import { formatCalculatorValue, getCalculatorFieldLabel } from '@/utils/calculatorFormatter';
 
@@ -17,13 +17,20 @@ export default function LeadDetailPage() {
   const [lead, setLead] = useState<Lead | null>(null);
   const [notes, setNotes] = useState<Note[]>([]);
   const [activities, setActivities] = useState<Activity[]>([]);
+  const [advisors, setAdvisors] = useState<Advisor[]>([]);
   const [newNote, setNewNote] = useState('');
   const [isAddingNote, setIsAddingNote] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadLeadData();
+    loadAdvisors();
   }, [leadId]);
+
+  const loadAdvisors = async () => {
+    const data = await getAdvisors();
+    setAdvisors(data.filter(a => a.active)); // Only active advisors
+  };
 
   const loadLeadData = async () => {
     setLoading(true);
@@ -60,6 +67,16 @@ export default function LeadDetailPage() {
     const success = await updateLeadPriority(leadId, newPriority);
     if (success) {
       setLead({ ...lead, priority: newPriority, updated_at: new Date().toISOString() });
+      await loadLeadData(); // Reload to get new activity
+    }
+  };
+
+  const handleAdvisorChange = async (advisorId: string) => {
+    if (!lead) return;
+    
+    const success = await assignAdvisorToLead(leadId, advisorId || null);
+    if (success) {
+      setLead({ ...lead, assigned_advisor_id: advisorId || null, updated_at: new Date().toISOString() });
       await loadLeadData(); // Reload to get new activity
     }
   };
@@ -303,6 +320,42 @@ export default function LeadDetailPage() {
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* Assigned Advisor */}
+            <div className="bg-white/5 border border-white/10 rounded-xl p-6">
+              <h2 className="text-xl font-semibold mb-4">Přiřazený poradce</h2>
+              
+              <select
+                value={lead.assigned_advisor_id || ''}
+                onChange={(e) => handleAdvisorChange(e.target.value)}
+                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zfp-orange/50"
+              >
+                <option value="">Nepřiřazeno</option>
+                {advisors.map((advisor) => (
+                  <option key={advisor.id} value={advisor.id}>
+                    {advisor.name} {advisor.role === 'admin' ? '(Admin)' : ''}
+                  </option>
+                ))}
+              </select>
+
+              {lead.assigned_advisor_id && (
+                <div className="mt-4 p-3 bg-white/5 rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-zfp-orange/20 rounded-full flex items-center justify-center text-zfp-orange font-bold">
+                      {advisors.find(a => a.id === lead.assigned_advisor_id)?.name.charAt(0) || '?'}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium truncate">
+                        {advisors.find(a => a.id === lead.assigned_advisor_id)?.name || 'Neznámý poradce'}
+                      </p>
+                      <p className="text-sm text-white/60 truncate">
+                        {advisors.find(a => a.id === lead.assigned_advisor_id)?.email}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Priority */}

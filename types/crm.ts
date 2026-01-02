@@ -22,11 +22,11 @@ export type LeadSource =
 
 export interface Lead {
   id: string;
-  createdAt: string;
-  updatedAt: string;
+  created_at: string;
+  updated_at: string;
   
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   email: string;
   phone: string;
   
@@ -34,12 +34,11 @@ export interface Lead {
   status: LeadStatus;
   priority: 'low' | 'medium' | 'high';
   
-  assignedTo: string | null;
+  assigned_advisor_id: string | null;
   
-  formData: Record<string, any>;
+  calculator_data: Record<string, any>;
   
-  notes: Note[];
-  activities: Activity[];
+  notes: string;
 }
 
 export interface Note {
@@ -55,16 +54,6 @@ export interface Activity {
   type: 'created' | 'status_changed' | 'assigned' | 'note_added' | 'contacted';
   description: string;
   userId: string;
-}
-
-export interface Advisor {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  role: 'admin' | 'user';
-  active: boolean;
-  leadsCount: number;
 }
 
 export const STATUS_LABELS: Record<LeadStatus, string> = {
