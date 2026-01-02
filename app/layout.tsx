@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import Navigation from '@/components/Navigation';
+import ConditionalNavigation from '@/components/ConditionalNavigation';
+import ConditionalMain from '@/components/ConditionalMain';
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -81,10 +82,10 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body>
-        <Navigation />
-        <main className="lg:ml-64 min-h-screen">
+        <ConditionalNavigation />
+        <ConditionalMain>
           {children}
-        </main>
+        </ConditionalMain>
         
         {/* Structured Data */}
         <script
