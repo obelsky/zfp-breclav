@@ -134,7 +134,7 @@ export default function LeadDetailPage() {
     <div className="flex min-h-screen bg-zfp-dark">
       <CRMNavigation />
       
-      <div className="flex-1 p-4 md:p-8 pt-20 lg:pt-8 lg:ml-64">
+      <div className="flex-1 p-4 md:p-8 pt-28 lg:pt-8 lg:ml-64">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 md:mb-8 gap-4">
           <div className="flex items-center gap-3 md:gap-4">

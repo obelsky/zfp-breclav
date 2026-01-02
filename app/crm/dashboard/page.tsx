@@ -77,7 +77,7 @@ export default function Dashboard() {
     <div className="flex min-h-screen bg-zfp-dark">
       <CRMNavigation />
       
-      <div className="flex-1 p-4 md:p-8 pt-20 lg:pt-8 lg:ml-64">
+      <div className="flex-1 p-4 md:p-8 pt-28 lg:pt-8 lg:ml-64">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
           <p className="text-white/60">Vítejte zpět, {user?.name}</p>

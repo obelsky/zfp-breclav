@@ -17,19 +17,6 @@ const navigationItems = [
     ]
   },
   { 
-    href: '/bydleni-hypoteky', 
-    label: 'Bydlení & hypotéky',
-    children: [
-      { href: '/bydleni-hypoteky/situace/prvni-bydleni', label: 'První bydlení' },
-      { href: '/bydleni-hypoteky/situace/rodina-s-detmi', label: 'Rodina s dětmi' },
-      { href: '/bydleni-hypoteky/situace/osvc-podnikatele', label: 'OSVČ / Podnikatelé' },
-      { href: '/bydleni-hypoteky/situace/refinancovani', label: 'Refinancování' },
-      { href: '/bydleni-hypoteky/situace/investice', label: 'Investice' },
-      { href: '/bydleni-hypoteky/situace/stavebni-upravy', label: 'Stavební úpravy' },
-      { href: '/bydleni-hypoteky/kalkulacka', label: 'Hypoteční kalkulačka' },
-    ]
-  },
-  { 
     href: '/financni-vzdelavani', 
     label: 'Finanční vzdělávání',
     children: [
@@ -65,6 +52,19 @@ const navigationItems = [
       { href: '/financni-poradenstvi/sluzby/pojisteni', label: 'Pojistná kalkulačka' },
       { href: '/financni-poradenstvi/sluzby/reality', label: 'Kolik si můžu dovolit?' },
       { href: '/esanon', label: 'eŠanon' },
+    ]
+  },
+  { 
+    href: '/bydleni-hypoteky', 
+    label: 'Bydlení & hypotéky',
+    children: [
+      { href: '/bydleni-hypoteky/situace/prvni-bydleni', label: 'První bydlení' },
+      { href: '/bydleni-hypoteky/situace/rodina-s-detmi', label: 'Rodina s dětmi' },
+      { href: '/bydleni-hypoteky/situace/osvc-podnikatele', label: 'OSVČ / Podnikatelé' },
+      { href: '/bydleni-hypoteky/situace/refinancovani', label: 'Refinancování' },
+      { href: '/bydleni-hypoteky/situace/investice', label: 'Investice' },
+      { href: '/bydleni-hypoteky/situace/stavebni-upravy', label: 'Stavební úpravy' },
+      { href: '/bydleni-hypoteky/kalkulacka', label: 'Hypoteční kalkulačka' },
     ]
   },
   { 

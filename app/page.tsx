@@ -514,7 +514,7 @@ export default function HomePage() {
             </div>
 
             <p className="text-sm text-white/40 mt-8">
-              Telefon: +420 123 456 789 | E-mail: breclav@zfp.cz
+              Telefon: +420 519 361 240 | E-mail: info@zfpgroup.cz
             </p>
           </motion.div>
         </div>

@@ -107,7 +107,7 @@ export default function AdvisorsPage() {
     <div className="flex min-h-screen bg-zfp-dark">
       <CRMNavigation />
       
-      <div className="flex-1 p-4 md:p-8 pt-24 lg:pt-8 lg:ml-64">
+      <div className="flex-1 p-4 md:p-8 pt-28 lg:pt-8 lg:ml-64">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold mb-2">Poradci</h1>

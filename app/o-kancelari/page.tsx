@@ -117,7 +117,7 @@ export default function OKancelariPage() {
             {[
               { number: '10', label: 'Let kanceláře v Břeclavi' },
               { number: '30+', label: 'Let zkušeností ZFP GROUP' },
-              { number: '5', label: 'Specialistů v týmu' },
+              { number: '6', label: 'Specialistů v týmu' },
               { number: '500+', label: 'Spokojených klientů' },
               { number: '100%', label: 'Osobní přístup' },
             ].map((stat, i) => (
