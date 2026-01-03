@@ -162,16 +162,8 @@ export default function Navigation() {
             const isContentSection = contentSectionPrefixes.some(prefix => pathname?.startsWith(prefix));
             const isCrossLinkTarget = crossLinkTargets.some(target => pathname?.startsWith(target));
             
-            // If this is Bydlení & hypotéky section and we're on a tool landing page, skip it
-            if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
-              return null; // Don't show this section as active for tool landing pages
-            }
-            
-            // If this is Finanční nástroje section and we're on a content section OR cross-link target, skip it
-            // This ensures cross-links activate their target section, not Finanční nástroje
-            if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
-              return null; // Don't show Finanční nástroje as active for cross-link targets
-            }
+            // IMPORTANT: Sections must ALWAYS be visible, never use return null!
+            // Only adjust isActive and isInSection states
             
             // Check if current path is directly under this section's hierarchy
             const isDirectChild = pathname?.startsWith(item.href + '/') && !isToolLandingPage;
@@ -243,7 +235,19 @@ export default function Navigation() {
             });
             
             // Show submenu if: directly under section, exact match, or child path (but not if already matched)
-            const isInSection = !matchedByEarlierParent && (isDirectChild || isExactMatch || isChildPath);
+            let isInSection = !matchedByEarlierParent && (isDirectChild || isExactMatch || isChildPath);
+            
+            // SPECIAL LOGIC FOR SPECIFIC SECTIONS:
+            
+            // For Finanční nástroje: Don't show as active/open if on cross-link target
+            if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
+              isInSection = false; // Close submenu - we're in target section instead
+            }
+            
+            // For Bydlení & hypotéky: Don't show as active/open if on tool landing page
+            if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
+              isInSection = false; // Close submenu - this is Finanční nástroje tool
+            }
             
             return (
               <div key={item.href}>
@@ -373,18 +377,21 @@ export default function Navigation() {
                 const isContentSection = contentSectionPrefixes.some(prefix => pathname?.startsWith(prefix));
                 const isCrossLinkTarget = crossLinkTargets.some(target => pathname?.startsWith(target));
                 
-                // Skip Bydlení & hypotéky section if on a tool landing page
-                if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
-                  return null;
-                }
-                
-                // Skip Finanční nástroje section if on a content section OR cross-link target
-                if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
-                  return null;
-                }
+                // IMPORTANT: Sections must ALWAYS be visible (no return null!)
+                // Only adjust isInSection state
                 
                 const isActive = pathname === item.href;
-                const isInSection = !isToolLandingPage && (pathname?.startsWith(item.href + '/') || pathname === item.href);
+                let isInSection = !isToolLandingPage && (pathname?.startsWith(item.href + '/') || pathname === item.href);
+                
+                // For Finanční nástroje: Don't show as open if on cross-link target
+                if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
+                  isInSection = false; // Close submenu
+                }
+                
+                // For Bydlení & hypotéky: Don't show as open if on tool landing page
+                if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
+                  isInSection = false; // Close submenu
+                }
                 
                 return (
                   <div key={item.href}>
