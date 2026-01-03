@@ -21,13 +21,14 @@ function CRMLayoutContent({ children }: { children: React.ReactNode }) {
       <>
         {/* Simple header for login page */}
         <div className="fixed top-0 left-0 right-0 bg-zfp-darker border-b border-white/10 z-50">
-          <div className="flex items-center justify-between px-4 py-3">
-            <div className="flex items-center gap-2">
-              <div className="text-sm font-semibold text-white">CRM Systém</div>
-            </div>
+          <div className="flex items-center justify-center px-4 py-3 relative">
+            {/* Centered title */}
+            <div className="text-base font-semibold text-white">CRM Systém</div>
+            
+            {/* Back to web link - positioned absolutely on the right */}
             <Link
               href="/"
-              className="flex items-center gap-2 px-3 py-1.5 text-sm text-zfp-gold hover:text-zfp-orange transition-colors"
+              className="absolute right-4 flex items-center gap-2 px-4 py-2 text-sm text-white bg-white/5 hover:bg-white/10 border border-white/10 hover:border-zfp-orange/50 rounded-lg transition-all"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />

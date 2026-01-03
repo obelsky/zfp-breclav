@@ -354,16 +354,15 @@ export default function Navigation() {
       <div className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-zfp-darker border-b border-white/10">
         <div className="flex items-center justify-between px-4 py-3">
           <Link href="/" className="flex items-center gap-2">
-            <div className="relative w-8 h-8 flex-shrink-0">
+            <div className="relative w-[37px] h-[37px] flex-shrink-0">
               <Image
                 src="/zfp-breclav-logo.png"
-                alt="ZFP"
+                alt="ZFP Břeclav"
                 fill
                 className="object-contain"
                 priority
               />
             </div>
-            <span className="text-sm font-semibold text-white">Břeclav</span>
           </Link>
           
           <button

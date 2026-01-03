@@ -337,7 +337,7 @@ export default function MortgagePage() {
               </p>
               <p>
                 <strong>Licencované poradenství:</strong> Naši poradci jsou držiteli příslušných licencí 
-                ČNB. Více informací v sekci <Link href="/o-kancelari/licence" className="text-zfp-orange hover:underline">
+                ČNB. Více informací v sekci <Link href="/o-kancelari/licence-odpovednost" className="text-zfp-orange hover:underline">
                   Licence a oprávnění
                 </Link>.
               </p>

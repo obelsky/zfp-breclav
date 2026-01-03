@@ -141,21 +141,34 @@ export async function sendTestNotification(payload: Partial<PushNotificationPayl
     throw new Error('Service Worker not registered');
   }
 
-  await registration.showNotification(payload.title || 'Test Notifikace', {
-    body: payload.body || 'Toto je testovací notifikace z ZFP Břeclav',
-    icon: payload.icon || '/android-chrome-192x192.png',
-    badge: payload.badge || '/favicon-72x72.png',
-    tag: payload.tag || 'test-notification',
-    requireInteraction: false,
-    actions: payload.actions || [
-      { action: 'open', title: 'Otevřít' },
-      { action: 'close', title: 'Zavřít' }
-    ],
-    data: {
-      url: payload.url || '/crm/dashboard',
-      ...payload.data
+  try {
+    await registration.showNotification(payload.title || 'Test Notifikace', {
+      body: payload.body || 'Toto je testovací notifikace z ZFP Břeclav',
+      icon: payload.icon || '/android-chrome-192x192.png',
+      badge: payload.badge || '/favicon-72x72.png',
+      tag: payload.tag || 'test-notification',
+      requireInteraction: false,
+      data: {
+        url: payload.url || '/crm/dashboard',
+        ...payload.data
+      }
+    });
+  } catch (error) {
+    console.error('Error showing notification:', error);
+    // Try simpler notification without icon/badge if that fails
+    try {
+      await registration.showNotification(payload.title || 'Test Notifikace', {
+        body: payload.body || 'Toto je testovací notifikace z ZFP Břeclav',
+        tag: 'test-notification',
+        data: {
+          url: payload.url || '/crm/dashboard'
+        }
+      });
+    } catch (fallbackError) {
+      console.error('Fallback notification also failed:', fallbackError);
+      throw new Error('Failed to show notification');
     }
-  });
+  }
 }
 
 /**
