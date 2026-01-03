@@ -7,11 +7,50 @@ import ContactForm from '@/components/ContactForm';
 import ConstructionIcon from '@/components/icons/mortgage/ConstructionIcon';
 import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
+// SEO Metadata
+export const metadata = {
+  title: 'Hypotéka na rekonstrukci domu Břeclav | Úvěr na stavební úpravy | ZFP GROUP',
+  description: 'Hypotéka na rekonstrukci, přístavbu či přestavbu domu v Břeclavi a okolí. Výhodné financování stavebních úprav a modernizace bydlení. Bezplatná konzultace.',
+  keywords: 'hypotéka na rekonstrukci, úvěr na stavební úpravy, financování přístavby, rekonstrukce domu, modernizace bydlení, Břeclav',
+  openGraph: {
+    title: 'Hypotéka na rekonstrukci a stavební úpravy | ZFP GROUP Břeclav',
+    description: 'Rekonstrukce, přístavba nebo modernizace. Pomůžeme financovat proměnu vašeho bydlení výhodným hypotečním úvěrem.',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/stavebni-upravy',
+    type: 'website',
+    locale: 'cs_CZ'
+  }
+};
+
 export default function ConstructionPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
+  // Structured Data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Hypotéka na rekonstrukci - ZFP GROUP Břeclav",
+    "description": "Specializujeme se na financování rekonstrukcí, přístaveb a stavebních úprav. Výhodné podmínky hypotečního úvěru.",
+    "provider": {
+      "@type": "FinancialService",
+      "name": "ZFP GROUP Břeclav",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "náměstí T. G. Masaryka 28/10",
+        "addressLocality": "Břeclav",
+        "postalCode": "690 02",
+        "addressCountry": "CZ"
+      }
+    },
+    "serviceType": "Hypoteční úvěr na rekonstrukci a stavební úpravy"
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
       <section className="pt-24 lg:pt-32 pb-20 min-h-screen">
         <div className="container-custom">
           <Link 
@@ -37,17 +76,17 @@ export default function ConstructionPage() {
               <ConstructionIcon className="w-16 h-16" />
             </div>
 
-            <h1 className="mb-6">Stavební úpravy</h1>
+            <h1 className="mb-6">Hypotéka na rekonstrukci a stavební úpravy</h1>
             <p className="text-xl text-white/70 max-w-3xl leading-relaxed">
-              Rekonstrukce, přístavba, vestavba nebo nová stavba. Pomůžeme vám 
-              financovat proměnu vašeho bydlení.
+              Rekonstrukce, přístavba, vestavba nebo modernizace bydlení. Pomůžeme vám 
+              financovat proměnu vašeho domu či bytu výhodným hypotečním úvěrem.
             </p>
           </motion.div>
 
           {/* Mortgage Calculator CTA */}
           <MortgageCalculatorBanner 
-            title="Spočítejte si hypotéku pro stavební úpravy"
-            description="Zjistěte výši měsíční splátky na financování rekonstrukce, přístavby nebo úprav vašeho bydlení."
+            title="Spočítejte si hypotéku na rekonstrukci"
+            description="Zjistěte výši měsíční splátky na financování rekonstrukce, přístavby nebo modernizace vašeho bydlení."
           />
 
           {/* Types of Projects */}

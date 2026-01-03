@@ -7,11 +7,50 @@ import ContactForm from '@/components/ContactForm';
 import EntrepreneurIcon from '@/components/icons/mortgage/EntrepreneurIcon';
 import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
+// SEO Metadata
+export const metadata = {
+  title: 'Hypotéka pro OSVČ a podnikatele Břeclav | Úvěr na bydlení pro živnostníky | ZFP GROUP',
+  description: 'Hypotéka pro OSVČ, živnostníky a podnikatele v Břeclavi. Známe banky, které k podnikatelům přistupují vstřícně. Individuální řešení, bezplatná konzultace.',
+  keywords: 'hypotéka OSVČ, hypotéka podnikatelé, úvěr živnostník, financování OSVČ, hypotéka bez ručitele, Břeclav',
+  openGraph: {
+    title: 'Hypotéka pro OSVČ a podnikatele | ZFP GROUP Břeclav',
+    description: 'Specializujeme se na hypotéky pro podnikatele. Známe banky, které k OSVČ přistupují vstřícně a nabízíme individuální řešení.',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/osvc-podnikatele',
+    type: 'website',
+    locale: 'cs_CZ'
+  }
+};
+
 export default function EntrepreneurPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
+  // Structured Data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Hypotéka pro OSVČ a podnikatele - ZFP GROUP Břeclav",
+    "description": "Specializujeme se na hypotéky pro OSVČ a podnikatele. Známe banky s vstřícným přístupem k živnostníkům.",
+    "provider": {
+      "@type": "FinancialService",
+      "name": "ZFP GROUP Břeclav",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "náměstí T. G. Masaryka 28/10",
+        "addressLocality": "Břeclav",
+        "postalCode": "690 02",
+        "addressCountry": "CZ"
+      }
+    },
+    "serviceType": "Hypoteční úvěr pro OSVČ a podnikatele"
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
       <section className="pt-24 lg:pt-32 pb-20 min-h-screen">
         <div className="container-custom">
           <Link 
@@ -37,10 +76,10 @@ export default function EntrepreneurPage() {
               <EntrepreneurIcon className="w-16 h-16" />
             </div>
 
-            <h1 className="mb-6">OSVČ / Podnikatelé</h1>
+            <h1 className="mb-6">Hypotéka pro OSVČ a podnikatele</h1>
             <p className="text-xl text-white/70 max-w-3xl leading-relaxed">
-              Hypotéka pro podnikatele má svá specifika. Známe je a víme, které banky 
-              k OSVČ přistupují vstřícně.
+              Hypotéka pro podnikatele a živnostníky má svá specifika. Známe je a víme, které banky 
+              k OSVČ přistupují vstřícně. Pomůžeme vám získat úvěr i bez dokladování příjmů.
             </p>
           </motion.div>
 

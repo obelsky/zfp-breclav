@@ -7,11 +7,72 @@ import ContactForm from '@/components/ContactForm';
 import FirstHomeIcon from '@/components/icons/mortgage/FirstHomeIcon';
 import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
+// SEO Metadata
+export const metadata = {
+  title: 'Hypotéka na první bydlení Břeclav | Hypoteční úvěr pro začátečníky | ZFP GROUP',
+  description: 'Hypotéka na první bydlení v Břeclavi a okolí. Pomůžeme získat výhodný hypoteční úvěr i s nízkou akontací a kratší pracovní historií. Bezplatná konzultace.',
+  keywords: 'hypotéka první bydlení, hypoteční úvěr začátečníci, nízká akontace, první vlastní byt, mladá rodina hypotéka, Břeclav',
+  openGraph: {
+    title: 'Hypotéka na první bydlení | Finanční poradenství Břeclav',
+    description: 'První krok k vlastnímu bydlení. Pomůžeme vám získat hypotéku i s nízkou akontací a kratší pracovní historií.',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/prvni-bydleni',
+    type: 'website',
+    locale: 'cs_CZ',
+    siteName: 'ZFP GROUP Břeclav'
+  }
+};
+
 export default function FirstHomePage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
+  // Structured Data - LocalBusiness + Service
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Hypotéka na první bydlení - ZFP GROUP Břeclav",
+    "description": "Specializujeme se na hypotéky pro první bydlení. Pomůžeme získat výhodný úvěr i s nízkou akontací.",
+    "provider": {
+      "@type": "FinancialService",
+      "name": "ZFP GROUP Břeclav",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "náměstí T. G. Masaryka 28/10",
+        "addressLocality": "Břeclav",
+        "postalCode": "690 02",
+        "addressCountry": "CZ"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "48.7589",
+        "longitude": "16.8822"
+      },
+      "telephone": "+420-519-352-632",
+      "url": "https://www.zfpbreclav.cz"
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "48.7589",
+        "longitude": "16.8822"
+      },
+      "geoRadius": "50000"
+    },
+    "serviceType": "Hypoteční úvěr pro první bydlení",
+    "offers": {
+      "@type": "Offer",
+      "description": "Bezplatná konzultace k hypotéce na první bydlení"
+    }
+  };
+
   return (
     <>
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
       <section className="pt-24 lg:pt-32 pb-20 min-h-screen">
         <div className="container-custom">
           <Link 
@@ -37,16 +98,16 @@ export default function FirstHomePage() {
               <FirstHomeIcon className="w-16 h-16" />
             </div>
 
-            <h1 className="mb-6">První bydlení</h1>
+            <h1 className="mb-6">Hypotéka na první bydlení</h1>
             <p className="text-xl text-white/70 max-w-3xl leading-relaxed">
               První vlastní bydlení je velký krok. Pomůžeme vám zorientovat se v možnostech 
-              a najít hypotéku, která vám umožní začít.
+              hypotečních úvěrů a najít financování, které vám umožní začít i s nízkou akontací.
             </p>
           </motion.div>
 
           {/* Mortgage Calculator CTA */}
           <MortgageCalculatorBanner 
-            title="Spočítejte si hypotéku pro svoje první bydlení"
+            title="Spočítejte si hypotéku pro první bydlení"
             description="Zjistěte výši měsíční splátky, celkové náklady a další parametry hypotéky přesně pro vaši situaci jako začínající vlastník."
           />
 

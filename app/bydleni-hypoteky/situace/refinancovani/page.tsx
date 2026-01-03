@@ -8,6 +8,20 @@ import RefinancingCalculator from '@/components/RefinancingCalculator';
 import CalculatorCTA from '@/components/CalculatorCTA';
 import RefinancingIcon from '@/components/icons/mortgage/RefinancingIcon';
 
+// SEO Metadata
+export const metadata = {
+  title: 'Refinancování hypotéky Břeclav | Výhodnější úrok, nižší splátka | ZFP GROUP',
+  description: 'Refinancování hypotéky v Břeclavi a okolí. Snížte úrok, sjednejte výhodnější podmínky a ušetřete tisíce ročně. Výpočet úspory zdarma. Bezplatná konzultace.',
+  keywords: 'refinancování hypotéky, přefinancování úvěru, nižší úrok, změna banky, konsolidace úvěrů, úspora na hypotéce, Břeclav',
+  openGraph: {
+    title: 'Refinancování hypotéky - Ušetřete tisíce ročně | ZFP GROUP Břeclav',
+    description: 'Máte hypotéku s vysokým úrokem? Refinancování může ročně ušetřit desítky tisíc. Výpočet úspory zdarma.',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/refinancovani',
+    type: 'website',
+    locale: 'cs_CZ'
+  }
+};
+
 export default function RefinancingPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
   const [calculatorData, setCalculatorData] = useState<Record<string, any> | undefined>();
@@ -17,8 +31,33 @@ export default function RefinancingPage() {
     setIsContactFormOpen(true);
   };
 
+  // Structured Data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Refinancování hypotéky - ZFP GROUP Břeclav",
+    "description": "Pomůžeme refinancovat hypotéku a získat výhodnější úrok. Úspora až desítek tisíc ročně.",
+    "provider": {
+      "@type": "FinancialService",
+      "name": "ZFP GROUP Břeclav",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "náměstí T. G. Masaryka 28/10",
+        "addressLocality": "Břeclav",
+        "postalCode": "690 02",
+        "addressCountry": "CZ"
+      }
+    },
+    "serviceType": "Refinancování hypotéky"
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
       <section className="pt-24 lg:pt-32 pb-20 min-h-screen">
         <div className="container-custom">
           <Link 

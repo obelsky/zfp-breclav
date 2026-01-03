@@ -7,11 +7,50 @@ import ContactForm from '@/components/ContactForm';
 import FamilyIcon from '@/components/icons/mortgage/FamilyIcon';
 import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
+// SEO Metadata
+export const metadata = {
+  title: 'Hypotéka pro rodinu s dětmi Břeclav | Rodinný hypoteční úvěr | ZFP GROUP',
+  description: 'Hypotéka pro rodinu s dětmi v Břeclavi. Pomůžeme s financováním většího bydlení, přístavby nebo využitím státní podpory. Bezplatná konzultace.',
+  keywords: 'hypotéka rodina s dětmi, rodinný dům hypotéka, větší bydlení, přístavba financování, státní podpora rodiny, Břeclav',
+  openGraph: {
+    title: 'Hypotéka pro rodinu s dětmi | Finanční poradenství Břeclav',
+    description: 'Rostoucí rodina potřebuje větší prostor. Pomůžeme s financováním většího bydlení nebo přístavby včetně využití státní podpory.',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/rodina-s-detmi',
+    type: 'website',
+    locale: 'cs_CZ'
+  }
+};
+
 export default function FamilyPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
+  // Structured Data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Hypotéka pro rodinu s dětmi - ZFP GROUP Břeclav",
+    "description": "Specializujeme se na hypotéky pro rodiny s dětmi. Pomůžeme s financováním většího bydlení nebo přístavby.",
+    "provider": {
+      "@type": "FinancialService",
+      "name": "ZFP GROUP Břeclav",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "náměstí T. G. Masaryka 28/10",
+        "addressLocality": "Břeclav",
+        "postalCode": "690 02",
+        "addressCountry": "CZ"
+      }
+    },
+    "serviceType": "Hypoteční úvěr pro rodiny s dětmi"
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
       <section className="pt-24 lg:pt-32 pb-20 min-h-screen">
         <div className="container-custom">
           <Link href="/bydleni-hypoteky" className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-8">
@@ -24,8 +63,8 @@ export default function FamilyPage() {
           <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} className="mb-16">
             <div className="mb-6"><div className="inline-block w-12 h-1 bg-gradient-to-r from-zfp-gold to-zfp-orange" /></div>
             <div className="mb-6 text-zfp-gold"><FamilyIcon className="w-16 h-16" /></div>
-            <h1 className="mb-6">Rodina s dětmi</h1>
-            <p className="text-xl text-white/70 max-w-3xl">Rostoucí rodina potřebuje větší prostor. Pomůžeme vám přejít do většího bydlení nebo financovat přístavbu.</p>
+            <h1 className="mb-6">Hypotéka pro rodinu s dětmi</h1>
+            <p className="text-xl text-white/70 max-w-3xl">Rostoucí rodina potřebuje větší prostor. Pomůžeme vám přejít do většího bydlení, financovat přístavbu nebo využít státní podporu pro rodiny.</p>
           </motion.div>
 
           {/* Mortgage Calculator CTA */}

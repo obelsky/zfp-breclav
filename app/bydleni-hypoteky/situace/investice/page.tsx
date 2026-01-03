@@ -7,11 +7,50 @@ import ContactForm from '@/components/ContactForm';
 import InvestmentIcon from '@/components/icons/mortgage/InvestmentIcon';
 import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
+// SEO Metadata
+export const metadata = {
+  title: 'Hypotéka na investici do nemovitostí Břeclav | Investiční úvěr | ZFP GROUP',
+  description: 'Hypotéka na investici do nemovitostí v Břeclavi. Financování investičního bytu nebo domu k pronájmu. Výhodné podmínky pro investory. Bezplatná konzultace.',
+  keywords: 'hypotéka investice nemovitosti, investiční úvěr, financování pronájmu, byt k pronájmu, investiční nemovitost, Břeclav',
+  openGraph: {
+    title: 'Hypotéka na investici do nemovitostí | ZFP GROUP Břeclav',
+    description: 'Nemovitost jako investice přináší stabilní výnos. Pomůžeme s financováním investičního bytu nebo domu k pronájmu.',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/investice',
+    type: 'website',
+    locale: 'cs_CZ'
+  }
+};
+
 export default function InvestmentPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
+  // Structured Data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Hypotéka na investici do nemovitostí - ZFP GROUP Břeclav",
+    "description": "Specializujeme se na financování investičních nemovitostí. Pomůžeme získat výhodný úvěr na byt či dům k pronájmu.",
+    "provider": {
+      "@type": "FinancialService",
+      "name": "ZFP GROUP Břeclav",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "náměstí T. G. Masaryka 28/10",
+        "addressLocality": "Břeclav",
+        "postalCode": "690 02",
+        "addressCountry": "CZ"
+      }
+    },
+    "serviceType": "Hypoteční úvěr na investici do nemovitostí"
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
       <section className="pt-24 lg:pt-32 pb-20 min-h-screen">
         <div className="container-custom">
           <Link 
@@ -37,10 +76,10 @@ export default function InvestmentPage() {
               <InvestmentIcon className="w-16 h-16" />
             </div>
 
-            <h1 className="mb-6">Investice do nemovitostí</h1>
+            <h1 className="mb-6">Hypotéka na investici do nemovitostí</h1>
             <p className="text-xl text-white/70 max-w-3xl leading-relaxed">
-              Nemovitost jako investice může přinášet stabilní výnos. Pomůžeme vám 
-              s financováním investičního bytu nebo domu.
+              Nemovitost jako investice může přinášet stabilní výnos z pronájmu. Pomůžeme vám 
+              s financováním investičního bytu nebo domu včetně výhodných podmínek.
             </p>
           </motion.div>
 

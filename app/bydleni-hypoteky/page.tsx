@@ -15,50 +15,105 @@ import RefinancingIcon from '@/components/icons/mortgage/RefinancingIcon';
 import InvestmentIcon from '@/components/icons/mortgage/InvestmentIcon';
 import ConstructionIcon from '@/components/icons/mortgage/ConstructionIcon';
 
+// SEO Metadata
+export const metadata = {
+  title: 'Hypotéky a bydlení Břeclav | Hypoteční úvěr | Finanční poradenství | ZFP GROUP',
+  description: 'Hypotéky v Břeclavi a okolí. Pomůžeme najít nejvýhodnější hypoteční úvěr na bydlení - první byt, rodinný dům, refinancování i investice. Bezplatná konzultace.',
+  keywords: 'hypotéka Břeclav, hypoteční úvěr, financování bydlení, první hypotéka, refinancování, OSVČ hypotéka, investiční nemovitost',
+  openGraph: {
+    title: 'Hypotéky a financování bydlení | ZFP GROUP Břeclav',
+    description: 'Pomůžeme najít nejvýhodnější hypoteční úvěr. První bydlení, refinancování, OSVČ, investice - vše s osobním přístupem.',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky',
+    type: 'website',
+    locale: 'cs_CZ'
+  }
+};
+
 export default function MortgagePage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 
   const situations = [
     {
-      title: 'První bydlení',
-      description: 'Hypotéka na váš první byt nebo dům',
+      title: 'Hypotéka na první bydlení',
+      description: 'Hypoteční úvěr na váš první byt nebo dům i s nízkou akontací',
       Icon: FirstHomeIcon,
       href: '/bydleni-hypoteky/situace/prvni-bydleni',
     },
     {
-      title: 'Rodina s dětmi',
-      description: 'Větší bydlení pro rostoucí rodinu',
+      title: 'Hypotéka pro rodinu s dětmi',
+      description: 'Větší bydlení pro rostoucí rodinu včetně státní podpory',
       Icon: FamilyIcon,
       href: '/bydleni-hypoteky/situace/rodina-s-detmi',
     },
     {
-      title: 'OSVČ / Podnikatelé',
-      description: 'Řešení pro osoby samostatně výdělečně činné',
+      title: 'Hypotéka pro OSVČ a podnikatele',
+      description: 'Řešení pro osoby samostatně výdělečně činné a živnostníky',
       Icon: EntrepreneurIcon,
       href: '/bydleni-hypoteky/situace/osvc-podnikatele',
     },
     {
-      title: 'Refinancování',
-      description: 'Přefinancování stávající hypotéky',
+      title: 'Refinancování hypotéky',
+      description: 'Přefinancování s nižším úrokem - úspora tisíců ročně',
       Icon: RefinancingIcon,
       href: '/bydleni-hypoteky/situace/refinancovani',
     },
     {
-      title: 'Investice',
-      description: 'Nemovitost jako investice',
+      title: 'Hypotéka na investici',
+      description: 'Investiční nemovitost k pronájmu s výhodným financováním',
       Icon: InvestmentIcon,
       href: '/bydleni-hypoteky/situace/investice',
     },
     {
-      title: 'Stavební úpravy',
-      description: 'Financování rekonstrukce nebo dostavby',
+      title: 'Hypotéka na rekonstrukci',
+      description: 'Financování rekonstrukce, přístavby nebo modernizace',
       Icon: ConstructionIcon,
       href: '/bydleni-hypoteky/situace/stavebni-upravy',
     },
   ];
 
+  // Structured Data
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Hypotéky a financování bydlení - ZFP GROUP Břeclav",
+    "description": "Kompletní služby v oblasti hypotečních úvěrů a financování bydlení v Břeclavi a okolí.",
+    "provider": {
+      "@type": "FinancialService",
+      "name": "ZFP GROUP Břeclav",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "náměstí T. G. Masaryka 28/10",
+        "addressLocality": "Břeclav",
+        "postalCode": "690 02",
+        "addressCountry": "CZ"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "48.7589",
+        "longitude": "16.8822"
+      },
+      "telephone": "+420-519-352-632",
+      "url": "https://www.zfpbreclav.cz"
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "48.7589",
+        "longitude": "16.8822"
+      },
+      "geoRadius": "50000"
+    },
+    "serviceType": ["Hypoteční úvěr", "Refinancování hypotéky", "Finanční poradenství"]
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
       {/* Hero Section */}
       <section className="pt-24 lg:pt-32 pb-16 lg:pb-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-zfp-darker via-zfp-dark to-zfp-darker" />
@@ -79,7 +134,7 @@ export default function MortgagePage() {
             </div>
 
             <h1 className="mb-6">
-              Bydlení & hypotéky
+              Hypotéky a financování bydlení
             </h1>
 
             <p className="text-xl lg:text-2xl mb-8 max-w-3xl text-white/80 leading-relaxed">
