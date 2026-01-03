@@ -141,9 +141,16 @@ export default function Navigation() {
               '/bydleni-hypoteky/kalkulacka', // Hypoteční kalkulačka - tool in Finanční nástroje
             ];
             
-            // Content sections: pages that belong to their parent section, not to Finanční nástroje shortcuts
-            const contentSectionPrefixes = [
-              '/bydleni-hypoteky/situace/', // All situation pages (refinancování, první bydlení, etc.)
+            // Bydlení & hypotéky content pages (should activate Bydlení menu, not Finanční nástroje)
+            const bydleniContentPages = [
+              '/bydleni-hypoteky/prvni-bydleni',
+              '/bydleni-hypoteky/rodina-s-detmi',
+              '/bydleni-hypoteky/stavebni-upravy',
+              '/bydleni-hypoteky/osvc-podnikatele',
+              '/bydleni-hypoteky/investice',
+              '/bydleni-hypoteky/refinancovani',
+              '/bydleni-hypoteky/jak-to-funguje',
+              '/bydleni-hypoteky/podle-typu',
             ];
             
             // Cross-links from Finanční nástroje that point to other sections
@@ -155,9 +162,9 @@ export default function Navigation() {
               '/financni-poradenstvi/reality', // Reality kalkulačka → Finanční poradenství
             ];
             
-            // Check if current path is a tool landing page, content section, or cross-link target
+            // Check if current path is a tool landing page, Bydlení content page, or cross-link target
             const isToolLandingPage = toolLandingPages.includes(pathname || '');
-            const isContentSection = contentSectionPrefixes.some(prefix => pathname?.startsWith(prefix));
+            const isBydleniContentPage = bydleniContentPages.some(page => pathname?.startsWith(page));
             const isCrossLinkTarget = crossLinkTargets.some(target => pathname?.startsWith(target));
             
             // Calculate isActive - but respect tool landing pages and cross-links!
@@ -169,8 +176,8 @@ export default function Navigation() {
               isActive = false;
             }
             
-            // 2. Finanční nástroje should NOT be active for cross-link targets (they belong to target section)
-            if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
+            // 2. Finanční nástroje should NOT be active for Bydlení content pages or cross-link targets
+            if (item.href === '/financni-nastroje' && (isBydleniContentPage || isCrossLinkTarget)) {
               isActive = false;
             }
             
