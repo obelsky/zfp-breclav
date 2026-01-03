@@ -33,19 +33,21 @@ export default function CRMLoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-zfp-darker via-zfp-dark to-zfp-darker flex items-center justify-center p-4 pt-20">
+    <div className="min-h-screen bg-gradient-to-br from-zfp-darker via-zfp-dark to-zfp-darker relative">
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-zfp-gold/5 rounded-full blur-3xl" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-zfp-orange/5 rounded-full blur-3xl" />
       </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md relative z-10 mx-auto"
-      >
+      {/* Centered container */}
+      <div className="absolute inset-0 flex items-center justify-center p-4 pt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-md relative z-10"
+        >
         {/* Title - no logo */}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">CRM Systém</h1>
@@ -158,6 +160,7 @@ export default function CRMLoginPage() {
           </p>
         </div>
       </motion.div>
+      </div>
     </div>
   );
 }
