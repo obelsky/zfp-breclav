@@ -15,19 +15,6 @@ import RefinancingIcon from '@/components/icons/mortgage/RefinancingIcon';
 import InvestmentIcon from '@/components/icons/mortgage/InvestmentIcon';
 import ConstructionIcon from '@/components/icons/mortgage/ConstructionIcon';
 
-// SEO Metadata
-export const metadata = {
-  title: 'Hypotéky a bydlení Břeclav | Hypoteční úvěr | Finanční poradenství | ZFP GROUP',
-  description: 'Hypotéky v Břeclavi a okolí. Pomůžeme najít nejvýhodnější hypoteční úvěr na bydlení - první byt, rodinný dům, refinancování i investice. Bezplatná konzultace.',
-  keywords: 'hypotéka Břeclav, hypoteční úvěr, financování bydlení, první hypotéka, refinancování, OSVČ hypotéka, investiční nemovitost',
-  openGraph: {
-    title: 'Hypotéky a financování bydlení | ZFP GROUP Břeclav',
-    description: 'Pomůžeme najít nejvýhodnější hypoteční úvěr. První bydlení, refinancování, OSVČ, investice - vše s osobním přístupem.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky',
-    type: 'website',
-    locale: 'cs_CZ'
-  }
-};
 
 export default function MortgagePage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);

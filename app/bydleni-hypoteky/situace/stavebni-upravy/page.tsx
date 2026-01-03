@@ -7,19 +7,6 @@ import ContactForm from '@/components/ContactForm';
 import ConstructionIcon from '@/components/icons/mortgage/ConstructionIcon';
 import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
-// SEO Metadata
-export const metadata = {
-  title: 'Hypotéka na rekonstrukci domu Břeclav | Úvěr na stavební úpravy | ZFP GROUP',
-  description: 'Hypotéka na rekonstrukci, přístavbu či přestavbu domu v Břeclavi a okolí. Výhodné financování stavebních úprav a modernizace bydlení. Bezplatná konzultace.',
-  keywords: 'hypotéka na rekonstrukci, úvěr na stavební úpravy, financování přístavby, rekonstrukce domu, modernizace bydlení, Břeclav',
-  openGraph: {
-    title: 'Hypotéka na rekonstrukci a stavební úpravy | ZFP GROUP Břeclav',
-    description: 'Rekonstrukce, přístavba nebo modernizace. Pomůžeme financovat proměnu vašeho bydlení výhodným hypotečním úvěrem.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/stavebni-upravy',
-    type: 'website',
-    locale: 'cs_CZ'
-  }
-};
 
 export default function ConstructionPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);

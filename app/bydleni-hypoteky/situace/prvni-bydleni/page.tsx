@@ -7,21 +7,6 @@ import ContactForm from '@/components/ContactForm';
 import FirstHomeIcon from '@/components/icons/mortgage/FirstHomeIcon';
 import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
-// SEO Metadata
-export const metadata = {
-  title: 'Hypotéka na první bydlení Břeclav | Hypoteční úvěr pro začátečníky | ZFP GROUP',
-  description: 'Hypotéka na první bydlení v Břeclavi a okolí. Pomůžeme získat výhodný hypoteční úvěr i s nízkou akontací a kratší pracovní historií. Bezplatná konzultace.',
-  keywords: 'hypotéka první bydlení, hypoteční úvěr začátečníci, nízká akontace, první vlastní byt, mladá rodina hypotéka, Břeclav',
-  openGraph: {
-    title: 'Hypotéka na první bydlení | Finanční poradenství Břeclav',
-    description: 'První krok k vlastnímu bydlení. Pomůžeme vám získat hypotéku i s nízkou akontací a kratší pracovní historií.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/prvni-bydleni',
-    type: 'website',
-    locale: 'cs_CZ',
-    siteName: 'ZFP GROUP Břeclav'
-  }
-};
-
 export default function FirstHomePage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
 

@@ -7,19 +7,6 @@ import ContactForm from '@/components/ContactForm';
 import FamilyIcon from '@/components/icons/mortgage/FamilyIcon';
 import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
-// SEO Metadata
-export const metadata = {
-  title: 'Hypotéka pro rodinu s dětmi Břeclav | Rodinný hypoteční úvěr | ZFP GROUP',
-  description: 'Hypotéka pro rodinu s dětmi v Břeclavi. Pomůžeme s financováním většího bydlení, přístavby nebo využitím státní podpory. Bezplatná konzultace.',
-  keywords: 'hypotéka rodina s dětmi, rodinný dům hypotéka, větší bydlení, přístavba financování, státní podpora rodiny, Břeclav',
-  openGraph: {
-    title: 'Hypotéka pro rodinu s dětmi | Finanční poradenství Břeclav',
-    description: 'Rostoucí rodina potřebuje větší prostor. Pomůžeme s financováním většího bydlení nebo přístavby včetně využití státní podpory.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/rodina-s-detmi',
-    type: 'website',
-    locale: 'cs_CZ'
-  }
-};
 
 export default function FamilyPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);

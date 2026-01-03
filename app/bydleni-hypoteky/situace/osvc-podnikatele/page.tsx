@@ -7,19 +7,6 @@ import ContactForm from '@/components/ContactForm';
 import EntrepreneurIcon from '@/components/icons/mortgage/EntrepreneurIcon';
 import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
-// SEO Metadata
-export const metadata = {
-  title: 'Hypotéka pro OSVČ a podnikatele Břeclav | Úvěr na bydlení pro živnostníky | ZFP GROUP',
-  description: 'Hypotéka pro OSVČ, živnostníky a podnikatele v Břeclavi. Známe banky, které k podnikatelům přistupují vstřícně. Individuální řešení, bezplatná konzultace.',
-  keywords: 'hypotéka OSVČ, hypotéka podnikatelé, úvěr živnostník, financování OSVČ, hypotéka bez ručitele, Břeclav',
-  openGraph: {
-    title: 'Hypotéka pro OSVČ a podnikatele | ZFP GROUP Břeclav',
-    description: 'Specializujeme se na hypotéky pro podnikatele. Známe banky, které k OSVČ přistupují vstřícně a nabízíme individuální řešení.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/osvc-podnikatele',
-    type: 'website',
-    locale: 'cs_CZ'
-  }
-};
 
 export default function EntrepreneurPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);

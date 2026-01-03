@@ -8,19 +8,6 @@ import RefinancingCalculator from '@/components/RefinancingCalculator';
 import CalculatorCTA from '@/components/CalculatorCTA';
 import RefinancingIcon from '@/components/icons/mortgage/RefinancingIcon';
 
-// SEO Metadata
-export const metadata = {
-  title: 'Refinancování hypotéky Břeclav | Výhodnější úrok, nižší splátka | ZFP GROUP',
-  description: 'Refinancování hypotéky v Břeclavi a okolí. Snížte úrok, sjednejte výhodnější podmínky a ušetřete tisíce ročně. Výpočet úspory zdarma. Bezplatná konzultace.',
-  keywords: 'refinancování hypotéky, přefinancování úvěru, nižší úrok, změna banky, konsolidace úvěrů, úspora na hypotéce, Břeclav',
-  openGraph: {
-    title: 'Refinancování hypotéky - Ušetřete tisíce ročně | ZFP GROUP Břeclav',
-    description: 'Máte hypotéku s vysokým úrokem? Refinancování může ročně ušetřit desítky tisíc. Výpočet úspory zdarma.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/refinancovani',
-    type: 'website',
-    locale: 'cs_CZ'
-  }
-};
 
 export default function RefinancingPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);

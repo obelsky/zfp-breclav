@@ -7,19 +7,6 @@ import ContactForm from '@/components/ContactForm';
 import InvestmentIcon from '@/components/icons/mortgage/InvestmentIcon';
 import MortgageCalculatorBanner from '@/components/MortgageCalculatorBanner';
 
-// SEO Metadata
-export const metadata = {
-  title: 'Hypotéka na investici do nemovitostí Břeclav | Investiční úvěr | ZFP GROUP',
-  description: 'Hypotéka na investici do nemovitostí v Břeclavi. Financování investičního bytu nebo domu k pronájmu. Výhodné podmínky pro investory. Bezplatná konzultace.',
-  keywords: 'hypotéka investice nemovitosti, investiční úvěr, financování pronájmu, byt k pronájmu, investiční nemovitost, Břeclav',
-  openGraph: {
-    title: 'Hypotéka na investici do nemovitostí | ZFP GROUP Břeclav',
-    description: 'Nemovitost jako investice přináší stabilní výnos. Pomůžeme s financováním investičního bytu nebo domu k pronájmu.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/investice',
-    type: 'website',
-    locale: 'cs_CZ'
-  }
-};
 
 export default function InvestmentPage() {
   const [isContactFormOpen, setIsContactFormOpen] = useState(false);
