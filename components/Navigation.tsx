@@ -266,6 +266,11 @@ export default function Navigation() {
               isInSection = false; // Close submenu - we're in target section instead
             }
             
+            // For Bydlení & hypotéky: FORCE submenu open if in content section (even if matched by earlier parent)
+            if (item.href === '/bydleni-hypoteky' && isContentSection) {
+              isInSection = true; // ALWAYS show submenu for our content!
+            }
+            
             // For Bydlení & hypotéky: Don't show submenu if on tool landing page
             if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
               isInSection = false; // Close submenu - this is Finanční nástroje tool
@@ -431,6 +436,11 @@ export default function Navigation() {
                 // For Finanční nástroje: Don't show submenu if on cross-link target
                 if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
                   isInSection = false; // Close submenu
+                }
+                
+                // For Bydlení & hypotéky: FORCE submenu open if in content section (same as desktop)
+                if (item.href === '/bydleni-hypoteky' && isContentSection) {
+                  isInSection = true; // ALWAYS show submenu for our content!
                 }
                 
                 // For Bydlení & hypotéky: Don't show submenu if on tool landing page
