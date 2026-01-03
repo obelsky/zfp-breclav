@@ -134,8 +134,6 @@ export default function Navigation() {
         {/* Navigation Links */}
         <div className="flex-1 space-y-1">
           {navigationItems.map((item, index) => {
-            const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
-            
             // SPECIAL HANDLING FOR TOOL LANDING PAGES VS CONTENT SECTIONS VS CROSS-LINKS
             
             // Tool landing pages: standalone calculator pages that belong to Finanční nástroje
@@ -161,6 +159,25 @@ export default function Navigation() {
             const isToolLandingPage = toolLandingPages.includes(pathname || '');
             const isContentSection = contentSectionPrefixes.some(prefix => pathname?.startsWith(prefix));
             const isCrossLinkTarget = crossLinkTargets.some(target => pathname?.startsWith(target));
+            
+            // Calculate isActive - but respect tool landing pages and cross-links!
+            let isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
+            
+            // Override isActive for special cases:
+            // 1. Bydlení & hypotéky should NOT be active for tool landing pages (they belong to Finanční nástroje)
+            if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
+              isActive = false;
+            }
+            
+            // 2. Finanční nástroje should NOT be active for cross-link targets (they belong to target section)
+            if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
+              isActive = false;
+            }
+            
+            // 3. Finanční nástroje SHOULD be active for tool landing pages
+            if (item.href === '/financni-nastroje' && isToolLandingPage) {
+              isActive = true;
+            }
             
             // IMPORTANT: Sections must ALWAYS be visible, never use return null!
             // Only adjust isActive and isInSection states
@@ -239,12 +256,17 @@ export default function Navigation() {
             
             // SPECIAL LOGIC FOR SPECIFIC SECTIONS:
             
-            // For Finanční nástroje: Don't show as active/open if on cross-link target
+            // For Finanční nástroje: Show submenu if on tool landing page
+            if (item.href === '/financni-nastroje' && isToolLandingPage) {
+              isInSection = true; // Open submenu for tool landing pages
+            }
+            
+            // For Finanční nástroje: Don't show submenu if on cross-link target
             if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
               isInSection = false; // Close submenu - we're in target section instead
             }
             
-            // For Bydlení & hypotéky: Don't show as active/open if on tool landing page
+            // For Bydlení & hypotéky: Don't show submenu if on tool landing page
             if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
               isInSection = false; // Close submenu - this is Finanční nástroje tool
             }
@@ -378,17 +400,40 @@ export default function Navigation() {
                 const isCrossLinkTarget = crossLinkTargets.some(target => pathname?.startsWith(target));
                 
                 // IMPORTANT: Sections must ALWAYS be visible (no return null!)
-                // Only adjust isInSection state
+                // Only adjust isActive and isInSection states
                 
-                const isActive = pathname === item.href;
+                // Calculate isActive - but respect tool landing pages and cross-links!
+                let isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
+                
+                // Override isActive for special cases (same as desktop):
+                // 1. Bydlení & hypotéky should NOT be active for tool landing pages
+                if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
+                  isActive = false;
+                }
+                
+                // 2. Finanční nástroje should NOT be active for cross-link targets
+                if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
+                  isActive = false;
+                }
+                
+                // 3. Finanční nástroje SHOULD be active for tool landing pages
+                if (item.href === '/financni-nastroje' && isToolLandingPage) {
+                  isActive = true;
+                }
+                
                 let isInSection = !isToolLandingPage && (pathname?.startsWith(item.href + '/') || pathname === item.href);
                 
-                // For Finanční nástroje: Don't show as open if on cross-link target
+                // For Finanční nástroje: Show submenu if on tool landing page
+                if (item.href === '/financni-nastroje' && isToolLandingPage) {
+                  isInSection = true; // Open submenu for tool landing pages
+                }
+                
+                // For Finanční nástroje: Don't show submenu if on cross-link target
                 if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
                   isInSection = false; // Close submenu
                 }
                 
-                // For Bydlení & hypotéky: Don't show as open if on tool landing page
+                // For Bydlení & hypotéky: Don't show submenu if on tool landing page
                 if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
                   isInSection = false; // Close submenu
                 }
