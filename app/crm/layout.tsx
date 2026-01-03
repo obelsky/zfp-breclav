@@ -17,6 +17,9 @@ function CRMLayoutContent({ children }: { children: React.ReactNode }) {
   const isLoginPage = pathname === '/crm';
   
   if (isLoginPage) {
+    // PUBLIC LOGIN LAYOUT
+    // Simple header + clean page without sidebar/navigation
+    // Login page handles its own centering via absolute positioning
     return (
       <>
         {/* Simple header for login page */}
@@ -37,12 +40,14 @@ function CRMLayoutContent({ children }: { children: React.ReactNode }) {
             </Link>
           </div>
         </div>
+        {/* No wrapper - login page provides its own layout */}
         {children}
       </>
     );
   }
   
-  // After login, show full navigation
+  // AUTHENTICATED CRM LAYOUT
+  // After login, show full navigation with sidebar
   return (
     <>
       <CRMNavigation />
@@ -56,12 +61,28 @@ export default function CRMLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isLoginPage = pathname === '/crm';
+  
   return (
     <CRMAuthProvider>
       <PushNotificationProvider>
-        <div className="flex min-h-screen bg-zfp-dark">
-          <CRMLayoutContent>{children}</CRMLayoutContent>
-        </div>
+        {/* 
+          IMPORTANT: Separate wrapper styles for login vs authenticated pages
+          - Login page: no flex wrapper (login handles its own centering)
+          - Authenticated pages: flex wrapper for sidebar layout
+        */}
+        {isLoginPage ? (
+          // Clean wrapper for login - no flex that could interfere with centering
+          <div className="min-h-screen bg-zfp-dark">
+            <CRMLayoutContent>{children}</CRMLayoutContent>
+          </div>
+        ) : (
+          // Flex wrapper for authenticated pages with sidebar
+          <div className="flex min-h-screen bg-zfp-dark">
+            <CRMLayoutContent>{children}</CRMLayoutContent>
+          </div>
+        )}
       </PushNotificationProvider>
     </CRMAuthProvider>
   );
