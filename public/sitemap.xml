@@ -7,100 +7,200 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://zfp-breclav.cz/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Jak vám můžeme pomoci -->
   <url>
-    <loc>https://zfp-breclav.cz/jak-vam-muzeme-pomoci</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/jak-vam-muzeme-pomoci</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://zfp-breclav.cz/jak-vam-muzeme-pomoci/rozumet-financim</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/jak-vam-muzeme-pomoci/rozumet-financim</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://zfp-breclav.cz/jak-vam-muzeme-pomoci/mit-prehled</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/jak-vam-muzeme-pomoci/mit-prehled</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://zfp-breclav.cz/jak-vam-muzeme-pomoci/rozvoj</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/jak-vam-muzeme-pomoci/rozvoj</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Bydlení & hypotéky -->
   <url>
-    <loc>https://zfp-breclav.cz/bydleni-hypoteky</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/bydleni-hypoteky</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://zfp-breclav.cz/bydleni-hypoteky/kalkulacka</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/bydleni-hypoteky/kalkulacka</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/bydleni-hypoteky/jak-to-funguje</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://zfp-breclav.cz/bydleni-hypoteky/podle-situace</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/bydleni-hypoteky/podle-typu</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Bydlení & hypotéky - Situace -->
+  <url>
+    <loc>https://www.zfpbreclav.cz/bydleni-hypoteky/situace/prvni-bydleni</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/bydleni-hypoteky/situace/rodina-s-detmi</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/bydleni-hypoteky/situace/stavebni-upravy</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/bydleni-hypoteky/situace/osvc-podnikatele</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/bydleni-hypoteky/situace/investice</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/bydleni-hypoteky/situace/refinancovani</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Finanční vzdělávání -->
+  <url>
+    <loc>https://www.zfpbreclav.cz/financni-vzdelavani</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://zfp-breclav.cz/bydleni-hypoteky/proces</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/financni-vzdelavani/financni-minimum</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/financni-vzdelavani/financni-prehled</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/financni-vzdelavani/jak-funguje-system</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/financni-vzdelavani/navazujici-vzdelavani</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Vzdělávání ZFP -->
+  <!-- Finanční poradenství -->
   <url>
-    <loc>https://zfp-breclav.cz/financni-vzdelavani</loc>
-    <lastmod>2025-12-29</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Poradenství -->
-  <url>
-    <loc>https://zfp-breclav.cz/financni-poradenstvi</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/financni-poradenstvi</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <!-- Poradna -->
   <url>
-    <loc>https://zfp-breclav.cz/poradna</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/poradna</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/poradna/finance</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/poradna/investovani</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/poradna/pojisteni</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/poradna/reality</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zfpbreclav.cz/poradna/legislativa</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
 
+  <!-- eŠanon -->
+  <url>
+    <loc>https://www.zfpbreclav.cz/esanon</loc>
+    <lastmod>2026-01-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- O kanceláři -->
   <url>
-    <loc>https://zfp-breclav.cz/o-kancelari</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/o-kancelari</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <!-- Kontakt -->
   <url>
-    <loc>https://zfp-breclav.cz/kontakt</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://www.zfpbreclav.cz/kontakt</loc>
+    <lastmod>2026-01-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
