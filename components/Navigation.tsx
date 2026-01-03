@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 const navigationItems = [
@@ -43,7 +43,7 @@ const navigationItems = [
     label: 'Finanční nástroje',
     children: [
       { href: '/bydleni-hypoteky/kalkulacka', label: 'Hypoteční kalkulačka' },
-      { href: '/bydleni-hypoteky/situace/refinancovani', label: 'Refinancování hypotéky' },
+      { href: '/bydleni-hypoteky/situace/refinancovani#refinancing-calculator', label: 'Refinancování hypotéky' },
       { href: '/financni-poradenstvi/sluzby/investice#savings-calculator', label: 'Kalkulačka spoření' },
       { href: '/financni-nastroje/duchod', label: 'Důchodová kalkulačka' },
       { href: '/financni-nastroje/kde-mizi-penize', label: 'Kde mizí peníze?' },
@@ -93,6 +93,24 @@ const navigationItems = [
 export default function Navigation() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const [currentHash, setCurrentHash] = useState('');
+
+  // Track hash changes for active state highlighting
+  useEffect(() => {
+    const updateHash = () => {
+      setCurrentHash(window.location.hash.slice(1));
+    };
+    
+    // Set initial hash
+    updateHash();
+    
+    // Listen for hash changes
+    window.addEventListener('hashchange', updateHash);
+    
+    return () => {
+      window.removeEventListener('hashchange', updateHash);
+    };
+  }, []);
 
   return (
     <>
@@ -118,7 +136,8 @@ export default function Navigation() {
           {navigationItems.map((item, index) => {
             const isActive = pathname === item.href || pathname?.startsWith(item.href + '/');
             
-            // SPECIAL HANDLING FOR TOOL LANDING PAGES VS CONTENT SECTIONS
+            // SPECIAL HANDLING FOR TOOL LANDING PAGES VS CONTENT SECTIONS VS CROSS-LINKS
+            
             // Tool landing pages: standalone calculator pages that belong to Finanční nástroje
             const toolLandingPages = [
               '/bydleni-hypoteky/kalkulacka', // Hypoteční kalkulačka - tool in Finanční nástroje
@@ -129,18 +148,29 @@ export default function Navigation() {
               '/bydleni-hypoteky/situace/', // All situation pages (refinancování, první bydlení, etc.)
             ];
             
-            // Check if current path is a tool landing page or content section
+            // Cross-links from Finanční nástroje that point to other sections
+            // These should activate the target section, not Finanční nástroje
+            const crossLinkTargets = [
+              '/bydleni-hypoteky/situace/refinancovani', // Refinancování → Bydlení & hypotéky
+              '/financni-poradenstvi/sluzby/investice', // Kalkulačka spoření → Finanční poradenství
+              '/financni-poradenstvi/sluzby/pojisteni', // Pojistná kalkulačka → Finanční poradenství
+              '/financni-poradenstvi/sluzby/reality', // Reality kalkulačka → Finanční poradenství
+            ];
+            
+            // Check if current path is a tool landing page, content section, or cross-link target
             const isToolLandingPage = toolLandingPages.includes(pathname || '');
             const isContentSection = contentSectionPrefixes.some(prefix => pathname?.startsWith(prefix));
+            const isCrossLinkTarget = crossLinkTargets.some(target => pathname?.startsWith(target));
             
             // If this is Bydlení & hypotéky section and we're on a tool landing page, skip it
             if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
               return null; // Don't show this section as active for tool landing pages
             }
             
-            // If this is Finanční nástroje section and we're on a content section, skip it
-            if (item.href === '/financni-nastroje' && isContentSection) {
-              return null; // Don't show Finanční nástroje as active for content sections
+            // If this is Finanční nástroje section and we're on a content section OR cross-link target, skip it
+            // This ensures cross-links activate their target section, not Finanční nástroje
+            if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
+              return null; // Don't show Finanční nástroje as active for cross-link targets
             }
             
             // Check if current path is directly under this section's hierarchy
@@ -232,7 +262,19 @@ export default function Navigation() {
                 {item.children && isInSection && (
                   <div className="ml-6 mt-1 space-y-1 border-l border-white/10 pl-4">
                     {item.children.map((child) => {
-                      const isChildActive = pathname === child.href;
+                      // Support hash anchors in child hrefs
+                      const childBasePath = child.href.split('#')[0];
+                      const childHash = child.href.split('#')[1];
+                      
+                      // Check if pathname matches (ignore hash for pathname comparison)
+                      const pathMatches = pathname === childBasePath;
+                      
+                      // Use state currentHash for reactive updates
+                      const hashMatches = childHash ? currentHash === childHash : true;
+                      
+                      // Active if path matches and (no hash requirement OR hash matches)
+                      const isChildActive = pathMatches && (!childHash || hashMatches);
+                      
                       return (
                         <Link
                           key={child.href}
@@ -313,24 +355,31 @@ export default function Navigation() {
           <div className="absolute top-full left-0 right-0 bg-zfp-darker border-b border-white/10 max-h-[calc(100vh-64px)] overflow-y-auto">
             <div className="p-6 space-y-2">
               {navigationItems.map((item) => {
-                // Tool landing pages vs content sections (same as desktop)
+                // Tool landing pages vs content sections vs cross-links (same as desktop)
                 const toolLandingPages = [
                   '/bydleni-hypoteky/kalkulacka', // Hypoteční kalkulačka - belongs to Finanční nástroje
                 ];
                 const contentSectionPrefixes = [
                   '/bydleni-hypoteky/situace/', // All situation pages belong to Bydlení & hypotéky
                 ];
+                const crossLinkTargets = [
+                  '/bydleni-hypoteky/situace/refinancovani', // Refinancování → Bydlení & hypotéky
+                  '/financni-poradenstvi/sluzby/investice', // Kalkulačka spoření → Finanční poradenství
+                  '/financni-poradenstvi/sluzby/pojisteni', // Pojistná kalkulačka → Finanční poradenství
+                  '/financni-poradenstvi/sluzby/reality', // Reality kalkulačka → Finanční poradenství
+                ];
                 
                 const isToolLandingPage = toolLandingPages.includes(pathname || '');
                 const isContentSection = contentSectionPrefixes.some(prefix => pathname?.startsWith(prefix));
+                const isCrossLinkTarget = crossLinkTargets.some(target => pathname?.startsWith(target));
                 
                 // Skip Bydlení & hypotéky section if on a tool landing page
                 if (item.href === '/bydleni-hypoteky' && isToolLandingPage) {
                   return null;
                 }
                 
-                // Skip Finanční nástroje section if on a content section
-                if (item.href === '/financni-nastroje' && isContentSection) {
+                // Skip Finanční nástroje section if on a content section OR cross-link target
+                if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
                   return null;
                 }
                 
@@ -354,7 +403,16 @@ export default function Navigation() {
                     {item.children && isInSection && (
                       <div className="ml-4 mt-1 space-y-1 border-l border-white/10 pl-3">
                         {item.children.map((child) => {
-                          const isChildActive = pathname === child.href;
+                          // Support hash anchors in child hrefs (same as desktop)
+                          const childBasePath = child.href.split('#')[0];
+                          const childHash = child.href.split('#')[1];
+                          
+                          const pathMatches = pathname === childBasePath;
+                          // Use state currentHash for reactive updates
+                          const hashMatches = childHash ? currentHash === childHash : true;
+                          
+                          const isChildActive = pathMatches && (!childHash || hashMatches);
+                          
                           return (
                             <Link
                               key={child.href}
