@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Hypotéka na rekonstrukci a stavební úpravy | Finanční poradce Břeclav',
     description: 'Rekonstrukce, přístavba nebo modernizace. Pomůžeme financovat proměnu vašeho domu či bytu výhodným hypotečním úvěrem až na 100% nákladů.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/stavebni-upravy',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/stavebni-upravy',
     type: 'website',
     locale: 'cs_CZ',
     siteName: 'ZFP GROUP Břeclav',

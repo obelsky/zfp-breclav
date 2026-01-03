@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Hypotéka pro OSVČ a podnikatele | Finanční poradce Břeclav',
     description: 'Specializujeme se na hypotéky pro podnikatele a živnostníky. Známe banky s vstřícným přístupem k OSVČ a nabízíme řešení i bez dokladování příjmů.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/osvc-podnikatele',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/osvc-podnikatele',
     type: 'website',
     locale: 'cs_CZ',
     siteName: 'ZFP GROUP Břeclav',

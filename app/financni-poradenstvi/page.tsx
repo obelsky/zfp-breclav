@@ -22,7 +22,7 @@ export default function PoradenstviPage() {
       title: 'Finanční plánování',
       description: 'Nastavíme rozpočet, cíle a strategii pro vaše finance',
       Icon: FinancialPlanningIcon,
-      href: '/financni-poradenstvi/sluzby/financni-planovani',
+      href: '/financni-poradenstvi/financni-planovani',
     },
     {
       title: 'Hypotéky',
@@ -34,19 +34,19 @@ export default function PoradenstviPage() {
       title: 'Investice',
       description: 'Zhodnoťte peníze chytře a dlouhodobě',
       Icon: InvestmentServiceIcon,
-      href: '/financni-poradenstvi/sluzby/investice',
+      href: '/financni-poradenstvi/investice',
     },
     {
       title: 'Pojištění',
       description: 'Ochrana vás a vaší rodiny pro každou situaci',
       Icon: InsuranceIcon,
-      href: '/financni-poradenstvi/sluzby/pojisteni',
+      href: '/financni-poradenstvi/pojisteni',
     },
     {
       title: 'Reality',
       description: 'ZFP Reality - pomůžeme prodat i koupit nemovitost',
       Icon: RealtyIcon,
-      href: '/financni-poradenstvi/sluzby/reality',
+      href: '/financni-poradenstvi/reality',
     },
   ];
 

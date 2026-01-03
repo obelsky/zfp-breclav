@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Refinancování hypotéky - Ušetřete až 100 000 Kč | Finanční poradce Břeclav',
     description: 'Máte hypotéku s vysokým úrokem? Refinancování může ročně ušetřit desítky tisíc. Výpočet úspory zdarma, vyřízení bez poplatků.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/refinancovani',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/refinancovani',
     type: 'website',
     locale: 'cs_CZ',
     siteName: 'ZFP GROUP Břeclav',

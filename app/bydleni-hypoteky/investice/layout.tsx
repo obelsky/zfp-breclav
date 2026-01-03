@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Hypotéka na investici do nemovitostí | Finanční poradce Břeclav',
     description: 'Nemovitost jako investice přináší stabilní pasivní příjem z pronájmu. Pomůžeme s financováním investičního bytu nebo domu včetně výpočtu výnosnosti.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/investice',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/investice',
     type: 'website',
     locale: 'cs_CZ',
     siteName: 'ZFP GROUP Břeclav',

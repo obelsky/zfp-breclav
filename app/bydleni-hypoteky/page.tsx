@@ -24,37 +24,37 @@ export default function MortgagePage() {
       title: 'Hypotéka na první bydlení',
       description: 'Hypoteční úvěr na váš první byt nebo dům i s nízkou akontací',
       Icon: FirstHomeIcon,
-      href: '/bydleni-hypoteky/situace/prvni-bydleni',
+      href: '/bydleni-hypoteky/prvni-bydleni',
     },
     {
       title: 'Hypotéka pro rodinu s dětmi',
       description: 'Větší bydlení pro rostoucí rodinu včetně státní podpory',
       Icon: FamilyIcon,
-      href: '/bydleni-hypoteky/situace/rodina-s-detmi',
+      href: '/bydleni-hypoteky/rodina-s-detmi',
     },
     {
       title: 'Hypotéka pro OSVČ a podnikatele',
       description: 'Řešení pro osoby samostatně výdělečně činné a živnostníky',
       Icon: EntrepreneurIcon,
-      href: '/bydleni-hypoteky/situace/osvc-podnikatele',
+      href: '/bydleni-hypoteky/osvc-podnikatele',
     },
     {
       title: 'Refinancování hypotéky',
       description: 'Přefinancování s nižším úrokem - úspora tisíců ročně',
       Icon: RefinancingIcon,
-      href: '/bydleni-hypoteky/situace/refinancovani',
+      href: '/bydleni-hypoteky/refinancovani',
     },
     {
       title: 'Hypotéka na investici',
       description: 'Investiční nemovitost k pronájmu s výhodným financováním',
       Icon: InvestmentIcon,
-      href: '/bydleni-hypoteky/situace/investice',
+      href: '/bydleni-hypoteky/investice',
     },
     {
       title: 'Hypotéka na rekonstrukci',
       description: 'Financování rekonstrukce, přístavby nebo modernizace',
       Icon: ConstructionIcon,
-      href: '/bydleni-hypoteky/situace/stavebni-upravy',
+      href: '/bydleni-hypoteky/stavebni-upravy',
     },
   ];
 

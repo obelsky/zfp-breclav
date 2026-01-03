@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Hypotéka pro rodinu s dětmi | Finanční poradce Břeclav',
     description: 'Rostoucí rodina potřebuje větší prostor. Pomůžeme s financováním většího bydlení včetně využití státní podpory a výhod pro rodiny s dětmi.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/rodina-s-detmi',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/rodina-s-detmi',
     type: 'website',
     locale: 'cs_CZ',
     siteName: 'ZFP GROUP Břeclav',

@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     locale: 'cs_CZ',
     url: 'https://zfp-breclav.cz',
     siteName: 'ZFP GROUP Břeclav',
-    title: 'Finanční poradenství Břeclav | ZFP GROUP',
+    title: 'ZFP GROUP Břeclav | Finanční poradenství postavené na vzdělávání',
     description: 'Regionální kancelář ZFP - Finanční poradenství postavené na vzdělávání. Hypotéky, investice, pojištění. Osobní přístup, 10 let zkušeností.',
     images: [
       {

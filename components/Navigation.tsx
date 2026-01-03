@@ -31,11 +31,11 @@ const navigationItems = [
     label: 'Finanční poradenství',
     children: [
       { href: '/financni-poradenstvi/jak-pracujeme', label: 'Jak pracujeme' },
-      { href: '/financni-poradenstvi/sluzby/financni-planovani', label: 'Finanční plánování' },
+      { href: '/financni-poradenstvi/financni-planovani', label: 'Finanční plánování' },
       { href: '/bydleni-hypoteky', label: 'Hypotéky' },
-      { href: '/financni-poradenstvi/sluzby/investice', label: 'Investice' },
-      { href: '/financni-poradenstvi/sluzby/pojisteni', label: 'Pojištění' },
-      { href: '/financni-poradenstvi/sluzby/reality', label: 'Reality' },
+      { href: '/financni-poradenstvi/investice', label: 'Investice' },
+      { href: '/financni-poradenstvi/pojisteni', label: 'Pojištění' },
+      { href: '/financni-poradenstvi/reality', label: 'Reality' },
     ]
   },
   { 
@@ -43,13 +43,13 @@ const navigationItems = [
     label: 'Finanční nástroje',
     children: [
       { href: '/bydleni-hypoteky/kalkulacka', label: 'Hypoteční kalkulačka' },
-      { href: '/bydleni-hypoteky/situace/refinancovani#refinancing-calculator', label: 'Refinancování hypotéky' },
-      { href: '/financni-poradenstvi/sluzby/investice#savings-calculator', label: 'Kalkulačka spoření' },
+      { href: '/bydleni-hypoteky/refinancovani#refinancing-calculator', label: 'Refinancování hypotéky' },
+      { href: '/financni-poradenstvi/investice#savings-calculator', label: 'Kalkulačka spoření' },
       { href: '/financni-nastroje/duchod', label: 'Důchodová kalkulačka' },
       { href: '/financni-nastroje/kde-mizi-penize', label: 'Kde mizí peníze?' },
       { href: '/financni-nastroje/financni-zdravi', label: 'Finanční zdraví' },
-      { href: '/financni-poradenstvi/sluzby/pojisteni', label: 'Pojistná kalkulačka' },
-      { href: '/financni-poradenstvi/sluzby/reality', label: 'Kolik si můžu dovolit?' },
+      { href: '/financni-poradenstvi/pojisteni', label: 'Pojistná kalkulačka' },
+      { href: '/financni-poradenstvi/reality', label: 'Kolik si můžu dovolit?' },
       { href: '/esanon', label: 'eŠanon' },
     ]
   },
@@ -57,12 +57,12 @@ const navigationItems = [
     href: '/bydleni-hypoteky', 
     label: 'Bydlení & hypotéky',
     children: [
-      { href: '/bydleni-hypoteky/situace/prvni-bydleni', label: 'První bydlení' },
-      { href: '/bydleni-hypoteky/situace/rodina-s-detmi', label: 'Rodina s dětmi' },
-      { href: '/bydleni-hypoteky/situace/osvc-podnikatele', label: 'OSVČ / Podnikatelé' },
-      { href: '/bydleni-hypoteky/situace/refinancovani', label: 'Refinancování' },
-      { href: '/bydleni-hypoteky/situace/investice', label: 'Investice' },
-      { href: '/bydleni-hypoteky/situace/stavebni-upravy', label: 'Stavební úpravy' },
+      { href: '/bydleni-hypoteky/prvni-bydleni', label: 'První bydlení' },
+      { href: '/bydleni-hypoteky/rodina-s-detmi', label: 'Rodina s dětmi' },
+      { href: '/bydleni-hypoteky/osvc-podnikatele', label: 'OSVČ / Podnikatelé' },
+      { href: '/bydleni-hypoteky/refinancovani', label: 'Refinancování' },
+      { href: '/bydleni-hypoteky/investice', label: 'Investice' },
+      { href: '/bydleni-hypoteky/stavebni-upravy', label: 'Stavební úpravy' },
     ]
   },
   { 
@@ -149,10 +149,10 @@ export default function Navigation() {
             // Cross-links from Finanční nástroje that point to other sections
             // These should activate the target section, not Finanční nástroje
             const crossLinkTargets = [
-              '/bydleni-hypoteky/situace/refinancovani', // Refinancování → Bydlení & hypotéky
-              '/financni-poradenstvi/sluzby/investice', // Kalkulačka spoření → Finanční poradenství
-              '/financni-poradenstvi/sluzby/pojisteni', // Pojistná kalkulačka → Finanční poradenství
-              '/financni-poradenstvi/sluzby/reality', // Reality kalkulačka → Finanční poradenství
+              '/bydleni-hypoteky/refinancovani', // Refinancování → Bydlení & hypotéky
+              '/financni-poradenstvi/investice', // Kalkulačka spoření → Finanční poradenství
+              '/financni-poradenstvi/pojisteni', // Pojistná kalkulačka → Finanční poradenství
+              '/financni-poradenstvi/reality', // Reality kalkulačka → Finanční poradenství
             ];
             
             // Check if current path is a tool landing page, content section, or cross-link target
@@ -393,10 +393,10 @@ export default function Navigation() {
                   '/bydleni-hypoteky/situace/', // All situation pages belong to Bydlení & hypotéky
                 ];
                 const crossLinkTargets = [
-                  '/bydleni-hypoteky/situace/refinancovani', // Refinancování → Bydlení & hypotéky
-                  '/financni-poradenstvi/sluzby/investice', // Kalkulačka spoření → Finanční poradenství
-                  '/financni-poradenstvi/sluzby/pojisteni', // Pojistná kalkulačka → Finanční poradenství
-                  '/financni-poradenstvi/sluzby/reality', // Reality kalkulačka → Finanční poradenství
+                  '/bydleni-hypoteky/refinancovani', // Refinancování → Bydlení & hypotéky
+                  '/financni-poradenstvi/investice', // Kalkulačka spoření → Finanční poradenství
+                  '/financni-poradenstvi/pojisteni', // Pojistná kalkulačka → Finanční poradenství
+                  '/financni-poradenstvi/reality', // Reality kalkulačka → Finanční poradenství
                 ];
                 
                 const isToolLandingPage = toolLandingPages.includes(pathname || '');

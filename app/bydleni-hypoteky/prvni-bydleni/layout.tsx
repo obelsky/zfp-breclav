@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Hypotéka na první bydlení | Finanční poradce Břeclav',
     description: 'První krok k vlastnímu bydlení. Pomůžeme vám získat hypotéku i s nízkou akontací, kratší pracovní historií a využít státní podporu.',
-    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/situace/prvni-bydleni',
+    url: 'https://www.zfpbreclav.cz/bydleni-hypoteky/prvni-bydleni',
     type: 'website',
     locale: 'cs_CZ',
     siteName: 'ZFP GROUP Břeclav',

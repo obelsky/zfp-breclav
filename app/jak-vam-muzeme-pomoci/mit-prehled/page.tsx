@@ -49,7 +49,7 @@ export default function GetOverviewPage() {
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Finanční plánování */}
-              <Link href="/financni-poradenstvi/sluzby/financni-planovani">
+              <Link href="/financni-poradenstvi/financni-planovani">
                 <motion.div
                   whileHover={{ scale: 1.02, y: -4 }}
                   className="group h-full bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-2 border-blue-500/30 rounded-xl p-6 hover:border-blue-500/60 transition-all duration-300 cursor-pointer"
@@ -73,7 +73,7 @@ export default function GetOverviewPage() {
               </Link>
 
               {/* Investice */}
-              <Link href="/financni-poradenstvi/sluzby/investice">
+              <Link href="/financni-poradenstvi/investice">
                 <motion.div
                   whileHover={{ scale: 1.02, y: -4 }}
                   className="group h-full bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-2 border-green-500/30 rounded-xl p-6 hover:border-green-500/60 transition-all duration-300 cursor-pointer"
@@ -121,7 +121,7 @@ export default function GetOverviewPage() {
               </Link>
 
               {/* Pojištění */}
-              <Link href="/financni-poradenstvi/sluzby/pojisteni">
+              <Link href="/financni-poradenstvi/pojisteni">
                 <motion.div
                   whileHover={{ scale: 1.02, y: -4 }}
                   className="group h-full bg-gradient-to-br from-orange-500/10 to-red-500/10 border-2 border-orange-500/30 rounded-xl p-6 hover:border-orange-500/60 transition-all duration-300 cursor-pointer"
@@ -145,7 +145,7 @@ export default function GetOverviewPage() {
               </Link>
 
               {/* Reality */}
-              <Link href="/financni-poradenstvi/sluzby/reality">
+              <Link href="/financni-poradenstvi/reality">
                 <motion.div
                   whileHover={{ scale: 1.02, y: -4 }}
                   className="group h-full bg-gradient-to-br from-yellow-500/10 to-amber-500/10 border-2 border-yellow-500/30 rounded-xl p-6 hover:border-yellow-500/60 transition-all duration-300 cursor-pointer"
