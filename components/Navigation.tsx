@@ -269,12 +269,12 @@ export default function Navigation() {
             }
             
             // For Finanční nástroje: Don't show submenu if on cross-link target
-            if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
+            if (item.href === '/financni-nastroje' && (isBydleniContentPage || isCrossLinkTarget)) {
               isInSection = false; // Close submenu - we're in target section instead
             }
             
             // For Bydlení & hypotéky: FORCE submenu open if in content section (even if matched by earlier parent)
-            if (item.href === '/bydleni-hypoteky' && isContentSection) {
+            if (item.href === '/bydleni-hypoteky' && isBydleniContentPage) {
               isInSection = true; // ALWAYS show submenu for our content!
             }
             
@@ -396,9 +396,19 @@ export default function Navigation() {
                 const toolLandingPages = [
                   '/bydleni-hypoteky/kalkulacka', // Hypoteční kalkulačka - belongs to Finanční nástroje
                 ];
-                const contentSectionPrefixes = [
-                  '/bydleni-hypoteky/situace/', // All situation pages belong to Bydlení & hypotéky
+                
+                // Bydlení & hypotéky content pages (flat URLs)
+                const bydleniContentPages = [
+                  '/bydleni-hypoteky/prvni-bydleni',
+                  '/bydleni-hypoteky/rodina-s-detmi',
+                  '/bydleni-hypoteky/stavebni-upravy',
+                  '/bydleni-hypoteky/osvc-podnikatele',
+                  '/bydleni-hypoteky/investice',
+                  '/bydleni-hypoteky/refinancovani',
+                  '/bydleni-hypoteky/jak-to-funguje',
+                  '/bydleni-hypoteky/podle-typu',
                 ];
+                
                 const crossLinkTargets = [
                   '/bydleni-hypoteky/refinancovani', // Refinancování → Bydlení & hypotéky
                   '/financni-poradenstvi/investice', // Kalkulačka spoření → Finanční poradenství
@@ -407,7 +417,7 @@ export default function Navigation() {
                 ];
                 
                 const isToolLandingPage = toolLandingPages.includes(pathname || '');
-                const isContentSection = contentSectionPrefixes.some(prefix => pathname?.startsWith(prefix));
+                const isBydleniContentPage = bydleniContentPages.some(page => pathname?.startsWith(page));
                 const isCrossLinkTarget = crossLinkTargets.some(target => pathname?.startsWith(target));
                 
                 // IMPORTANT: Sections must ALWAYS be visible (no return null!)
@@ -422,8 +432,8 @@ export default function Navigation() {
                   isActive = false;
                 }
                 
-                // 2. Finanční nástroje should NOT be active for cross-link targets
-                if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
+                // 2. Finanční nástroje should NOT be active for Bydlení content or cross-links
+                if (item.href === '/financni-nastroje' && (isBydleniContentPage || isCrossLinkTarget)) {
                   isActive = false;
                 }
                 
@@ -439,13 +449,13 @@ export default function Navigation() {
                   isInSection = true; // Open submenu for tool landing pages
                 }
                 
-                // For Finanční nástroje: Don't show submenu if on cross-link target
-                if (item.href === '/financni-nastroje' && (isContentSection || isCrossLinkTarget)) {
+                // For Finanční nástroje: Don't show submenu if on Bydlení content or cross-link
+                if (item.href === '/financni-nastroje' && (isBydleniContentPage || isCrossLinkTarget)) {
                   isInSection = false; // Close submenu
                 }
                 
                 // For Bydlení & hypotéky: FORCE submenu open if in content section (same as desktop)
-                if (item.href === '/bydleni-hypoteky' && isContentSection) {
+                if (item.href === '/bydleni-hypoteky' && isBydleniContentPage) {
                   isInSection = true; // ALWAYS show submenu for our content!
                 }
                 
