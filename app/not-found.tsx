@@ -8,6 +8,12 @@ export default function NotFound() {
   const [wastedTime, setWastedTime] = useState(0);
   const [showCalculator, setShowCalculator] = useState(false);
   const [investmentValue, setInvestmentValue] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent SSR issues
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -39,28 +45,30 @@ export default function NotFound() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zfp-darker via-zfp-dark to-zfp-darker flex items-center justify-center px-4 overflow-hidden relative">
-      {/* Animated background particles */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-2 h-2 bg-zfp-gold/20 rounded-full"
-            initial={{ 
-              x: Math.random() * window.innerWidth,
-              y: Math.random() * window.innerHeight,
-            }}
-            animate={{
-              y: [null, Math.random() * window.innerHeight],
-              x: [null, Math.random() * window.innerWidth],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 10,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-          />
-        ))}
-      </div>
+      {/* Animated background particles - only render on client */}
+      {mounted && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 bg-zfp-gold/20 rounded-full"
+              initial={{ 
+                x: Math.random() * 1920,
+                y: Math.random() * 1080,
+              }}
+              animate={{
+                y: [null, Math.random() * 1080],
+                x: [null, Math.random() * 1920],
+              }}
+              transition={{
+                duration: Math.random() * 10 + 10,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            />
+          ))}
+        </div>
+      )}
 
       <div className="max-w-4xl w-full relative z-10">
         <motion.div
