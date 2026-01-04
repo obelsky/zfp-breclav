@@ -92,9 +92,11 @@ export default function NotFound() {
             <motion.div
               animate={{ rotate: [0, 10, -10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="absolute top-0 right-1/4 text-6xl"
+              className="absolute top-0 right-1/4"
             >
-              💸
+              <svg className="w-20 h-20 md:w-24 md:h-24 text-zfp-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
             </motion.div>
           </motion.div>
 
@@ -121,11 +123,15 @@ export default function NotFound() {
             className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 mb-8"
           >
             <div className="flex items-center justify-center gap-4 mb-6">
-              <span className="text-4xl">⏱️</span>
+              <svg className="w-10 h-10 text-zfp-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
               <h3 className="text-2xl font-bold text-white">
                 Kalkulačka ztracených vteřin™
               </h3>
-              <span className="text-4xl">💰</span>
+              <svg className="w-10 h-10 text-zfp-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
@@ -172,7 +178,9 @@ export default function NotFound() {
             className="mb-8 p-6 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-xl"
           >
             <div className="flex items-center justify-center gap-3">
-              <span className="text-3xl">🤔</span>
+              <svg className="w-8 h-8 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
               <p className="text-lg text-white/80 italic">
                 "{funnyTips[currentTip]}"
               </p>
@@ -185,7 +193,11 @@ export default function NotFound() {
               href="/"
               className="group bg-gradient-to-br from-zfp-gold/20 to-zfp-orange/20 hover:from-zfp-gold/30 hover:to-zfp-orange/30 border border-zfp-gold/30 rounded-xl p-6 transition-all duration-300 hover:scale-105"
             >
-              <div className="text-3xl mb-2">🏠</div>
+              <div className="flex justify-center mb-2">
+                <svg className="w-10 h-10 text-zfp-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+              </div>
               <div className="font-semibold text-white mb-1">Domů</div>
               <div className="text-sm text-white/60">Bezpečný přístav</div>
             </Link>
@@ -194,7 +206,11 @@ export default function NotFound() {
               href="/financni-nastroje"
               className="group bg-gradient-to-br from-blue-500/20 to-cyan-500/20 hover:from-blue-500/30 hover:to-cyan-500/30 border border-blue-500/30 rounded-xl p-6 transition-all duration-300 hover:scale-105"
             >
-              <div className="text-3xl mb-2">🧮</div>
+              <div className="flex justify-center mb-2">
+                <svg className="w-10 h-10 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+              </div>
               <div className="font-semibold text-white mb-1">Kalkulačky</div>
               <div className="text-sm text-white/60">Funkční stránky!</div>
             </Link>
@@ -203,7 +219,11 @@ export default function NotFound() {
               href="/kontakt"
               className="group bg-gradient-to-br from-green-500/20 to-emerald-500/20 hover:from-green-500/30 hover:to-emerald-500/30 border border-green-500/30 rounded-xl p-6 transition-all duration-300 hover:scale-105"
             >
-              <div className="text-3xl mb-2">💬</div>
+              <div className="flex justify-center mb-2">
+                <svg className="w-10 h-10 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+              </div>
               <div className="font-semibold text-white mb-1">Kontakt</div>
               <div className="text-sm text-white/60">Pomůžeme vám</div>
             </Link>
@@ -217,9 +237,12 @@ export default function NotFound() {
           >
             <button
               onClick={() => setShowCalculator(!showCalculator)}
-              className="text-sm text-white/40 hover:text-white/60 transition-colors"
+              className="text-sm text-white/40 hover:text-white/60 transition-colors flex items-center gap-2 mx-auto"
             >
-              {showCalculator ? '📊 Skrýt' : '🎯 Klikni pro finanční easter egg'}
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              {showCalculator ? 'Skrýt finanční easter egg' : 'Klikni pro finanční easter egg'}
             </button>
 
             {showCalculator && (
@@ -228,9 +251,14 @@ export default function NotFound() {
                 animate={{ opacity: 1, height: 'auto' }}
                 className="mt-4 p-6 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 border border-indigo-500/20 rounded-xl"
               >
-                <h4 className="text-lg font-semibold text-white mb-3">
-                  🎉 Našli jste tajnou kalkulačku!
-                </h4>
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                  </svg>
+                  <h4 className="text-lg font-semibold text-white">
+                    Našli jste tajnou kalkulačku!
+                  </h4>
+                </div>
                 <p className="text-white/70 mb-4">
                   Pokud byste každý den strávili 1 minutu hledáním neexistujících stránek 
                   a místo toho bychom investovali 10 Kč denně při 7% ročním výnosu:
