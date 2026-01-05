@@ -32,17 +32,20 @@ export default function NotificationSettings() {
     }
   };
 
+  const [testError, setTestError] = useState<string | null>(null);
+
   const handleTestNotification = async () => {
     setIsSendingTest(true);
+    setTestError(null);
     try {
       await sendTestNotification({
         title: '🔥 Test Notifikace',
         body: 'Push notifikace fungují! Budete dostávat instant upozornění na nové poptávky.',
         url: '/crm/dashboard'
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error sending test notification:', error);
-      alert('Chyba při odesílání testovací notifikace');
+      setTestError(error?.message || 'Chyba při odesílání testovací notifikace');
     } finally {
       setIsSendingTest(false);
     }
@@ -177,6 +180,19 @@ export default function NotificationSettings() {
             >
               {isSendingTest ? 'Odesílám...' : 'Odeslat testovací notifikaci'}
             </button>
+          )}
+
+          {/* Test Error */}
+          {testError && (
+            <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 flex items-start justify-between">
+              <p className="text-xs text-red-400">{testError}</p>
+              <button 
+                onClick={() => setTestError(null)}
+                className="text-red-400 hover:text-red-300 ml-2"
+              >
+                Zavřít
+              </button>
+            </div>
           )}
 
           {/* Info */}

@@ -130,43 +130,70 @@ export async function getServiceWorkerRegistration(): Promise<ServiceWorkerRegis
  * Send a test notification (for testing)
  */
 export async function sendTestNotification(payload: Partial<PushNotificationPayload> = {}): Promise<void> {
+  console.log('[Push] Sending test notification...');
+  
   const permission = await requestNotificationPermission();
+  console.log('[Push] Permission:', permission);
   
   if (permission !== 'granted') {
     throw new Error('Notification permission not granted');
   }
 
   const registration = await getServiceWorkerRegistration();
+  console.log('[Push] Service Worker registration:', registration);
+  
   if (!registration) {
     throw new Error('Service Worker not registered');
   }
 
+  // Počkej až bude SW aktivní
+  if (registration.waiting) {
+    console.log('[Push] Waiting for SW to activate...');
+    await new Promise(resolve => setTimeout(resolve, 1000));
+  }
+
+  // Základní notifikace bez ikon (funguje vždy)
+  const notificationOptions: NotificationOptions = {
+    body: payload.body || 'Toto je testovací notifikace z ZFP Břeclav CRM',
+    tag: payload.tag || 'test-notification-' + Date.now(),
+    requireInteraction: false,
+    silent: false,
+    data: {
+      url: payload.url || '/crm/dashboard',
+      ...payload.data
+    }
+  };
+
+  // Zkus přidat ikonu (může selhat na některých zařízeních)
   try {
-    await registration.showNotification(payload.title || 'Test Notifikace', {
-      body: payload.body || 'Toto je testovací notifikace z ZFP Břeclav',
-      icon: payload.icon || '/android-chrome-192x192.png',
-      badge: payload.badge || '/favicon-72x72.png',
-      tag: payload.tag || 'test-notification',
-      requireInteraction: false,
-      data: {
-        url: payload.url || '/crm/dashboard',
-        ...payload.data
-      }
-    });
+    // Zkontroluj jestli ikona existuje
+    const iconResponse = await fetch('/android-chrome-192x192.png', { method: 'HEAD' });
+    if (iconResponse.ok) {
+      notificationOptions.icon = '/android-chrome-192x192.png';
+    }
+  } catch (e) {
+    console.log('[Push] Icon not available, skipping');
+  }
+
+  console.log('[Push] Showing notification with options:', notificationOptions);
+
+  try {
+    await registration.showNotification(payload.title || '🔔 Test Notifikace', notificationOptions);
+    console.log('[Push] Notification shown successfully!');
   } catch (error) {
-    console.error('Error showing notification:', error);
-    // Try simpler notification without icon/badge if that fails
+    console.error('[Push] Error showing notification:', error);
+    
+    // Fallback: Použij nativní Notification API
     try {
-      await registration.showNotification(payload.title || 'Test Notifikace', {
-        body: payload.body || 'Toto je testovací notifikace z ZFP Břeclav',
-        tag: 'test-notification',
-        data: {
-          url: payload.url || '/crm/dashboard'
-        }
+      console.log('[Push] Trying fallback Notification API...');
+      new Notification(payload.title || '🔔 Test Notifikace', {
+        body: payload.body || 'Toto je testovací notifikace z ZFP Břeclav CRM',
+        tag: 'test-fallback'
       });
+      console.log('[Push] Fallback notification shown!');
     } catch (fallbackError) {
-      console.error('Fallback notification also failed:', fallbackError);
-      throw new Error('Failed to show notification');
+      console.error('[Push] Fallback also failed:', fallbackError);
+      throw new Error('Nepodařilo se zobrazit notifikaci. Zkuste zavřít a znovu otevřít aplikaci.');
     }
   }
 }

@@ -72,12 +72,11 @@ self.addEventListener('push', (event) => {
     title: 'Nová poptávka',
     body: 'Máte novou poptávku k vyřízení',
     icon: '/android-chrome-192x192.png',
-    badge: '/favicon-72x72.png',
     tag: 'new-lead',
     requireInteraction: true,
     actions: [
-      { action: 'open', title: 'Otevřít', icon: '/icons/open.png' },
-      { action: 'later', title: 'Později', icon: '/icons/later.png' }
+      { action: 'open', title: 'Otevřít' },
+      { action: 'later', title: 'Později' }
     ],
     data: {
       url: '/crm/leads'
@@ -167,7 +166,6 @@ self.addEventListener('periodicsync', (event) => {
             return self.registration.showNotification('Máte nové poptávky!', {
               body: `${data.count} nových poptávek čeká na vyřízení`,
               icon: '/android-chrome-192x192.png',
-              badge: '/favicon-72x72.png',
               tag: 'new-leads-check',
               data: { url: '/crm/leads?filter=new' }
             });
