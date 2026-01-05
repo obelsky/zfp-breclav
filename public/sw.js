@@ -1,8 +1,8 @@
 // ZFP Břeclav - Master Prototyp Service Worker
 // Push Notifications + Offline Support + Background Sync
 
-const CACHE_NAME = 'zfp-breclav-v1';
-const RUNTIME_CACHE = 'zfp-runtime-v1';
+const CACHE_NAME = 'zfp-breclav-v2';
+const RUNTIME_CACHE = 'zfp-runtime-v2';
 
 // Essential files to cache for offline
 const PRECACHE_URLS = [

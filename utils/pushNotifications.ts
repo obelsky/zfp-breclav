@@ -130,26 +130,34 @@ export async function unsubscribeFromPushNotifications(): Promise<boolean> {
 }
 
 /**
- * Get service worker registration
+ * Get service worker registration - waits for SW to be active
  */
 export async function getServiceWorkerRegistration(): Promise<ServiceWorkerRegistration | null> {
   if (!('serviceWorker' in navigator)) {
+    console.log('[SW] Service Worker not supported');
     return null;
   }
 
   try {
+    // First, try to register if not already registered
     let registration = await navigator.serviceWorker.getRegistration();
     
     if (!registration) {
+      console.log('[SW] Registering new Service Worker...');
       registration = await navigator.serviceWorker.register('/sw.js', {
         scope: '/'
       });
-      console.log('Service Worker registered:', registration);
+      console.log('[SW] Service Worker registered');
     }
 
-    return registration;
+    // Wait for the service worker to be ready (active)
+    console.log('[SW] Waiting for Service Worker to be ready...');
+    const readyRegistration = await navigator.serviceWorker.ready;
+    console.log('[SW] Service Worker is ready and active');
+    
+    return readyRegistration;
   } catch (error) {
-    console.error('Service Worker registration failed:', error);
+    console.error('[SW] Service Worker registration failed:', error);
     return null;
   }
 }

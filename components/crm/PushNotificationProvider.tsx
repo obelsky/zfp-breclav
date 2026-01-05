@@ -47,24 +47,29 @@ export default function PushNotificationProvider({ children }: PushNotificationP
 
   useEffect(() => {
     // Check if push notifications are supported
-    setIsSupported(isPushNotificationSupported());
+    const supported = isPushNotificationSupported();
+    setIsSupported(supported);
     setPermission(getNotificationPermission());
 
-    // Register service worker and check subscription status
-    if (isPushNotificationSupported()) {
-      checkSubscriptionStatus();
+    // Register service worker early and check subscription status
+    if (supported) {
+      initServiceWorker();
     }
   }, []);
 
-  const checkSubscriptionStatus = async () => {
+  const initServiceWorker = async () => {
     try {
+      console.log('[Push Provider] Initializing Service Worker...');
       const registration = await getServiceWorkerRegistration();
+      
       if (registration) {
+        console.log('[Push Provider] SW ready, checking subscription...');
         const subscription = await registration.pushManager.getSubscription();
         setIsSubscribed(!!subscription);
+        console.log('[Push Provider] Subscription exists:', !!subscription);
       }
     } catch (error) {
-      console.error('Error checking subscription status:', error);
+      console.error('[Push Provider] Error initializing:', error);
     }
   };
 
