@@ -291,22 +291,28 @@ export async function getAdvisor(id: string): Promise<Advisor | null> {
 }
 
 // Save new advisor
-export async function saveAdvisor(advisor: AdvisorInput): Promise<Advisor | null> {
+export async function saveAdvisor(advisor: AdvisorInput & { requirePasswordChange?: boolean }): Promise<Advisor | null> {
   try {
-    // Připrav data pro uložení
-    const advisorData: any = {
+    // Připrav data pro uložení - POUZE platné sloupce!
+    const advisorData: Record<string, any> = {
       name: advisor.name,
       email: advisor.email,
       phone: advisor.phone,
       role: advisor.role,
       active: advisor.active,
-      username: advisor.username.toLowerCase().trim(),
     };
     
-    // Přidej heslo pouze pokud je vyplněné
+    // Přidej username pokud je vyplněné
+    if (advisor.username && advisor.username.trim()) {
+      advisorData.username = advisor.username.toLowerCase().trim();
+    }
+    
+    // Přidej heslo pouze pokud je vyplněné a má min. 6 znaků
     if (advisor.password && advisor.password.length >= 6) {
       advisorData.password = advisor.password;
     }
+
+    console.log('Saving advisor with data:', { ...advisorData, password: advisorData.password ? '***' : undefined });
 
     const { data, error } = await supabase
       .from('advisors')
@@ -314,7 +320,12 @@ export async function saveAdvisor(advisor: AdvisorInput): Promise<Advisor | null
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Supabase INSERT error:', error);
+      throw error;
+    }
+    
+    console.log('Advisor saved successfully:', data?.id);
     return data;
   } catch (error) {
     console.error('Error saving advisor:', error);
@@ -323,20 +334,31 @@ export async function saveAdvisor(advisor: AdvisorInput): Promise<Advisor | null
 }
 
 // Update advisor
-export async function updateAdvisor(id: string, updates: Partial<AdvisorInput>): Promise<Advisor | null> {
+export async function updateAdvisor(id: string, updates: Partial<AdvisorInput> & { requirePasswordChange?: boolean }): Promise<Advisor | null> {
   try {
-    // Připrav data pro update
-    const updateData: any = { ...updates };
+    // Připrav data pro update - POUZE platné sloupce!
+    const updateData: Record<string, any> = {};
+    
+    // Kopíruj pouze platné sloupce
+    if (updates.name !== undefined) updateData.name = updates.name;
+    if (updates.email !== undefined) updateData.email = updates.email;
+    if (updates.phone !== undefined) updateData.phone = updates.phone;
+    if (updates.role !== undefined) updateData.role = updates.role;
+    if (updates.active !== undefined) updateData.active = updates.active;
     
     // Zpracuj username - lowercase a trim
-    if (updateData.username) {
-      updateData.username = updateData.username.toLowerCase().trim();
+    if (updates.username && updates.username.trim()) {
+      updateData.username = updates.username.toLowerCase().trim();
     }
     
     // Zpracuj heslo - aktualizuj pouze pokud je vyplněné a má min. 6 znaků
-    if (!updateData.password || updateData.password.length < 6) {
-      delete updateData.password;
+    if (updates.password && updates.password.length >= 6) {
+      updateData.password = updates.password;
     }
+    
+    // NEZAHRNOVAT: requirePasswordChange (není v DB)
+
+    console.log('Updating advisor', id, 'with data:', { ...updateData, password: updateData.password ? '***' : undefined });
 
     const { data, error } = await supabase
       .from('advisors')
@@ -345,7 +367,12 @@ export async function updateAdvisor(id: string, updates: Partial<AdvisorInput>):
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Supabase UPDATE error:', error);
+      throw error;
+    }
+    
+    console.log('Advisor updated successfully:', data?.id);
     return data;
   } catch (error) {
     console.error('Error updating advisor:', error);

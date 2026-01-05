@@ -50,30 +50,49 @@ export default function AdvisorsPage() {
     setLoading(false);
   };
 
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const [saving, setSaving] = useState(false);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSaveError(null);
+    setSaving(true);
     
-    if (editingAdvisor) {
-      // Update existing
-      await updateAdvisor(editingAdvisor.id, formData);
-    } else {
-      // Create new
-      await saveAdvisor(formData);
+    try {
+      let result;
+      if (editingAdvisor) {
+        // Update existing
+        result = await updateAdvisor(editingAdvisor.id, formData);
+      } else {
+        // Create new
+        result = await saveAdvisor(formData);
+      }
+      
+      if (!result) {
+        setSaveError('Nepodařilo se uložit poradce. Zkontrolujte konzoli pro detaily.');
+        setSaving(false);
+        return;
+      }
+      
+      setShowModal(false);
+      setEditingAdvisor(null);
+      setFormData({ 
+        name: '', 
+        email: '', 
+        phone: '', 
+        role: 'advisor', 
+        active: true,
+        username: '',
+        password: '',
+        requirePasswordChange: true,
+      });
+      loadAdvisors();
+    } catch (err) {
+      console.error('Submit error:', err);
+      setSaveError('Došlo k chybě při ukládání.');
+    } finally {
+      setSaving(false);
     }
-    
-    setShowModal(false);
-    setEditingAdvisor(null);
-    setFormData({ 
-      name: '', 
-      email: '', 
-      phone: '', 
-      role: 'advisor', 
-      active: true,
-      username: '',
-      password: '',
-      requirePasswordChange: true,
-    });
-    loadAdvisors();
   };
 
   const handleEdit = (advisor: Advisor) => {
@@ -369,22 +388,32 @@ export default function AdvisorsPage() {
                 <label htmlFor="active" className="text-sm text-white/60">Aktivní</label>
               </div>
 
+              {/* Error Message */}
+              {saveError && (
+                <div className="bg-red-500/20 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg text-sm">
+                  {saveError}
+                </div>
+              )}
+
               <div className="flex gap-3 pt-4">
                 <button
                   type="button"
                   onClick={() => {
                     setShowModal(false);
                     setEditingAdvisor(null);
+                    setSaveError(null);
                   }}
                   className="flex-1 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg transition-all"
+                  disabled={saving}
                 >
                   Zrušit
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-zfp-orange hover:bg-zfp-orange-hover text-white rounded-lg transition-all"
+                  disabled={saving}
+                  className="flex-1 px-4 py-2 bg-zfp-orange hover:bg-zfp-orange-hover text-white rounded-lg transition-all disabled:opacity-50"
                 >
-                  {editingAdvisor ? 'Uložit' : 'Přidat'}
+                  {saving ? 'Ukládám...' : (editingAdvisor ? 'Uložit' : 'Přidat')}
                 </button>
               </div>
             </form>
