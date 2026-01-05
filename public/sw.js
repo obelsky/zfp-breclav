@@ -1,39 +1,42 @@
 // ZFP Břeclav - Master Prototyp Service Worker
 // Push Notifications + Offline Support + Background Sync
 
-const CACHE_NAME = 'zfp-breclav-v2';
-const RUNTIME_CACHE = 'zfp-runtime-v2';
+const CACHE_NAME = 'zfp-breclav-v3';
+const RUNTIME_CACHE = 'zfp-runtime-v3';
 
-// Essential files to cache for offline
+// Essential files to cache for offline (only existing files!)
 const PRECACHE_URLS = [
-  '/crm/dashboard',
-  '/crm/leads',
-  '/offline',
-  '/zfp-breclav-logo.png',
-  '/favicon-192x192.png',
+  '/android-chrome-192x192.png',
 ];
 
 // Install - cache essential resources
 self.addEventListener('install', (event) => {
-  console.log('[SW] Installing Service Worker...');
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(PRECACHE_URLS))
-      .then(() => self.skipWaiting())
-  );
+  console.log('[SW] Installing Service Worker v3...');
+  // Skip waiting to activate immediately
+  self.skipWaiting();
 });
 
-// Activate - clean up old caches
+// Activate - clean up old caches and take control
 self.addEventListener('activate', (event) => {
-  console.log('[SW] Activating Service Worker...');
+  console.log('[SW] Activating Service Worker v3...');
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames
-          .filter(name => name !== CACHE_NAME && name !== RUNTIME_CACHE)
-          .map(name => caches.delete(name))
-      );
-    }).then(() => self.clients.claim())
+    Promise.all([
+      // Clean old caches
+      caches.keys().then(cacheNames => {
+        return Promise.all(
+          cacheNames
+            .filter(name => name !== CACHE_NAME && name !== RUNTIME_CACHE)
+            .map(name => {
+              console.log('[SW] Deleting old cache:', name);
+              return caches.delete(name);
+            })
+        );
+      }),
+      // Take control of all clients immediately
+      self.clients.claim()
+    ]).then(() => {
+      console.log('[SW] Service Worker v3 is now active and controlling');
+    })
   );
 });
 
