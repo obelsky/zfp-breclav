@@ -4,13 +4,15 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import QuickActions from '@/components/crm/QuickActions';
-import { getLead, updateLeadStatus, updateLeadPriority, addNote, getNotes, getActivities, getAdvisors, assignAdvisorToLead, type Advisor } from '@/utils/crmStorage';
+import { useCRMAuth } from '@/contexts/CRMAuthContext';
+import { getLead, updateLeadStatus, updateLeadPriority, addNote, getNotes, getActivities, getAdvisors, assignAdvisorToLead, deleteLead, type Advisor } from '@/utils/crmStorage';
 import { Lead, Note, Activity, STATUS_LABELS, SOURCE_LABELS, STATUS_COLORS, LeadStatus } from '@/types/crm';
 import { formatCalculatorValue, getCalculatorFieldLabel } from '@/utils/calculatorFormatter';
 
 export default function LeadDetailPage() {
   const params = useParams();
   const router = useRouter();
+  const { user } = useCRMAuth();
   const leadId = params.id as string;
 
   const [lead, setLead] = useState<Lead | null>(null);
@@ -20,6 +22,8 @@ export default function LeadDetailPage() {
   const [newNote, setNewNote] = useState('');
   const [isAddingNote, setIsAddingNote] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     loadLeadData();
@@ -94,6 +98,26 @@ export default function LeadDetailPage() {
     setIsAddingNote(false);
   };
 
+  const handleDelete = async () => {
+    if (!lead || user?.role !== 'admin') return;
+    
+    setIsDeleting(true);
+    try {
+      const success = await deleteLead(leadId);
+      if (success) {
+        router.push('/crm/leads');
+      } else {
+        alert('Nepodařilo se smazat poptávku');
+      }
+    } catch (error) {
+      console.error('Error deleting lead:', error);
+      alert('Chyba při mazání poptávky');
+    } finally {
+      setIsDeleting(false);
+      setShowDeleteConfirm(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex-1 px-4 md:px-8 pt-20 lg:pt-8 lg:ml-64 flex items-center justify-center">
@@ -152,15 +176,30 @@ export default function LeadDetailPage() {
             </div>
           </div>
 
-          <button
-            onClick={loadLeadData}
-            className="px-3 md:px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg transition-all flex items-center gap-2 text-sm md:text-base w-full sm:w-auto justify-center"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-            </svg>
-            Obnovit
-          </button>
+          <div className="flex gap-2 w-full sm:w-auto">
+            <button
+              onClick={loadLeadData}
+              className="flex-1 sm:flex-none px-3 md:px-4 py-2 bg-white/5 hover:bg-white/10 text-white rounded-lg transition-all flex items-center justify-center gap-2 text-sm md:text-base"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              <span className="hidden sm:inline">Obnovit</span>
+            </button>
+            
+            {/* Delete button - only for admin */}
+            {user?.role === 'admin' && (
+              <button
+                onClick={() => setShowDeleteConfirm(true)}
+                className="flex-1 sm:flex-none px-3 md:px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-all flex items-center justify-center gap-2 text-sm md:text-base"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                <span className="hidden sm:inline">Smazat</span>
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -425,6 +464,58 @@ export default function LeadDetailPage() {
         email={lead?.email}
         leadId={lead?.id}
       />
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-zfp-dark border border-white/10 rounded-xl p-6 max-w-md w-full"
+          >
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white">Smazat poptávku?</h3>
+                <p className="text-white/60 text-sm">Tato akce je nevratná</p>
+              </div>
+            </div>
+            
+            <p className="text-white/80 mb-6">
+              Opravdu chcete smazat poptávku od <strong>{lead?.first_name} {lead?.last_name}</strong>? 
+              Všechny poznámky a historie budou také smazány.
+            </p>
+            
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowDeleteConfirm(false)}
+                disabled={isDeleting}
+                className="flex-1 px-4 py-3 bg-white/5 hover:bg-white/10 text-white rounded-lg transition-all disabled:opacity-50"
+              >
+                Zrušit
+              </button>
+              <button
+                onClick={handleDelete}
+                disabled={isDeleting}
+                className="flex-1 px-4 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                {isDeleting ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Mažu...
+                  </>
+                ) : (
+                  'Smazat'
+                )}
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }
