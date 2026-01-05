@@ -11,28 +11,33 @@ export default function NotificationSettings() {
     permission, 
     isSubscribed, 
     isLoading,
+    error: subscribeError,
     subscribe, 
     unsubscribe,
-    requestPermission 
+    requestPermission,
+    clearError
   } = usePushNotifications();
   
   const [showSettings, setShowSettings] = useState(false);
   const [isSendingTest, setIsSendingTest] = useState(false);
+  const [testError, setTestError] = useState<string | null>(null);
 
   const handleToggleNotifications = async () => {
-    if (permission === 'granted') {
-      // User wants to disable - we can't actually revoke permission
-      // but we can unsubscribe from push
-      await unsubscribe();
-      // Note: Permission will still be 'granted' but user won't receive pushes
-      alert('Notifikace vypnuty. Pro úplné zrušení změňte nastavení v prohlížeči.');
+    setTestError(null);
+    if (permission === 'granted' && isSubscribed) {
+      // User wants to disable
+      const success = await unsubscribe();
+      if (success) {
+        alert('Notifikace vypnuty. Pro úplné zrušení změňte nastavení v prohlížeči.');
+      }
     } else {
       // Request permission and subscribe
-      await subscribe();
+      const success = await subscribe();
+      if (success) {
+        console.log('Notifications enabled successfully');
+      }
     }
   };
-
-  const [testError, setTestError] = useState<string | null>(null);
 
   const handleTestNotification = async () => {
     setIsSendingTest(true);
@@ -70,26 +75,27 @@ export default function NotificationSettings() {
         {/* Status Info */}
         <div className="flex items-center gap-3">
           <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${
-            permission === 'granted' ? 'bg-green-500/20' : 'bg-orange-500/20'
+            isSubscribed && permission === 'granted' ? 'bg-green-500/20' : 'bg-orange-500/20'
           }`}>
-            <svg className={`w-4 h-4 ${permission === 'granted' ? 'text-green-400' : 'text-orange-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className={`w-4 h-4 ${isSubscribed && permission === 'granted' ? 'text-green-400' : 'text-orange-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
             </svg>
           </div>
           <div className="min-w-0">
             <h3 className="text-sm font-semibold text-white">Push notifikace</h3>
             <p className="text-xs text-white/60">
-              {permission === 'granted' ? '✓ Aktivní' : '○ Neaktivní'}
+              {isSubscribed && permission === 'granted' ? '✓ Aktivní' : 
+               permission === 'denied' ? '✗ Zakázáno' : '○ Neaktivní'}
             </p>
           </div>
         </div>
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2">
-          {permission === 'granted' && (
+          {isSubscribed && permission === 'granted' && (
             <button
               onClick={handleTestNotification}
-              disabled={isSendingTest || !isSubscribed}
+              disabled={isSendingTest}
               className="px-3 py-1.5 text-xs bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded transition-all disabled:opacity-50"
             >
               {isSendingTest ? 'Odesílání...' : 'Test'}
@@ -99,12 +105,12 @@ export default function NotificationSettings() {
             onClick={handleToggleNotifications}
             disabled={isLoading || permission === 'denied'}
             className={`px-3 py-1.5 text-xs rounded transition-all font-medium ${
-              permission === 'granted'
+              isSubscribed && permission === 'granted'
                 ? 'bg-white/5 hover:bg-white/10 border border-white/10 text-white'
                 : 'bg-zfp-orange hover:bg-zfp-orange-hover text-white'
             }`}
           >
-            {isLoading ? 'Načítání...' : permission === 'granted' ? 'Vypnout' : 'Zapnout'}
+            {isLoading ? 'Načítání...' : (isSubscribed && permission === 'granted') ? 'Vypnout' : 'Zapnout'}
           </button>
           <button
             onClick={() => setShowSettings(!showSettings)}
@@ -122,6 +128,19 @@ export default function NotificationSettings() {
           </button>
         </div>
       </div>
+
+      {/* Subscribe Error */}
+      {subscribeError && (
+        <div className="mt-3 bg-red-500/10 border border-red-500/20 rounded-lg p-3 flex items-start justify-between">
+          <p className="text-xs text-red-400">{subscribeError}</p>
+          <button 
+            onClick={clearError}
+            className="text-red-400 hover:text-red-300 ml-2 text-xs"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {showSettings && (
         <motion.div

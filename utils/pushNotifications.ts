@@ -41,42 +41,70 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
  * Subscribe user to push notifications
  */
 export async function subscribeToPushNotifications(): Promise<PushSubscription | null> {
+  console.log('[Push Subscribe] Starting subscription process...');
+  
   try {
+    // Check VAPID key first
+    const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
+    console.log('[Push Subscribe] VAPID key present:', !!vapidPublicKey);
+    
+    if (!vapidPublicKey) {
+      console.error('[Push Subscribe] ❌ VAPID public key not configured!');
+      throw new Error('VAPID klíč není nakonfigurován. Kontaktujte administrátora.');
+    }
+
     // Request permission first
+    console.log('[Push Subscribe] Requesting permission...');
     const permission = await requestNotificationPermission();
+    console.log('[Push Subscribe] Permission result:', permission);
+    
     if (permission !== 'granted') {
-      console.log('Notification permission denied');
-      return null;
+      console.log('[Push Subscribe] Permission denied');
+      throw new Error('Notifikace nebyly povoleny v prohlížeči.');
     }
 
     // Register service worker if not already registered
+    console.log('[Push Subscribe] Getting service worker...');
     const registration = await getServiceWorkerRegistration();
+    
     if (!registration) {
-      console.error('Service Worker not registered');
-      return null;
+      console.error('[Push Subscribe] ❌ Service Worker not registered');
+      throw new Error('Service Worker není dostupný. Zkuste obnovit stránku.');
     }
+    console.log('[Push Subscribe] Service Worker ready');
 
     // Check if already subscribed
     let subscription = await registration.pushManager.getSubscription();
+    console.log('[Push Subscribe] Existing subscription:', !!subscription);
     
     if (!subscription) {
-      // Subscribe to push notifications
-      // Note: In production, you'll need to get VAPID keys from Supabase or your push service
-      subscription = await registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(
-          process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || ''
-        )
-      });
+      console.log('[Push Subscribe] Creating new subscription...');
+      
+      try {
+        subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(vapidPublicKey)
+        });
+        console.log('[Push Subscribe] ✅ Subscription created');
+      } catch (subError: any) {
+        console.error('[Push Subscribe] ❌ Subscribe failed:', subError);
+        throw new Error('Nepodařilo se vytvořit subscription: ' + subError.message);
+      }
 
       // Send subscription to backend
+      console.log('[Push Subscribe] Saving to backend...');
+      await saveSubscriptionToBackend(subscription);
+      console.log('[Push Subscribe] ✅ Saved to backend');
+    } else {
+      console.log('[Push Subscribe] Using existing subscription');
+      // Update backend with existing subscription (in case it was lost)
       await saveSubscriptionToBackend(subscription);
     }
 
     return subscription;
-  } catch (error) {
-    console.error('Error subscribing to push notifications:', error);
-    return null;
+  } catch (error: any) {
+    console.error('[Push Subscribe] ❌ Error:', error);
+    throw error; // Re-throw so UI can show the message
   }
 }
 

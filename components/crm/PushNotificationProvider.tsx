@@ -15,9 +15,11 @@ interface PushNotificationContextType {
   permission: NotificationPermission;
   isSubscribed: boolean;
   isLoading: boolean;
+  error: string | null;
   subscribe: () => Promise<boolean>;
   unsubscribe: () => Promise<boolean>;
   requestPermission: () => Promise<NotificationPermission>;
+  clearError: () => void;
 }
 
 const PushNotificationContext = createContext<PushNotificationContextType | undefined>(undefined);
@@ -39,6 +41,9 @@ export default function PushNotificationProvider({ children }: PushNotificationP
   const [permission, setPermission] = useState<NotificationPermission>('default');
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const clearError = () => setError(null);
 
   useEffect(() => {
     // Check if push notifications are supported
@@ -65,6 +70,7 @@ export default function PushNotificationProvider({ children }: PushNotificationP
 
   const subscribe = async (): Promise<boolean> => {
     setIsLoading(true);
+    setError(null);
     try {
       const subscription = await subscribeToPushNotifications();
       const success = !!subscription;
@@ -73,8 +79,9 @@ export default function PushNotificationProvider({ children }: PushNotificationP
         setPermission('granted');
       }
       return success;
-    } catch (error) {
-      console.error('Error subscribing to push notifications:', error);
+    } catch (err: any) {
+      console.error('Error subscribing to push notifications:', err);
+      setError(err.message || 'Nepodařilo se zapnout notifikace');
       return false;
     } finally {
       setIsLoading(false);
@@ -108,9 +115,11 @@ export default function PushNotificationProvider({ children }: PushNotificationP
     permission,
     isSubscribed,
     isLoading,
+    error,
     subscribe,
     unsubscribe,
     requestPermission,
+    clearError,
   };
 
   return (
