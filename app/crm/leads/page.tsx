@@ -5,9 +5,11 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import SwipeStack from '@/components/crm/SwipeStack';
 import { getLeads, updateLead } from '@/utils/crmStorage';
+import { useCRMAuth } from '@/contexts/CRMAuthContext';
 import { Lead, STATUS_LABELS, SOURCE_LABELS, STATUS_COLORS, LeadSource, LeadStatus } from '@/types/crm';
 
 export default function LeadsPage() {
+  const { user } = useCRMAuth();
   const [leads, setLeads] = useState<Lead[]>([]);
   const [filteredLeads, setFilteredLeads] = useState<Lead[]>([]);
   const [sourceFilter, setSourceFilter] = useState<LeadSource | 'all'>('all');
@@ -16,15 +18,19 @@ export default function LeadsPage() {
   const [viewMode, setViewMode] = useState<'swipe' | 'list'>('list');
 
   useEffect(() => {
-    loadLeads();
-  }, []);
+    if (user) {
+      loadLeads();
+    }
+  }, [user]);
 
   useEffect(() => {
     applyFilters();
   }, [leads, sourceFilter, statusFilter, searchQuery]);
 
   const loadLeads = async () => {
-    const data = await getLeads();
+    // Admin vidí vše, poradce jen své přidělené poptávky
+    const advisorId = user?.role === 'admin' ? undefined : user?.id;
+    const data = await getLeads(advisorId);
     setLeads(data);
   };
 

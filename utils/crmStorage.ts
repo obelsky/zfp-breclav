@@ -1,12 +1,19 @@
 import { supabase, type Lead, type Note, type Activity } from '@/lib/supabase';
 
-// Get all leads
-export async function getLeads(): Promise<Lead[]> {
+// Get all leads - optionally filtered by advisor
+export async function getLeads(advisorId?: string): Promise<Lead[]> {
   try {
-    const { data, error } = await supabase
+    let query = supabase
       .from('leads')
       .select('*')
       .order('created_at', { ascending: false });
+
+    // Pokud je zadáno advisorId, filtruj pouze přidělené poptávky
+    if (advisorId) {
+      query = query.eq('assigned_advisor_id', advisorId);
+    }
+
+    const { data, error } = await query;
 
     if (error) throw error;
     return data || [];
@@ -182,11 +189,19 @@ export async function getActivities(leadId: string): Promise<Activity[]> {
 }
 
 // Get lead statistics
-export async function getLeadStats() {
+// Get lead statistics - optionally filtered by advisor
+export async function getLeadStats(advisorId?: string) {
   try {
-    const { data: leads, error } = await supabase
+    let query = supabase
       .from('leads')
-      .select('status');
+      .select('status, assigned_advisor_id');
+
+    // Pokud je zadáno advisorId, filtruj pouze přidělené poptávky
+    if (advisorId) {
+      query = query.eq('assigned_advisor_id', advisorId);
+    }
+
+    const { data: leads, error } = await query;
 
     if (error) throw error;
 
