@@ -64,17 +64,17 @@ export default function HomePage() {
             </motion.h1>
 
             <motion.p variants={fadeInUp} className="text-base md:text-xl lg:text-2xl mb-6 md:mb-8 max-w-2xl font-light leading-relaxed">
-              Jsme regionální kancelář ZFP v Břeclavi a poskytujeme finanční poradenství 
-              postavené na vzdělávání, porozumění a osobní odpovědnosti. Pomáháme lidem 
-              dělat informovaná finanční rozhodnutí – ať už řeší bydlení, investice, 
-              pojištění nebo dlouhodobé plánování.
+              Jsme regionální kancelář ZFP GROUP v Břeclavi a poskytujeme finanční poradenství 
+              založené na vzdělávání, porozumění a osobní odpovědnosti. Pomáháme lidem 
+              dělat informovaná finanční rozhodnutí – při řešení bydlení, investic, 
+              pojištění i dlouhodobého finančního plánování.
             </motion.p>
 
             <motion.p variants={fadeInUp} className="text-sm md:text-base lg:text-lg mb-8 md:mb-12 max-w-2xl text-white/70">
-              Jsme součástí ZFP GROUP s více než 30letou tradicí. To, čím se ale odlišujeme, 
-              je důraz na finanční vzdělávání. Věříme, že kvalitní finanční poradenství 
-              začíná tím, že člověk rozumí souvislostem, rizikům a možnostem – teprve 
-              potom dává smysl hledat konkrétní řešení.
+              Jsme součástí ZFP GROUP, společnosti s více než 30 lety zkušeností na finančním trhu. 
+              Naší specialitou je finanční vzdělávání – věříme, že kvalitní poradenství začíná 
+              porozuměním souvislostem, rizikům a možnostem. Teprve poté má smysl navrhovat 
+              konkrétní řešení, která dávají dlouhodobě smysl.
             </motion.p>
 
             <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-3 md:gap-4">
@@ -95,17 +95,24 @@ export default function HomePage() {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator - Hidden on mobile, shown on desktop */}
+        {/* Scroll Indicator - Centered with bounce animation */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="hidden lg:block absolute bottom-10 right-10"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.6 }}
+          className="hidden lg:flex absolute bottom-8 left-1/2 transform -translate-x-1/2 flex-col items-center"
         >
-          <div className="flex flex-col items-center">
-            <span className="text-xs text-white/40 mb-2 tracking-widest uppercase">Scroll</span>
-            <div className="w-px h-16 bg-gradient-to-b from-white/40 to-transparent" />
-          </div>
+          <span className="text-xs text-white/50 mb-3 tracking-widest uppercase font-light">Scroll</span>
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+            className="flex flex-col items-center"
+          >
+            <svg className="w-6 h-6 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </motion.div>
+          <div className="w-px h-12 mt-2 bg-gradient-to-b from-white/30 to-transparent" />
         </motion.div>
       </section>
 
