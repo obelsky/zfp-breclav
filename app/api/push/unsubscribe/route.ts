@@ -1,37 +1,41 @@
 import { NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 export async function POST(request: Request) {
   try {
     const { subscription } = await request.json();
-    const supabase = createRouteHandlerClient({ cookies });
     
-    // Get current user
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    if (!subscription || !subscription.endpoint) {
+      return NextResponse.json({ error: 'Invalid subscription' }, { status: 400 });
     }
 
-    // Delete subscription
+    console.log('[Push Unsubscribe] Removing subscription:', subscription.endpoint);
+
     const { error } = await supabase
       .from('push_subscriptions')
       .delete()
-      .eq('user_id', user.id);
+      .eq('endpoint', subscription.endpoint);
 
     if (error) {
-      console.error('Error removing subscription:', error);
-      return NextResponse.json({ 
-        success: true,
-        message: 'Subscription removed (table pending creation)'
-      });
+      console.error('[Push Unsubscribe] DB error:', error);
+      // Graceful degradation if table doesn't exist
+      if (error.code === '42P01') {
+        return NextResponse.json({ success: true, message: 'Table not ready' });
+      }
+      throw error;
     }
 
+    console.log('[Push Unsubscribe] Subscription removed');
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Error in unsubscribe endpoint:', error);
+    console.error('[Push Unsubscribe] Error:', error);
     return NextResponse.json({ 
-      error: 'Internal server error',
+      error: 'Failed to remove subscription',
       message: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }

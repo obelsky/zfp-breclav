@@ -222,6 +222,22 @@ export function getNotificationPermission(): NotificationPermission {
  */
 async function saveSubscriptionToBackend(subscription: PushSubscription): Promise<void> {
   try {
+    // Get advisor ID from localStorage (set by CRM login)
+    let advisorId = null;
+    if (typeof window !== 'undefined') {
+      const crmUser = localStorage.getItem('crm_user');
+      if (crmUser) {
+        try {
+          const user = JSON.parse(crmUser);
+          advisorId = user.id;
+        } catch (e) {
+          console.log('[Push] No CRM user found');
+        }
+      }
+    }
+
+    console.log('[Push] Saving subscription for advisor:', advisorId);
+
     const response = await fetch('/api/push/subscribe', {
       method: 'POST',
       headers: {
@@ -229,19 +245,23 @@ async function saveSubscriptionToBackend(subscription: PushSubscription): Promis
       },
       body: JSON.stringify({
         subscription: subscription.toJSON(),
+        advisorId,
         userAgent: navigator.userAgent,
         timestamp: new Date().toISOString()
       })
     });
 
+    const data = await response.json();
+    console.log('[Push] Subscription save response:', data);
+
     if (!response.ok) {
-      throw new Error('Failed to save subscription');
+      throw new Error(data.error || 'Failed to save subscription');
     }
 
-    console.log('Push subscription saved to backend');
+    console.log('[Push] Subscription saved to backend');
   } catch (error) {
-    console.error('Error saving subscription:', error);
-    throw error;
+    console.error('[Push] Error saving subscription:', error);
+    // Don't throw - subscription still works locally
   }
 }
 

@@ -59,6 +59,24 @@ export async function saveLead(lead: Omit<Lead, 'id' | 'created_at' | 'updated_a
         description: 'Poptávka vytvořena',
         user_id: 'system'
       }]);
+
+      // 🔔 Trigger push notification to all advisors
+      try {
+        await fetch('/api/push/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: '🔥 Nová poptávka!',
+            body: `${lead.first_name} ${lead.last_name} - ${lead.email}`,
+            url: `/crm/leads/${data.id}`,
+            leadId: data.id
+          })
+        });
+        console.log('[Lead] Push notification sent for new lead');
+      } catch (pushError) {
+        // Don't fail the lead save if push fails
+        console.error('[Lead] Failed to send push notification:', pushError);
+      }
     }
 
     return data;

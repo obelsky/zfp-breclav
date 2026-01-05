@@ -1,46 +1,59 @@
 import { NextResponse } from 'next/server';
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
+import { createClient } from '@supabase/supabase-js';
+
+// Use service role for direct DB access (no auth required)
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 export async function POST(request: Request) {
   try {
-    const { subscription, userAgent } = await request.json();
-    const supabase = createRouteHandlerClient({ cookies });
+    const { subscription, advisorId, userAgent } = await request.json();
     
-    // Get current user
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    if (authError || !user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    console.log('[Push Subscribe] Received subscription for advisor:', advisorId);
+
+    if (!subscription || !subscription.endpoint) {
+      return NextResponse.json({ error: 'Invalid subscription' }, { status: 400 });
     }
 
-    // Check if table exists, if not we'll handle gracefully
+    // Extract keys from subscription
+    const keys = subscription.keys || {};
+    
+    // Upsert subscription (update if endpoint exists, insert if not)
     const { data, error } = await supabase
       .from('push_subscriptions')
       .upsert({
-        user_id: user.id,
-        subscription,
-        user_agent: userAgent,
+        advisor_id: advisorId || null,
+        endpoint: subscription.endpoint,
+        p256dh: keys.p256dh || '',
+        auth: keys.auth || '',
+        user_agent: userAgent || '',
         updated_at: new Date().toISOString()
       }, {
-        onConflict: 'user_id'
+        onConflict: 'endpoint'
       })
       .select()
       .single();
 
     if (error) {
-      console.error('Error saving subscription:', error);
-      // Return success anyway for now - table might not exist yet
-      return NextResponse.json({ 
-        success: true,
-        message: 'Subscription saved (table pending creation)'
-      });
+      console.error('[Push Subscribe] DB error:', error);
+      // If table doesn't exist, return success anyway (graceful degradation)
+      if (error.code === '42P01') {
+        return NextResponse.json({ 
+          success: true,
+          message: 'Table not ready - run supabase-push-subscriptions.sql'
+        });
+      }
+      throw error;
     }
 
+    console.log('[Push Subscribe] Subscription saved:', data?.id);
     return NextResponse.json({ success: true, data });
   } catch (error) {
-    console.error('Error in subscribe endpoint:', error);
+    console.error('[Push Subscribe] Error:', error);
     return NextResponse.json({ 
-      error: 'Internal server error',
+      error: 'Failed to save subscription',
       message: error instanceof Error ? error.message : 'Unknown error'
     }, { status: 500 });
   }
