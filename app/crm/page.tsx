@@ -19,15 +19,18 @@ export default function CRMLoginPage() {
     setError('');
     setLoading(true);
 
-    // Simulate network delay
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    const success = login(username, password);
-    
-    if (success) {
-      router.push('/crm/dashboard');
-    } else {
-      setError('Neplatné přihlašovací údaje');
+    try {
+      // Login je teď async - čte z Supabase
+      const success = await login(username, password);
+      
+      if (success) {
+        router.push('/crm/dashboard');
+      } else {
+        setError('Neplatné přihlašovací údaje');
+        setLoading(false);
+      }
+    } catch (err) {
+      setError('Chyba při přihlašování. Zkuste to znovu.');
       setLoading(false);
     }
   };
@@ -134,19 +137,11 @@ export default function CRMLoginPage() {
             </button>
           </form>
 
-          {/* Demo Credentials */}
+          {/* Help text */}
           <div className="mt-6 pt-6 border-t border-white/10">
-            <p className="text-xs text-white/40 text-center mb-3">Demo přihlašovací údaje:</p>
-            <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="bg-white/5 rounded-lg p-3">
-                <p className="text-white/60 mb-1">Admin:</p>
-                <p className="text-zfp-gold font-mono">breclav / breclav</p>
-              </div>
-              <div className="bg-white/5 rounded-lg p-3">
-                <p className="text-white/60 mb-1">Poradce:</p>
-                <p className="text-zfp-gold font-mono">poradce1 / poradce1</p>
-              </div>
-            </div>
+            <p className="text-xs text-white/40 text-center">
+              Přihlašovací údaje získáte od administrátora systému.
+            </p>
           </div>
         </div>
 

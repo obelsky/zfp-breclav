@@ -84,6 +84,9 @@ export default function AdvisorsPage() {
       phone: advisor.phone,
       role: advisor.role,
       active: advisor.active,
+      username: advisor.username || '',
+      password: '',
+      requirePasswordChange: false,
     });
     setShowModal(true);
   };
@@ -122,7 +125,16 @@ export default function AdvisorsPage() {
           <button
             onClick={() => {
               setEditingAdvisor(null);
-              setFormData({ name: '', email: '', phone: '', role: 'advisor', active: true });
+              setFormData({ 
+                name: '', 
+                email: '', 
+                phone: '', 
+                role: 'advisor', 
+                active: true,
+                username: '',
+                password: '',
+                requirePasswordChange: true,
+              });
               setShowModal(true);
             }}
             className="px-6 py-3 bg-zfp-orange hover:bg-zfp-orange-hover text-white rounded-lg transition-all flex items-center gap-2"

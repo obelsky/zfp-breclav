@@ -2,58 +2,91 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { supabase } from '@/lib/supabase';
 
 interface User {
   id: string;
   username: string;
-  role: 'admin' | 'user';
+  role: 'admin' | 'advisor';
   name: string;
+  email: string;
 }
 
 interface CRMAuthContextType {
   user: User | null;
-  login: (username: string, password: string) => boolean;
+  login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
+  isLoading: boolean;
 }
 
 const CRMAuthContext = createContext<CRMAuthContextType | undefined>(undefined);
 
 export function CRMAuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
+  // Načti uživatele z localStorage při startu
   useEffect(() => {
     const savedUser = localStorage.getItem('crm_user');
     if (savedUser) {
-      setUser(JSON.parse(savedUser));
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch (e) {
+        localStorage.removeItem('crm_user');
+      }
     }
+    setIsLoading(false);
   }, []);
 
+  // Ochrana CRM routes - redirect na login pokud není přihlášen
   useEffect(() => {
-    if (pathname?.startsWith('/crm') && pathname !== '/crm' && !user) {
+    if (!isLoading && pathname?.startsWith('/crm') && pathname !== '/crm' && pathname !== '/crm/login' && !user) {
       router.push('/crm');
     }
-  }, [pathname, user, router]);
+  }, [pathname, user, router, isLoading]);
 
-  const login = (username: string, password: string): boolean => {
-    const users = [
-      { id: '1', username: 'breclav', password: 'breclav', role: 'admin' as const, name: 'Admin Břeclav' },
-      { id: '2', username: 'poradce1', password: 'poradce1', role: 'user' as const, name: 'Jan Novák' },
-      { id: '3', username: 'poradce2', password: 'poradce2', role: 'user' as const, name: 'Eva Svobodová' },
-    ];
+  // Login funkce - čte z Supabase!
+  const login = async (username: string, password: string): Promise<boolean> => {
+    try {
+      // Dotaz do Supabase - najdi poradce podle username a hesla
+      const { data: advisor, error } = await supabase
+        .from('advisors')
+        .select('id, name, email, username, role, active')
+        .eq('username', username.toLowerCase().trim())
+        .eq('password', password)
+        .eq('active', true)
+        .single();
 
-    const foundUser = users.find(u => u.username === username && u.password === password);
-    
-    if (foundUser) {
-      const { password: _, ...userWithoutPassword } = foundUser;
-      setUser(userWithoutPassword);
-      localStorage.setItem('crm_user', JSON.stringify(userWithoutPassword));
+      if (error || !advisor) {
+        console.error('Login failed:', error?.message || 'User not found');
+        return false;
+      }
+
+      const loggedInUser: User = {
+        id: advisor.id,
+        username: advisor.username,
+        role: advisor.role,
+        name: advisor.name,
+        email: advisor.email,
+      };
+
+      setUser(loggedInUser);
+      localStorage.setItem('crm_user', JSON.stringify(loggedInUser));
+      
+      // Aktualizuj last_login_at
+      await supabase
+        .from('advisors')
+        .update({ last_login_at: new Date().toISOString() })
+        .eq('id', advisor.id);
+
       return true;
+    } catch (err) {
+      console.error('Login error:', err);
+      return false;
     }
-    
-    return false;
   };
 
   const logout = () => {
@@ -63,7 +96,13 @@ export function CRMAuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <CRMAuthContext.Provider value={{ user, login, logout, isAuthenticated: !!user }}>
+    <CRMAuthContext.Provider value={{ 
+      user, 
+      login, 
+      logout, 
+      isAuthenticated: !!user,
+      isLoading 
+    }}>
       {children}
     </CRMAuthContext.Provider>
   );

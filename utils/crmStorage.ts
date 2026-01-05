@@ -235,6 +235,20 @@ export interface Advisor {
   role: 'admin' | 'advisor';
   active: boolean;
   created_at: string;
+  // Přihlašovací údaje
+  username?: string;
+  password?: string;
+  last_login_at?: string;
+}
+
+export interface AdvisorInput {
+  name: string;
+  email: string;
+  phone: string;
+  role: 'admin' | 'advisor';
+  active: boolean;
+  username: string;
+  password?: string;
 }
 
 // Get all advisors
@@ -277,11 +291,26 @@ export async function getAdvisor(id: string): Promise<Advisor | null> {
 }
 
 // Save new advisor
-export async function saveAdvisor(advisor: Omit<Advisor, 'id' | 'created_at'>): Promise<Advisor | null> {
+export async function saveAdvisor(advisor: AdvisorInput): Promise<Advisor | null> {
   try {
+    // Připrav data pro uložení
+    const advisorData: any = {
+      name: advisor.name,
+      email: advisor.email,
+      phone: advisor.phone,
+      role: advisor.role,
+      active: advisor.active,
+      username: advisor.username.toLowerCase().trim(),
+    };
+    
+    // Přidej heslo pouze pokud je vyplněné
+    if (advisor.password && advisor.password.length >= 6) {
+      advisorData.password = advisor.password;
+    }
+
     const { data, error } = await supabase
       .from('advisors')
-      .insert([advisor])
+      .insert([advisorData])
       .select()
       .single();
 
@@ -294,11 +323,24 @@ export async function saveAdvisor(advisor: Omit<Advisor, 'id' | 'created_at'>): 
 }
 
 // Update advisor
-export async function updateAdvisor(id: string, updates: Partial<Advisor>): Promise<Advisor | null> {
+export async function updateAdvisor(id: string, updates: Partial<AdvisorInput>): Promise<Advisor | null> {
   try {
+    // Připrav data pro update
+    const updateData: any = { ...updates };
+    
+    // Zpracuj username - lowercase a trim
+    if (updateData.username) {
+      updateData.username = updateData.username.toLowerCase().trim();
+    }
+    
+    // Zpracuj heslo - aktualizuj pouze pokud je vyplněné a má min. 6 znaků
+    if (!updateData.password || updateData.password.length < 6) {
+      delete updateData.password;
+    }
+
     const { data, error } = await supabase
       .from('advisors')
-      .update(updates)
+      .update(updateData)
       .eq('id', id)
       .select()
       .single();
