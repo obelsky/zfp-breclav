@@ -108,13 +108,42 @@ export default function NewArticlePage() {
       .trim();
   };
 
+  // Get category name for meta_title
+  const getCategoryName = () => {
+    const cat = categories.find(c => c.id === article.category_id);
+    return cat?.name || 'Finanční poradna';
+  };
+
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
+    const categoryName = getCategoryName();
     setArticle(prev => ({
       ...prev,
       title,
-      slug: prev.slug || generateSlug(title),
-      // Don't auto-update meta_title on every keystroke - it will be set on save if empty
+      slug: generateSlug(title),
+      meta_title: `${title} | ${categoryName} | ZFP GROUP Břeclav`,
+    }));
+  };
+
+  const handleExcerptChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const excerpt = e.target.value;
+    setArticle(prev => ({
+      ...prev,
+      excerpt,
+      meta_description: excerpt.substring(0, 160), // Max 160 chars for SEO
+    }));
+  };
+
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const category_id = e.target.value;
+    const cat = categories.find(c => c.id === category_id);
+    const categoryName = cat?.name || 'Finanční poradna';
+    
+    setArticle(prev => ({
+      ...prev,
+      category_id,
+      // Update meta_title with new category
+      meta_title: prev.title ? `${prev.title} | ${categoryName} | ZFP GROUP Břeclav` : prev.meta_title,
     }));
   };
 
@@ -321,7 +350,7 @@ export default function NewArticlePage() {
               </label>
               <select
                 value={article.category_id}
-                onChange={(e) => setArticle(prev => ({ ...prev, category_id: e.target.value }))}
+                onChange={handleCategoryChange}
                 className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:border-zfp-orange/50"
               >
                 <option value="">Vyberte kategorii</option>
@@ -350,11 +379,11 @@ export default function NewArticlePage() {
           {/* Excerpt */}
           <div>
             <label className="block text-sm font-medium text-white/80 mb-2">
-              Perex (krátký popis)
+              Perex (krátký popis) <span className="text-white/40 font-normal">→ automaticky vyplní meta description</span>
             </label>
             <textarea
               value={article.excerpt}
-              onChange={(e) => setArticle(prev => ({ ...prev, excerpt: e.target.value }))}
+              onChange={handleExcerptChange}
               placeholder="Stručný popis článku pro náhled..."
               rows={3}
               className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:border-zfp-orange/50 resize-none"
@@ -626,10 +655,35 @@ export default function NewArticlePage() {
             <textarea
               value={article.disclaimer}
               onChange={(e) => setArticle(prev => ({ ...prev, disclaimer: e.target.value }))}
-              placeholder="Např.: Tento článek slouží pouze k informačním účelům a nepředstavuje finanční poradenství..."
+              placeholder="Vyberte příklad níže nebo napište vlastní..."
               rows={3}
               className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/40 focus:outline-none focus:border-zfp-orange/50 resize-none"
             />
+            {/* Disclaimer examples */}
+            <div className="mt-3 space-y-2">
+              <p className="text-xs text-white/40 mb-2">💡 Klikněte pro vložení příkladu:</p>
+              <button
+                type="button"
+                onClick={() => setArticle(prev => ({ ...prev, disclaimer: 'Tento článek slouží pouze k informačním účelům a nepředstavuje finanční, investiční ani právní poradenství. Před jakýmkoli finančním rozhodnutím doporučujeme konzultaci s kvalifikovaným poradcem.' }))}
+                className="block w-full text-left px-3 py-2 text-xs text-white/60 bg-white/5 hover:bg-white/10 rounded border border-white/10 transition-all"
+              >
+                📌 <strong>Obecný:</strong> „Tento článek slouží pouze k informačním účelům a nepředstavuje finanční, investiční ani právní poradenství..."
+              </button>
+              <button
+                type="button"
+                onClick={() => setArticle(prev => ({ ...prev, disclaimer: 'Uvedené informace mají pouze vzdělávací charakter. Minulá výkonnost investic není zárukou budoucích výnosů. Hodnota investice může klesat i stoupat.' }))}
+                className="block w-full text-left px-3 py-2 text-xs text-white/60 bg-white/5 hover:bg-white/10 rounded border border-white/10 transition-all"
+              >
+                📈 <strong>Investice:</strong> „Uvedené informace mají pouze vzdělávací charakter. Minulá výkonnost investic není zárukou budoucích výnosů..."
+              </button>
+              <button
+                type="button"
+                onClick={() => setArticle(prev => ({ ...prev, disclaimer: 'Informace v tomto článku jsou platné k datu publikace. Legislativa a podmínky finančních produktů se mohou měnit. Pro aktuální informace kontaktujte našeho poradce.' }))}
+                className="block w-full text-left px-3 py-2 text-xs text-white/60 bg-white/5 hover:bg-white/10 rounded border border-white/10 transition-all"
+              >
+                ⚖️ <strong>Legislativa:</strong> „Informace v tomto článku jsou platné k datu publikace. Legislativa a podmínky finančních produktů se mohou měnit..."
+              </button>
+            </div>
           </div>
 
           {/* EEAT Tips */}

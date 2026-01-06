@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 
 export const metadata: Metadata = {
-  title: 'Legislativa | Finanční poradna | ZFP GROUP Břeclav',
-  description: 'Zákony, daně a změny, které vás ovlivňují. Rady od certifikovaných poradců.',
+  title: 'Hypotéky | Finanční poradna | ZFP GROUP Břeclav',
+  description: 'Vše o hypotékách - jak získat nejlepší podmínky, refinancování a tipy od certifikovaných poradců.',
 };
 
-const CATEGORY_SLUG = 'legislativa';
-const CATEGORY_TITLE = 'Legislativa';
-const CATEGORY_DESC = 'Zákony, daně a změny, které vás ovlivňují';
+const CATEGORY_SLUG = 'hypoteky';
+const CATEGORY_TITLE = 'Hypotéky';
+const CATEGORY_DESC = 'Vše o hypotékách - jak získat nejlepší podmínky';
 
 interface Article {
   id: string;
@@ -60,7 +60,7 @@ async function getArticles(): Promise<Article[]> {
   }));
 }
 
-export default async function LegislativaPage() {
+export default async function HypotekyPage() {
   const articles = await getArticles();
 
   return (
@@ -75,7 +75,7 @@ export default async function LegislativaPage() {
 
         <div className="mb-16">
           <div className="mb-6"><div className="inline-block w-12 h-1 bg-gradient-to-r from-zfp-gold to-zfp-orange" /></div>
-          <h1 className="text-4xl md:text-5xl font-bold text-purple-400 mb-6">{CATEGORY_TITLE}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-cyan-400 mb-6">{CATEGORY_TITLE}</h1>
           <p className="text-xl text-white/70 max-w-3xl leading-relaxed">{CATEGORY_DESC}</p>
         </div>
 
@@ -90,7 +90,7 @@ export default async function LegislativaPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {articles.map((article) => (
                 <Link key={article.id} href={`/poradna/${article.slug}`}
-                  className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-purple-400/30 transition-all">
+                  className="group bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-cyan-400/30 transition-all">
                   {article.featured_image && (
                     <div className="aspect-video overflow-hidden">
                       <img src={article.featured_image} alt={article.title}
@@ -98,7 +98,7 @@ export default async function LegislativaPage() {
                     </div>
                   )}
                   <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2 group-hover:text-purple-400 transition-colors">{article.title}</h3>
+                    <h3 className="text-xl font-semibold mb-2 group-hover:text-cyan-400 transition-colors">{article.title}</h3>
                     {article.excerpt && <p className="text-white/60 text-sm mb-4 line-clamp-2">{article.excerpt}</p>}
                     <div className="flex items-center justify-between text-xs text-white/40">
                       <span>{article.author_name || 'ZFP Team'}</span>
@@ -115,10 +115,10 @@ export default async function LegislativaPage() {
           )}
         </div>
 
-        <div className="bg-gradient-to-br from-purple-500/10 to-zfp-dark border border-purple-500/20 rounded-2xl p-12 text-center">
+        <div className="bg-gradient-to-br from-cyan-500/10 to-zfp-dark border border-cyan-500/20 rounded-2xl p-12 text-center">
           <h2 className="text-3xl mb-6">Potřebujete osobní radu?</h2>
-          <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">Spojte se s námi a probereme legislativní změny</p>
-          <Link href="/kontakt" className="inline-block px-10 py-5 bg-purple-500 hover:bg-purple-600 text-white font-medium tracking-wider uppercase rounded-lg transition-all">
+          <p className="text-xl text-white/70 mb-8 max-w-2xl mx-auto">Spojte se s námi a probereme vaši hypotéku</p>
+          <Link href="/kontakt" className="inline-block px-10 py-5 bg-cyan-500 hover:bg-cyan-600 text-white font-medium tracking-wider uppercase rounded-lg transition-all">
             Kontaktovat poradce
           </Link>
         </div>

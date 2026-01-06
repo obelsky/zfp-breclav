@@ -158,8 +158,8 @@ export default function CategoriesPage() {
     '#3B82F6', // Blue
     '#10B981', // Green
     '#8B5CF6', // Purple
+    '#06B6D4', // Cyan
     '#EC4899', // Pink
-    '#6366F1', // Indigo
     '#EF4444', // Red
   ];
 
