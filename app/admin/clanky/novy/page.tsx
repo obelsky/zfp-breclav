@@ -114,7 +114,7 @@ export default function NewArticlePage() {
       ...prev,
       title,
       slug: prev.slug || generateSlug(title),
-      meta_title: prev.meta_title || title,
+      // Don't auto-update meta_title on every keystroke - it will be set on save if empty
     }));
   };
 
@@ -161,16 +161,30 @@ export default function NewArticlePage() {
     setSaving(true);
 
     try {
+      const finalStatus = publish ? 'published' : article.status;
       const articleData = {
-        ...article,
+        title: article.title,
         slug: article.slug || generateSlug(article.title),
-        status: publish ? 'published' : article.status,
-        published_at: publish ? new Date().toISOString() : null,
-        reading_time: Math.ceil(article.content.split(/\s+/).length / 200),
-        author_id: article.author_id || null,
+        excerpt: article.excerpt,
+        content: article.content,
         category_id: article.category_id || null,
+        author_id: article.author_id || null,
+        status: finalStatus,
+        published_at: finalStatus === 'published' ? new Date().toISOString() : null,
+        // Use title as meta_title if not set
+        meta_title: article.meta_title?.trim() || article.title,
+        meta_description: article.meta_description,
+        meta_keywords: article.meta_keywords,
         reviewed_by: article.reviewed_by || null,
+        sources: article.sources,
+        disclaimer: article.disclaimer,
+        featured_image: article.featured_image,
+        featured_image_alt: article.featured_image_alt,
+        og_image: article.og_image,
+        reading_time: Math.ceil((article.content || '').split(/\s+/).length / 200),
       };
+
+      console.log('Saving article with data:', articleData);
 
       const { data, error } = await supabase
         .from('articles')
@@ -178,7 +192,10 @@ export default function NewArticlePage() {
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
 
       router.push(`/admin/clanky/${data.id}`);
     } catch (error) {

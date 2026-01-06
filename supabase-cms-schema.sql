@@ -162,6 +162,17 @@ ALTER TABLE article_tags ENABLE ROW LEVEL SECURITY;
 ALTER TABLE article_revisions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE media ENABLE ROW LEVEL SECURITY;
 
+-- Drop existing policies first
+DROP POLICY IF EXISTS "articles_public_read" ON articles;
+DROP POLICY IF EXISTS "articles_cms_all" ON articles;
+DROP POLICY IF EXISTS "categories_public_read" ON article_categories;
+DROP POLICY IF EXISTS "categories_cms_all" ON article_categories;
+DROP POLICY IF EXISTS "tags_public_read" ON tags;
+DROP POLICY IF EXISTS "tags_cms_all" ON tags;
+DROP POLICY IF EXISTS "article_tags_all" ON article_tags;
+DROP POLICY IF EXISTS "revisions_cms_all" ON article_revisions;
+DROP POLICY IF EXISTS "media_cms_all" ON media;
+
 -- Politiky pro čtení (veřejné pro publikované)
 CREATE POLICY "articles_public_read" ON articles FOR SELECT USING (status = 'published');
 CREATE POLICY "articles_cms_all" ON articles FOR ALL USING (true);

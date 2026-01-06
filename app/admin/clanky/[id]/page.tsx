@@ -126,7 +126,7 @@ export default function EditArticlePage() {
     setArticle(prev => ({
       ...prev,
       title,
-      meta_title: prev.meta_title || title,
+      // Don't auto-update meta_title - user can set it manually in SEO tab
     }));
   };
 
@@ -173,19 +173,19 @@ export default function EditArticlePage() {
     setSaving(true);
 
     try {
-      const newStatus = publish ? 'published' : article.status;
-      const articleData = {
+      const finalStatus = publish ? 'published' : article.status;
+      const isNewlyPublished = finalStatus === 'published' && article.status !== 'published';
+      
+      const articleData: Record<string, any> = {
         title: article.title,
         slug: article.slug || generateSlug(article.title),
         excerpt: article.excerpt,
         content: article.content,
         category_id: article.category_id || null,
         author_id: article.author_id || null,
-        status: newStatus,
-        published_at: newStatus === 'published' && !article.status?.includes('published') 
-          ? new Date().toISOString() 
-          : undefined,
-        meta_title: article.meta_title,
+        status: finalStatus,
+        // Use title as meta_title if not set
+        meta_title: article.meta_title?.trim() || article.title,
         meta_description: article.meta_description,
         meta_keywords: article.meta_keywords,
         reviewed_by: article.reviewed_by || null,
@@ -194,15 +194,25 @@ export default function EditArticlePage() {
         featured_image: article.featured_image,
         featured_image_alt: article.featured_image_alt,
         og_image: article.og_image,
-        reading_time: Math.ceil(article.content.split(/\s+/).length / 200),
+        reading_time: Math.ceil((article.content || '').split(/\s+/).length / 200),
       };
+
+      // Only set published_at when first publishing
+      if (isNewlyPublished) {
+        articleData.published_at = new Date().toISOString();
+      }
+
+      console.log('Updating article with data:', articleData);
 
       const { error } = await supabase
         .from('articles')
         .update(articleData)
         .eq('id', articleId);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
 
       // Reload to show updated data
       await loadData();

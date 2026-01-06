@@ -36,15 +36,26 @@ async function getArticle(slug: string): Promise<ArticleData | null> {
     .from('articles')
     .select(`
       *,
-      article_categories(name, slug, color),
-      advisors!articles_author_id_fkey(name, bio, photo_url, certifications, specializations)
+      article_categories(name, slug, color)
     `)
     .eq('slug', slug)
     .eq('status', 'published')
     .single();
 
   if (error || !data) {
+    console.error('Error fetching article:', error);
     return null;
+  }
+
+  // Get author info separately
+  let authorData = null;
+  if (data.author_id) {
+    const { data: author } = await supabase
+      .from('advisors')
+      .select('name, bio, photo_url, certifications, specializations')
+      .eq('id', data.author_id)
+      .single();
+    authorData = author;
   }
 
   // Increment view count
@@ -58,11 +69,11 @@ async function getArticle(slug: string): Promise<ArticleData | null> {
     category_name: (data.article_categories as any)?.name,
     category_slug: (data.article_categories as any)?.slug,
     category_color: (data.article_categories as any)?.color,
-    author_name: (data.advisors as any)?.name,
-    author_bio: (data.advisors as any)?.bio,
-    author_photo: (data.advisors as any)?.photo_url,
-    author_certifications: (data.advisors as any)?.certifications,
-    author_specializations: (data.advisors as any)?.specializations,
+    author_name: authorData?.name,
+    author_bio: authorData?.bio,
+    author_photo: authorData?.photo_url,
+    author_certifications: authorData?.certifications,
+    author_specializations: authorData?.specializations,
   };
 }
 
