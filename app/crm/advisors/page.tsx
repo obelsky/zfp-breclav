@@ -29,6 +29,7 @@ export default function AdvisorsPage() {
     username: '',
     password: '',
     requirePasswordChange: true,
+    cms_access: false,
   });
 
   useEffect(() => {
@@ -85,6 +86,7 @@ export default function AdvisorsPage() {
         username: '',
         password: '',
         requirePasswordChange: true,
+        cms_access: false,
       });
       loadAdvisors();
     } catch (err) {
@@ -106,6 +108,7 @@ export default function AdvisorsPage() {
       username: advisor.username || '',
       password: '',
       requirePasswordChange: false,
+      cms_access: (advisor as any).cms_access || false,
     });
     setShowModal(true);
   };
@@ -386,6 +389,25 @@ export default function AdvisorsPage() {
                   className="w-4 h-4"
                 />
                 <label htmlFor="active" className="text-sm text-white/60">Aktivní</label>
+              </div>
+
+              {/* CMS Access */}
+              <div className="flex items-center gap-3 p-3 bg-blue-500/10 border border-blue-500/20 rounded-lg">
+                <input
+                  type="checkbox"
+                  id="cms_access"
+                  checked={formData.cms_access}
+                  onChange={(e) => setFormData({ ...formData, cms_access: e.target.checked })}
+                  className="w-4 h-4"
+                />
+                <div>
+                  <label htmlFor="cms_access" className="text-sm text-white font-medium">
+                    Přístup do CMS
+                  </label>
+                  <p className="text-xs text-white/40">
+                    Umožní poradci psát články do poradny
+                  </p>
+                </div>
               </div>
 
               {/* Error Message */}

@@ -272,6 +272,12 @@ export interface Advisor {
   username?: string;
   password?: string;
   last_login_at?: string;
+  // CMS přístup
+  cms_access?: boolean;
+  bio?: string;
+  photo_url?: string;
+  specializations?: string[];
+  certifications?: string[];
 }
 
 export interface AdvisorInput {
@@ -282,6 +288,7 @@ export interface AdvisorInput {
   active: boolean;
   username: string;
   password?: string;
+  cms_access?: boolean;
 }
 
 // Get all advisors
@@ -333,6 +340,7 @@ export async function saveAdvisor(advisor: AdvisorInput & { requirePasswordChang
       phone: advisor.phone,
       role: advisor.role,
       active: advisor.active,
+      cms_access: advisor.cms_access || false,
     };
     
     // Přidej username pokud je vyplněné
@@ -378,6 +386,7 @@ export async function updateAdvisor(id: string, updates: Partial<AdvisorInput> &
     if (updates.phone !== undefined) updateData.phone = updates.phone;
     if (updates.role !== undefined) updateData.role = updates.role;
     if (updates.active !== undefined) updateData.active = updates.active;
+    if (updates.cms_access !== undefined) updateData.cms_access = updates.cms_access;
     
     // Zpracuj username - lowercase a trim
     if (updates.username && updates.username.trim()) {
