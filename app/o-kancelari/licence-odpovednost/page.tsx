@@ -81,7 +81,7 @@ export default function LicenceOdpovednostPage() {
               <div className="mt-6 p-4 bg-zfp-gold/10 border border-zfp-gold/20 rounded-lg">
                 <p className="text-sm text-white/70 leading-relaxed">
                   <strong className="text-zfp-gold">Další členové týmu:</strong> Vladimír Poliak ml., Anna Tučková, 
-                  Lukáš Špinar - všichni s certifikacemi finančního poradenství a specializacemi v jednotlivých oblastech.
+                  Lukáš Španír - všichni s certifikacemi finančního poradenství a specializacemi v jednotlivých oblastech.
                 </p>
               </div>
             </div>

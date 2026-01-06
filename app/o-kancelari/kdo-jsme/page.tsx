@@ -35,7 +35,7 @@ export default function KdoJsmePage() {
       specialization: ['Hypotéky', 'Pojištění', 'Reality'],
     },
     {
-      name: 'Lukáš Špinar',
+      name: 'Lukáš Španír',
       role: 'Finanční specialista',
       photo: '/images/team/lukas-spinar.png',
       specialization: ['Investice', 'Pojištění', 'Úvěry'],

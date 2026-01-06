@@ -4,7 +4,7 @@ import ConditionalMain from '@/components/ConditionalMain';
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://zfp-breclav.cz'),
+  metadataBase: new URL('https://www.zfpbreclav.cz'),
   title: {
     default: 'Finanční poradenství Břeclav | Hypotéky, Investice, Pojištění',
     template: '%s | ZFP Břeclav',
@@ -34,13 +34,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'cs_CZ',
-    url: 'https://zfp-breclav.cz',
+    url: 'https://www.zfpbreclav.cz',
     siteName: 'ZFP GROUP Břeclav',
     title: 'ZFP GROUP Břeclav | Finanční poradenství postavené na vzdělávání',
     description: 'Regionální kancelář ZFP - Finanční poradenství postavené na vzdělávání. Hypotéky, investice, pojištění. Osobní přístup, 10 let zkušeností.',
     images: [
       {
-        url: '/og-image.jpg',
+        url: 'https://www.zfpbreclav.cz/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'ZFP GROUP Břeclav - Finanční poradenství',
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hypotéky, investice a pojištění Břeclav | ZFP GROUP',
     description: '10 let pomáháme s financemi v Břeclavi. Hypotéky vyřídíme za vás, investice nastavíme podle vašeho života.',
-    images: ['/og-image.jpg'],
+    images: ['https://www.zfpbreclav.cz/og-image.jpg'],
   },
   robots: {
     index: true,
