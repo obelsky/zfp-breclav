@@ -45,33 +45,70 @@ export default function ArticlesListPage() {
 
   const loadData = async () => {
     try {
-      // Load articles with author and category info
+      // Load articles
       const { data: articlesData, error: articlesError } = await supabase
         .from('articles')
-        .select(`
-          *,
-          article_categories(name, slug, color),
-          advisors(name)
-        `)
+        .select('*')
         .order('created_at', { ascending: false });
 
-      if (!articlesError && articlesData) {
-        const formattedArticles = articlesData.map(a => ({
-          ...a,
-          category_name: a.article_categories?.name,
-          author_name: a.advisors?.name,
-        }));
-        setArticles(formattedArticles);
+      console.log('Articles loaded:', articlesData?.length, articlesError);
+
+      if (articlesError) {
+        console.error('Error loading articles:', articlesError);
       }
 
-      // Load categories
-      const { data: categoriesData } = await supabase
-        .from('article_categories')
-        .select('*')
-        .order('sort_order');
+      if (articlesData && articlesData.length > 0) {
+        // Load categories
+        const { data: categoriesData } = await supabase
+          .from('article_categories')
+          .select('*')
+          .order('sort_order');
 
-      if (categoriesData) {
-        setCategories(categoriesData);
+        // Load authors
+        const authorIds = [...new Set(articlesData.filter(a => a.author_id).map(a => a.author_id))];
+        let authorsMap: Record<string, string> = {};
+        
+        if (authorIds.length > 0) {
+          const { data: authors } = await supabase
+            .from('advisors')
+            .select('id, name')
+            .in('id', authorIds);
+          
+          if (authors) {
+            authorsMap = Object.fromEntries(authors.map(a => [a.id, a.name]));
+          }
+        }
+
+        // Create category map
+        const categoryMap: Record<string, { name: string; color: string }> = {};
+        if (categoriesData) {
+          categoriesData.forEach(c => {
+            categoryMap[c.id] = { name: c.name, color: c.color };
+          });
+          setCategories(categoriesData);
+        }
+
+        // Format articles with author and category names
+        const formattedArticles = articlesData.map(a => ({
+          ...a,
+          category_name: a.category_id ? categoryMap[a.category_id]?.name : undefined,
+          author_name: a.author_id ? authorsMap[a.author_id] : undefined,
+        }));
+        
+        console.log('Formatted articles:', formattedArticles);
+        setArticles(formattedArticles);
+      } else {
+        setArticles([]);
+        
+        // Still load categories even if no articles
+        const { data: categoriesData } = await supabase
+          .from('article_categories')
+          .select('*')
+          .order('sort_order');
+        
+        if (categoriesData) {
+          setCategories(categoriesData);
+        }
       }
     } catch (error) {
       console.error('Error loading articles:', error);
