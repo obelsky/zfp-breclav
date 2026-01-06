@@ -22,6 +22,24 @@ interface CRMAuthContextType {
 
 const CRMAuthContext = createContext<CRMAuthContextType | undefined>(undefined);
 
+// SSR-safe hook that returns default values when context is not available
+export function useCRMAuth(): CRMAuthContextType {
+  const context = useContext(CRMAuthContext);
+  
+  // During SSR or when not wrapped in provider, return default values
+  if (!context) {
+    return {
+      user: null,
+      login: async () => false,
+      logout: () => {},
+      isAuthenticated: false,
+      isLoading: true,
+    };
+  }
+  
+  return context;
+}
+
 export function CRMAuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -106,12 +124,4 @@ export function CRMAuthProvider({ children }: { children: ReactNode }) {
       {children}
     </CRMAuthContext.Provider>
   );
-}
-
-export function useCRMAuth() {
-  const context = useContext(CRMAuthContext);
-  if (context === undefined) {
-    throw new Error('useCRMAuth must be used within CRMAuthProvider');
-  }
-  return context;
 }

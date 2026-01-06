@@ -3,13 +3,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useCRMAuth } from '@/contexts/CRMAuthContext';
+import { CRMAuthProvider, useCRMAuth } from '@/contexts/CRMAuthContext';
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+// Inner layout that uses auth
+function AdminLayoutInner({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
   const { user, isAuthenticated, logout } = useCRMAuth();
@@ -223,5 +220,18 @@ export default function AdminLayout({
         </main>
       </div>
     </div>
+  );
+}
+
+// Main export - wraps inner layout with provider
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <CRMAuthProvider>
+      <AdminLayoutInner>{children}</AdminLayoutInner>
+    </CRMAuthProvider>
   );
 }

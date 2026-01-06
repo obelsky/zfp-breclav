@@ -106,8 +106,8 @@ CREATE INDEX IF NOT EXISTS idx_articles_category ON articles(category_id);
 CREATE INDEX IF NOT EXISTS idx_articles_author ON articles(author_id);
 CREATE INDEX IF NOT EXISTS idx_articles_published ON articles(published_at DESC) WHERE status = 'published';
 
--- Full-text search
-CREATE INDEX IF NOT EXISTS idx_articles_search ON articles USING gin(to_tsvector('czech', coalesce(title, '') || ' ' || coalesce(excerpt, '') || ' ' || coalesce(content, '')));
+-- Full-text search (using 'simple' - works for all languages)
+CREATE INDEX IF NOT EXISTS idx_articles_search ON articles USING gin(to_tsvector('simple', coalesce(title, '') || ' ' || coalesce(excerpt, '') || ' ' || coalesce(content, '')));
 
 -- 4. TAGY
 -- ============================================
