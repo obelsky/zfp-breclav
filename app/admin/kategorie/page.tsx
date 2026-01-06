@@ -239,7 +239,7 @@ export default function CategoriesPage() {
               </div>
 
               <h3 className="text-lg font-semibold text-white mb-1">{category.name}</h3>
-              <p className="text-white/40 text-sm mb-3">/poradna/kategorie/{category.slug}</p>
+              <p className="text-white/40 text-sm mb-3">/poradna/{category.slug}</p>
               
               {category.description && (
                 <p className="text-white/60 text-sm mb-3 line-clamp-2">{category.description}</p>
@@ -250,7 +250,7 @@ export default function CategoriesPage() {
                   {category.article_count || 0} článků
                 </span>
                 <a
-                  href={`/poradna/kategorie/${category.slug}`}
+                  href={`/poradna/${category.slug}`}
                   target="_blank"
                   className="text-zfp-orange hover:underline text-sm"
                 >
