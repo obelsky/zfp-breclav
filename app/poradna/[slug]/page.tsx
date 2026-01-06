@@ -13,6 +13,7 @@ interface Category {
   slug: string;
   description: string;
   color: string;
+  icon: string;
 }
 
 interface Article {
