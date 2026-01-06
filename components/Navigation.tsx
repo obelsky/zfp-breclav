@@ -4,8 +4,16 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { supabase } from '@/lib/supabase';
 
-const navigationItems = [
+interface PoradnaCategory {
+  id: string;
+  name: string;
+  slug: string;
+}
+
+// Base navigation items (without dynamic children)
+const baseNavigationItems = [
   { href: '/', label: 'Domů' },
   { 
     href: '/jak-vam-muzeme-pomoci', 
@@ -68,13 +76,8 @@ const navigationItems = [
   { 
     href: '/poradna', 
     label: 'Poradna',
-    children: [
-      { href: '/poradna/finance', label: 'Finance' },
-      { href: '/poradna/investovani', label: 'Investování' },
-      { href: '/poradna/pojisteni', label: 'Pojištění' },
-      { href: '/poradna/reality', label: 'Reality' },
-      { href: '/poradna/legislativa', label: 'Legislativa' },
-    ]
+    children: [], // Will be populated dynamically
+    isDynamic: true,
   },
   { 
     href: '/o-kancelari', 
@@ -94,6 +97,41 @@ export default function Navigation() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState('');
+  const [poradnaCategories, setPoradnaCategories] = useState<PoradnaCategory[]>([]);
+
+  // Load poradna categories from DB
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const { data } = await supabase
+          .from('article_categories')
+          .select('id, name, slug')
+          .order('sort_order');
+        
+        if (data) {
+          setPoradnaCategories(data);
+        }
+      } catch (error) {
+        console.error('Error loading categories:', error);
+      }
+    };
+    
+    loadCategories();
+  }, []);
+
+  // Build navigation items with dynamic poradna children
+  const navigationItems = baseNavigationItems.map(item => {
+    if (item.isDynamic && item.href === '/poradna') {
+      return {
+        ...item,
+        children: poradnaCategories.map(cat => ({
+          href: `/poradna/${cat.slug}`,
+          label: cat.name,
+        })),
+      };
+    }
+    return item;
+  });
 
   // Track hash changes for active state highlighting
   useEffect(() => {

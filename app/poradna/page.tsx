@@ -88,8 +88,9 @@ function getTextColor(hex: string): string {
     '#3B82F6': 'text-blue-400',
     '#F97316': 'text-zfp-orange',
     '#8B5CF6': 'text-purple-400',
+    '#06B6D4': 'text-cyan-400',
     '#EC4899': 'text-pink-400',
-    '#6366F1': 'text-indigo-400',
+    '#EF4444': 'text-red-400',
   };
   return colors[hex] || 'text-zfp-gold';
 }
